@@ -103,9 +103,9 @@ public class JanelaFX extends Application {
 	private void setup() {
 
 		gerCias = GerenciadorCias.getInstance();
-		gerAero = new GerenciadorAeroportos();
-		gerRotas = new GerenciadorRotas();
-		gerAvioes = new GerenciadorAeronaves();
+		gerAero = GerenciadorAeroportos.getInstance();
+		gerRotas = GerenciadorRotas.getInstance();
+		gerAvioes = GerenciadorAeronaves.getInstance();
 	}
 
 	private void consulta1() {

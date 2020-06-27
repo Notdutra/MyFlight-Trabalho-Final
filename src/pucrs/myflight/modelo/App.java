@@ -11,7 +11,7 @@ public class App {
 
         GerenciadorCias gerCias = GerenciadorCias.getInstance();
 
-        gerCias.carregaDados("Trabalho\\airlines.dat");
+        gerCias.carregaDados("airlines.dat");
         ArrayList<CiaAerea> todasCias = gerCias.listarTodas();
         System.out.println("Total cias:" + todasCias.size());
         for(CiaAerea cia: todasCias)
