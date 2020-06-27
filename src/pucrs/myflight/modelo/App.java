@@ -169,6 +169,15 @@ public class App {
             Aeroporto origem = v.getRota().getOrigem();
             System.out.println(origem.getNome() + ": " + origem.getLocal());
         }
+
+        GerenciadorPaises gerPaises = GerenciadorPaises.getInstance();
+        gerPaises.carregaDados("countries.dat");
+        gerPaises.ordenarNome();
+        ArrayList<Pais> todosPaises = gerPaises.listarTodas();
+        System.out.println("Total de Paises:" + todosPaises.size());
+        for(Pais p: todosPaises)
+            System.out.println(p.getCodigo() + " - " + p.getNome());
+
     }
 }
 
