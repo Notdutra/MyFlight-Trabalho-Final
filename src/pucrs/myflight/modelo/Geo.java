@@ -1,3 +1,5 @@
+package pucrs.myflight.modelo;
+
 import org.jxmapviewer.viewer.GeoPosition;
 
 // Geo herda de GeoPosition, que é a classe usada internamente

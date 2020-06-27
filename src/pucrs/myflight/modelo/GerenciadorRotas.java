@@ -1,3 +1,4 @@
+package pucrs.myflight.modelo;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,3 +1,4 @@
+package pucrs.myflight.modelo;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
