@@ -134,8 +134,7 @@ public class App {
 //        gerVoos.ordenarDataHoraDuracao();
         gerVoos.ordenarDataHoraDuracao();
         System.out.println("Todos os vôos:\n");
-        for(Voo v: gerVoos.listarTodos())
-        {
+        for(Voo v: gerVoos.listarTodos()) {
             if(v instanceof VooEscalas) {
                 System.out.println(">>> Vôo com escalas!");
                 VooEscalas vaux = (VooEscalas) v;
@@ -147,8 +146,10 @@ public class App {
         // Tarefa 1: listar os vôos de determinada origem
 
         System.out.println("\nVôos cuja origem é Guarulhos (gru)\n");
-        for(Voo v: gerVoos.buscarOrigem("GRU"))
+        for(Voo v: gerVoos.buscarOrigem("GRU")) {
             System.out.println(v);
+        }
+            
 
         // Tarefa 2: mostrar a localização dos aeroportos que operam em determinado período do dia
 
@@ -177,22 +178,10 @@ public class App {
         gerPaises.ordenarNome();
         ArrayList<Pais> todosPaises = gerPaises.listarTodas();
         System.out.println("Total de Paises:" + todosPaises.size());
-        for(Pais p: todosPaises)
+        for(Pais p: todosPaises) {
             System.out.println(p.getCodigo() + " - " + p.getNome());
-
-            
-
-
-        
-        System.out.println("\n\n\n\n\n\n");
-        
-        ArrayList<Rota> listaRota = gerRotas.listarTodas();
-        for (int i = 0; i < listaRota.size(); i++) {
-            Rota atual = listaRota.get(i);
-            if (atual.getCia().getNome().equalsIgnoreCase("air manas")) {
-                System.out.println("existe");
-            }
         }
+            
 
         System.out.println("\ndell");
 
