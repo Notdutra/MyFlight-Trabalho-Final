@@ -2,8 +2,19 @@ package pucrs.myflight.modelo;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class GerenciadorRotas {
+
+    GerenciadorCias gerCias = GerenciadorCias.getInstance();
+    GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
+    GerenciadorAeronaves gerAvioes = GerenciadorAeronaves.getInstance();
 
     private ArrayList<Rota> rotas;
 
@@ -46,12 +57,42 @@ public class GerenciadorRotas {
                    r2.getCia().getNome());
         });
     }
+
     public void adicionar(Rota r) {
         rotas.add(r);
     }
 
     public ArrayList<Rota> listarTodas() {
         return new ArrayList<>(rotas);
+    }
+
+    public void printarTodas() {
+        for (Rota rota : rotas) {
+            System.out.println(rota + "\n");
+        }
+    }
+
+    public void carregaDados(String nomeArq){
+        Path path1 = Paths.get(nomeArq);
+        try (BufferedReader reader = Files.newBufferedReader(path1, Charset.forName("utf8"))) {
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                String[] dados = line.split(";| ");
+
+                CiaAerea novaCiaAerea = gerCias.buscarCodigo(dados[0]);
+                Aeroporto novoOrigem = gerAero.buscarCodigo(dados[1]);
+                Aeroporto novoDestino = gerAero.buscarCodigo(dados[2]);
+                Aeronave novaAeronave = gerAvioes.buscarCodigo(dados[5]);
+
+                if ((novaCiaAerea != null) && (novoOrigem != null) && (novoDestino != null) && (novaAeronave != null)) {
+                    Rota nova = new Rota(novaCiaAerea, novoOrigem, novoDestino, novaAeronave);
+                    adicionar(nova);
+                }
+            }
+        }
+        catch (IOException x) {
+            System.err.format("Erro de E/S: %s%n", x);
+        }
     }
 
     public ArrayList<Rota> buscarOrigem(String codigo) {
