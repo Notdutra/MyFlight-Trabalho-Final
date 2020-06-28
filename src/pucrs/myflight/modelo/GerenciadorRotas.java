@@ -95,6 +95,39 @@ public class GerenciadorRotas {
         }
     }
 
+    public boolean temAeroporto(String nomeDoAeroporto) {
+        for (Rota rota : rotas) {
+            if (rota.getOrigem().getNome().equalsIgnoreCase(nomeDoAeroporto) ||
+            rota.getDestino().getNome().equalsIgnoreCase(nomeDoAeroporto)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean temCiaAerea(String nomeDaCiaAerea) {
+        for (Rota rota : rotas) {
+            if (rota.getCia().getNome().equalsIgnoreCase(nomeDaCiaAerea)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean aeroportoTalCiaTal(String aeroporto, String ciaAerea) {
+        for (Rota rota : rotas) {
+            if (rota.getDestino().getNome().equalsIgnoreCase(aeroporto) || rota.getOrigem().getNome().equalsIgnoreCase(aeroporto)) {
+                if (rota.getCia().getNome().equalsIgnoreCase(ciaAerea)) {
+                    return true;
+                }
+            }
+        }
+
+
+        
+        return false;
+    }
+
     public ArrayList<Rota> buscarOrigem(String codigo) {
         ArrayList<Rota> result = new ArrayList<>();
         for(Rota r: rotas)

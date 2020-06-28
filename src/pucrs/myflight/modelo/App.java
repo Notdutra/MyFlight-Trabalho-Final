@@ -83,15 +83,15 @@ public class App {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         gerRotas.carregaDados("routes.dat");
         // codigo exemplo
-        // Rota poagru = new Rota(latam, poa, gru, b733);
-        // Rota grupoa = new Rota(latam, gru, poa, b733);
+        Rota poagru = new Rota(latam, poa, gru, b733);
+        Rota grupoa = new Rota(latam, gru, poa, b733);
         // Rota grumia = new Rota(tap, gru, mia, a380);
         // Rota grulis = new Rota(tap, gru, lis, a380);
 
         // gerRotas.adicionar(grumia);
         // gerRotas.adicionar(grulis);
-        // gerRotas.adicionar(poagru);
-        // gerRotas.adicionar(grupoa);
+        gerRotas.adicionar(poagru);
+        gerRotas.adicionar(grupoa);
 //		gerRotas.ordenarCias();
         gerRotas.ordenarNomesAeroportosCias();
 
@@ -179,6 +179,22 @@ public class App {
         System.out.println("Total de Paises:" + todosPaises.size());
         for(Pais p: todosPaises)
             System.out.println(p.getCodigo() + " - " + p.getNome());
+
+            
+
+
+        
+        System.out.println("\n\n\n\n\n\n");
+        
+        ArrayList<Rota> listaRota = gerRotas.listarTodas();
+        for (int i = 0; i < listaRota.size(); i++) {
+            Rota atual = listaRota.get(i);
+            if (atual.getCia().getNome().equalsIgnoreCase("air manas")) {
+                System.out.println("existe");
+            }
+        }
+
+        System.out.println("\ndell");
 
     }
 }

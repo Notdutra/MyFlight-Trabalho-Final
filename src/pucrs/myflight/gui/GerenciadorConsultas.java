@@ -7,6 +7,8 @@ import java.awt.Color;
 import pucrs.myflight.modelo.Aeroporto;
 import pucrs.myflight.modelo.Geo;
 import pucrs.myflight.modelo.GerenciadorAeroportos;
+import pucrs.myflight.modelo.GerenciadorRotas;
+import pucrs.myflight.modelo.Rota;
 
 public class GerenciadorConsultas {
     
@@ -67,13 +69,21 @@ public class GerenciadorConsultas {
 		gerMapa.getMapKit().repaint();
 	}
 	
-	public void consulta1(GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero){
+	public void consulta1(GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero,GerenciadorRotas gerRotas, String nomeCiaAerea){
 		gerMapa.clear();
-
+System.out.println("-----------");
 		List<MyWaypoint> lstPoints = new ArrayList<>();
-		for (Aeroporto a : gerAero.listarTodos()){
-			lstPoints.add(new MyWaypoint(Color.GREEN, a.getCodigo(), a.getLocal(), 5));
-		}
+
+        ArrayList<Rota> listaRota = gerRotas.listarTodas();
+        for (int i = 0; i < listaRota.size(); i++) {
+            Rota atual = listaRota.get(i);
+            if (atual.getCia().getNome().equalsIgnoreCase(nomeCiaAerea)) {
+                Aeroporto aero = atual.getOrigem();
+                lstPoints.add(new MyWaypoint(Color.CYAN, aero.getCodigo(), aero.getLocal(), 5));
+                System.out.println("existe");
+            }
+        }
+        System.out.println("---------");
 
 		gerMapa.setPontos(lstPoints);
 		gerMapa.getMapKit().repaint();

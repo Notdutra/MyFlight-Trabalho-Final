@@ -59,7 +59,7 @@ public class GerenciadorCias {
 
     public CiaAerea buscarNome(String nome) {
         for(CiaAerea cia: empresas.values())
-           if(cia.getNome().equals(nome))
+           if(cia.getNome().equalsIgnoreCase(nome))
                return cia;
         return null;
     }

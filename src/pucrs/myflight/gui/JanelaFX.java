@@ -134,7 +134,7 @@ public class JanelaFX extends Application {
 	}
 
 	private void consulta1() {
-		gerCons.consulta1(gerenciador, gerAero);
+		gerCons.consulta1(gerenciador, gerAero, gerRotas, "Air canada");
 	}
 
 	private class EventosMouse extends MouseAdapter {

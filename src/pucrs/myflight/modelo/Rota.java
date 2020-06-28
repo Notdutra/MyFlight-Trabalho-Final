@@ -23,7 +23,9 @@ public class Rota implements Comparable<Rota> {
 	
 	public Aeroporto getOrigem() {
 		return origem;
-	}
+    }
+    
+
 	
 	public Aeronave getAeronave() {
 		return aeronave;
