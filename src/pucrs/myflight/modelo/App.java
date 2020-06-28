@@ -27,7 +27,7 @@ public class App {
 		*/
 
         GerenciadorAeronaves gerAvioes = GerenciadorAeronaves.getInstance();
-        gerCias.carregaDados("airlines.dat");
+        gerAvioes.carregaDados("equipment.dat");
         /*gerAvioes.adicionar(new Aeronave("733", "Boeing 737-300", 140));
         gerAvioes.adicionar(new Aeronave("73G", "Boeing 737-400", 126));
         gerAvioes.adicionar(new Aeronave("380", "Airbus Industrie A380", 644));

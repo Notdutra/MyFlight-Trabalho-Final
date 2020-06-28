@@ -43,11 +43,11 @@ public class JanelaFX extends Application {
 
 	final SwingNode mapkit = new SwingNode();
 
+	private GerenciadorConsultas gerCons;
 	private GerenciadorCias gerCias;
+	private GerenciadorAeronaves gerAvioes;
 	private GerenciadorAeroportos gerAero;
 	private GerenciadorRotas gerRotas;
-	private GerenciadorAeronaves gerAvioes;
-	private GerenciadorConsultas gerCons;
 
 	private GerenciadorMapa gerenciador;
 
@@ -115,15 +115,15 @@ public class JanelaFX extends Application {
 		//Load the airlines to memory
 		gerCias = GerenciadorCias.getInstance();
 		gerCias.carregaDados("airlines.dat");
+		//Load the aircrafts to memory
+		gerAvioes = GerenciadorAeronaves.getInstance();
+		gerAvioes.carregaDados("equipment.dat");
 		//Load the airports to memory
 		gerAero = GerenciadorAeroportos.getInstance();
 		gerAero.carregaDados("airports.dat");
 		//Load the routes to memory
 		gerRotas = GerenciadorRotas.getInstance();
 		gerRotas.carregaDados("routes.dat");
-		//Load the aircrafts to memory
-		gerAvioes = GerenciadorAeronaves.getInstance();
-		gerCias.carregaDados("airlines.dat");
 
 
 
