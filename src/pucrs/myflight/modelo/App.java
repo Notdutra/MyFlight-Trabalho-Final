@@ -81,6 +81,7 @@ public class App {
                 gru.getLocal().distancia(poa.getLocal()));
 
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+        gerRotas.carregaDados("routes.dat");
 
         Rota poagru = new Rota(latam, poa, gru, b733);
         Rota grupoa = new Rota(latam, gru, poa, b733);
