@@ -71,7 +71,6 @@ public class GerenciadorConsultas {
 	
 	public void consulta1(GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero,GerenciadorRotas gerRotas, String nomeCiaAerea){
 		gerMapa.clear();
-System.out.println("-----------");
 		List<MyWaypoint> lstPoints = new ArrayList<>();
 
         ArrayList<Rota> listaRota = gerRotas.listarTodas();
@@ -80,10 +79,9 @@ System.out.println("-----------");
             if (atual.getCia().getNome().equalsIgnoreCase(nomeCiaAerea)) {
                 Aeroporto aero = atual.getOrigem();
                 lstPoints.add(new MyWaypoint(Color.CYAN, aero.getCodigo(), aero.getLocal(), 5));
-                System.out.println("existe");
+                System.out.println(i);
             }
         }
-        System.out.println("---------");
 
 		gerMapa.setPontos(lstPoints);
 		gerMapa.getMapKit().repaint();
