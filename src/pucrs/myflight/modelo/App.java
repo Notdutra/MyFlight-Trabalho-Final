@@ -82,7 +82,6 @@ public class App {
 
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         gerRotas.carregaDados("routes.dat");
-
         Rota poagru = new Rota(latam, poa, gru, b733);
         Rota grupoa = new Rota(latam, gru, poa, b733);
         Rota grumia = new Rota(tap, gru, mia, a380);
@@ -94,13 +93,11 @@ public class App {
         gerRotas.adicionar(grupoa);
 //		gerRotas.ordenarCias();
         gerRotas.ordenarNomesAeroportosCias();
-        gerRotas.carregaDados("routes.dat");
 
         System.out.println("\nRotas ordenadas:\n");
         for(Rota r: gerRotas.listarTodas())
             System.out.println(r);
         System.out.println();
-
 
         LocalDateTime manhacedo = LocalDateTime.of(2018, 3, 29, 8, 0);
         LocalDateTime manhameio = LocalDateTime.of(2018, 4, 4, 10, 0);
@@ -180,8 +177,6 @@ public class App {
         System.out.println("Total de Paises:" + todosPaises.size());
         for(Pais p: todosPaises)
             System.out.println(p.getCodigo() + " - " + p.getNome());
-
-
 
     }
 }
