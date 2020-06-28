@@ -1,16 +1,18 @@
 package pucrs.myflight.gui;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import java.awt.Color;
-import pucrs.myflight.modelo.Aeroporto;
-import pucrs.myflight.modelo.Geo;
-import pucrs.myflight.modelo.GerenciadorAeroportos;
+
+import pucrs.myflight.modelo.*;
 
 public class GerenciadorConsultas {
     
-    private static GerenciadorConsultas instance;
+	private static GerenciadorConsultas instance;
+	private static GerenciadorRotas gerRotas;
 
     public GerenciadorConsultas() {}
 
@@ -59,7 +61,7 @@ public class GerenciadorConsultas {
 		// GeoPosition pos = gerenciador.getPosicao();
 
 		// Informa o resultado para o gerenciador
-		gerMapa.setPontos(lstPoints);
+		//gerMapa.setPontos(lstPoints);
 
 		// Quando for o caso de limpar os traçados...
 		// gerenciador.clear();
@@ -70,8 +72,46 @@ public class GerenciadorConsultas {
 	public void consulta1(GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero){
 		gerMapa.clear();
 
+		ArrayList<Rota> rotas = GerenciadorRotas.getInstance().listarTodas();
+
+		for(Rota r : rotas){
+			Tracado tr2 = new Tracado();
+			tr2.setWidth(5);
+			tr2.setCor(new Color(0,0,0,60));
+			tr2.addPonto(r.getOrigem().getLocal());
+			tr2.addPonto(r.getDestino().getLocal());
+			gerMapa.addTracado(tr2);
+		}
+
 		List<MyWaypoint> lstPoints = new ArrayList<>();
 		for (Aeroporto a : gerAero.listarTodos()){
+			lstPoints.add(new MyWaypoint(Color.GREEN, a.getCodigo(), a.getLocal(), 5));
+		}
+		gerMapa.setPontos(lstPoints);
+
+		Set<Aeroporto> setAeroporto = new HashSet<Aeroporto>();
+
+
+
+		gerMapa.getMapKit().repaint();
+	}
+
+	public void plotarAeroPorCia(GerenciadorMapa gerMapa, ArrayList<Rota> rotasDaCia) {
+		gerMapa.clear();
+		
+		HashSet<Aeroporto> aeroportosCiaOpera = new HashSet<Aeroporto>();
+
+		List<MyWaypoint> lstPoints = new ArrayList<>();
+
+		for(Rota r : rotasDaCia){
+			if(!aeroportosCiaOpera.contains(r.getOrigem())){
+				aeroportosCiaOpera.add(r.getOrigem());
+			}
+			if(!aeroportosCiaOpera.contains(r.getDestino())){
+				aeroportosCiaOpera.add(r.getDestino());
+			}
+		}
+		for(Aeroporto a : aeroportosCiaOpera){
 			lstPoints.add(new MyWaypoint(Color.GREEN, a.getCodigo(), a.getLocal(), 5));
 		}
 

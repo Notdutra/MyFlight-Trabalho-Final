@@ -83,25 +83,34 @@ public class JanelaFX extends Application {
 		Button btnConsulta3 = new Button("Consulta 3");
 		Button btnConsulta4 = new Button("Consulta 4");
 
+		ObservableList<CiaAerea> olCiaAerea = FXCollections.observableArrayList(gerCias.listarTodas());
+		comboCia = new ComboBox<>(olCiaAerea);
+
+
 
 		leftPane.add(btnConsultaExemplo, 0, 0);
 		leftPane.add(btnConsulta1, 1, 0);
 		leftPane.add(btnConsulta2, 2, 0);
 		leftPane.add(btnConsulta3, 3, 0);
 		leftPane.add(btnConsulta4, 4, 0);
+		leftPane.add(comboCia, 5, 0);
 
 		btnConsultaExemplo.setOnAction(e -> {
 			consultaExeplo();
 		});
 		
 		btnConsulta1.setOnAction(e -> {
-			consulta1();
+			if(comboCia.getValue() != null){
+				ArrayList<Rota> rotasDaCia = gerRotas.getRotasPorCia(comboCia.getValue().getCodigo());
+				gerCons.plotarAeroPorCia(gerenciador, rotasDaCia);
+			}
 		});	
+
 
 		pane.setCenter(mapkit);
 		pane.setTop(leftPane);
 
-		Scene scene = new Scene(pane, 500, 500);
+		Scene scene = new Scene(pane, 1000, 1000);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Mapas com JavaFX");
 		primaryStage.show();

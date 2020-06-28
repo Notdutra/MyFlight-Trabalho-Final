@@ -102,4 +102,14 @@ public class GerenciadorRotas {
                 result.add(r);
         return result;
     }
+
+    public ArrayList<Rota> getRotasPorCia(String codCia){
+        ArrayList<Rota> rotasDaCia = new ArrayList<Rota>();
+        for (Rota r : rotas){
+            if(r.getCia().getCodigo() == codCia){
+                rotasDaCia.add(r);
+            }
+        }
+        return rotasDaCia;
+    }
 }
