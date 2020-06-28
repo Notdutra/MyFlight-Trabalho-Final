@@ -82,15 +82,16 @@ public class App {
 
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         gerRotas.carregaDados("routes.dat");
-        Rota poagru = new Rota(latam, poa, gru, b733);
-        Rota grupoa = new Rota(latam, gru, poa, b733);
-        Rota grumia = new Rota(tap, gru, mia, a380);
-        Rota grulis = new Rota(tap, gru, lis, a380);
+        // codigo exemplo
+        // Rota poagru = new Rota(latam, poa, gru, b733);
+        // Rota grupoa = new Rota(latam, gru, poa, b733);
+        // Rota grumia = new Rota(tap, gru, mia, a380);
+        // Rota grulis = new Rota(tap, gru, lis, a380);
 
-        gerRotas.adicionar(grumia);
-        gerRotas.adicionar(grulis);
-        gerRotas.adicionar(poagru);
-        gerRotas.adicionar(grupoa);
+        // gerRotas.adicionar(grumia);
+        // gerRotas.adicionar(grulis);
+        // gerRotas.adicionar(poagru);
+        // gerRotas.adicionar(grupoa);
 //		gerRotas.ordenarCias();
         gerRotas.ordenarNomesAeroportosCias();
 
@@ -110,24 +111,25 @@ public class App {
 
         GerenciadorVoos gerVoos = GerenciadorVoos.getInstance();
 
-        gerVoos.adicionar(new Voo(poagru, curto)); // agora!
-        gerVoos.adicionar(new Voo(grulis, tardecedo, longo2));
-        gerVoos.adicionar(new Voo(grulis, tardetarde, longo2));
-        gerVoos.adicionar(new Voo(poagru, manhacedo, curto));
-        gerVoos.adicionar(new Voo(grupoa, manhameio, curto));
-        gerVoos.adicionar(new Voo(grumia, manhacedo, longo1));
+        // codigo exemplo
+        // gerVoos.adicionar(new Voo(poagru, curto)); // agora!
+        // gerVoos.adicionar(new Voo(grulis, tardecedo, longo2));
+        // gerVoos.adicionar(new Voo(grulis, tardetarde, longo2));
+        // gerVoos.adicionar(new Voo(poagru, manhacedo, curto));
+        // gerVoos.adicionar(new Voo(grupoa, manhameio, curto));
+        // gerVoos.adicionar(new Voo(grumia, manhacedo, longo1));
 
         // Vôo com várias escalas
-        VooEscalas vooEsc = new VooEscalas(poagru,
-                manhacedo, longo2);
-        vooEsc.adicionarRota(grulis);
+        // VooEscalas vooEsc = new VooEscalas(poagru,
+        //         manhacedo, longo2);
+        // vooEsc.adicionarRota(grulis);
 
-        gerVoos.adicionar(vooEsc);
+        // gerVoos.adicionar(vooEsc);
 
         // O toString vai usar o método implementado
         // em VooEscalas, mas reutilizando (reuso) o método
         // original de Voo
-        System.out.println(vooEsc.toString());
+        // System.out.println(vooEsc.toString());
 
 //        gerVoos.ordenarDataHoraDuracao();
         gerVoos.ordenarDataHoraDuracao();
