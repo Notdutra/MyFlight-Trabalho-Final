@@ -6,6 +6,7 @@ import java.util.List;
 import java.awt.Color;
 import pucrs.myflight.modelo.Aeroporto;
 import pucrs.myflight.modelo.Geo;
+import pucrs.myflight.modelo.GerenciadorAeroportos;
 
 public class GerenciadorConsultas {
     
@@ -20,7 +21,7 @@ public class GerenciadorConsultas {
         return instance;
     }
 
-    public void consulta1 (GerenciadorMapa gerMapa){
+    public void consultaExemplo (GerenciadorMapa gerMapa){
         // Lista para armazenar o resultado da consulta
 		List<MyWaypoint> lstPoints = new ArrayList<>();
 
@@ -64,5 +65,17 @@ public class GerenciadorConsultas {
 		// gerenciador.clear();
 
 		gerMapa.getMapKit().repaint();
-    }
+	}
+	
+	public void consulta1(GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero){
+		gerMapa.clear();
+
+		List<MyWaypoint> lstPoints = new ArrayList<>();
+		for (Aeroporto a : gerAero.listarTodos()){
+			lstPoints.add(new MyWaypoint(Color.GREEN, a.getCodigo(), a.getLocal(), 5));
+		}
+
+		gerMapa.setPontos(lstPoints);
+		gerMapa.getMapKit().repaint();
+	}
 }

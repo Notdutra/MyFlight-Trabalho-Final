@@ -77,19 +77,26 @@ public class JanelaFX extends Application {
 		leftPane.setVgap(10);
 		leftPane.setPadding(new Insets(10, 10, 10, 10));
 
+		Button btnConsultaExemplo = new Button("Consulta Exemplo");
 		Button btnConsulta1 = new Button("Consulta 1");
 		Button btnConsulta2 = new Button("Consulta 2");
 		Button btnConsulta3 = new Button("Consulta 3");
 		Button btnConsulta4 = new Button("Consulta 4");
 
-		leftPane.add(btnConsulta1, 0, 0);
+
+		leftPane.add(btnConsultaExemplo, 0, 0);
+		leftPane.add(btnConsulta1, 1, 0);
 		leftPane.add(btnConsulta2, 2, 0);
 		leftPane.add(btnConsulta3, 3, 0);
 		leftPane.add(btnConsulta4, 4, 0);
 
+		btnConsultaExemplo.setOnAction(e -> {
+			consultaExeplo();
+		});
+		
 		btnConsulta1.setOnAction(e -> {
 			consulta1();
-		});			
+		});	
 
 		pane.setCenter(mapkit);
 		pane.setTop(leftPane);
@@ -103,15 +110,31 @@ public class JanelaFX extends Application {
 
 	// Inicializando os dados aqui...
 	private void setup() {
-		gerCons = new GerenciadorConsultas();
+
+		gerCons = GerenciadorConsultas.getInstance();
+		//Load the airlines to memory
 		gerCias = GerenciadorCias.getInstance();
+		gerCias.carregaDados("airlines.dat");
+		//Load the airports to memory
 		gerAero = GerenciadorAeroportos.getInstance();
+		gerAero.carregaDados("airports.dat");
+		//Load the routes to memory
 		gerRotas = GerenciadorRotas.getInstance();
+		gerRotas.carregaDados("routes.dat");
+		//Load the aircrafts to memory
 		gerAvioes = GerenciadorAeronaves.getInstance();
+		gerCias.carregaDados("airlines.dat");
+
+
+
+	}
+
+	private void consultaExeplo() {
+		gerCons.consultaExemplo(gerenciador);
 	}
 
 	private void consulta1() {
-		gerCons.consulta1(gerenciador);
+		gerCons.consulta1(gerenciador, gerAero);
 	}
 
 	private class EventosMouse extends MouseAdapter {
