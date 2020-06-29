@@ -65,13 +65,10 @@ public class GerenciadorAeroportos {
 
     public Aeroporto getAirportFromGPS(Geo posEmGeo) {
         for (Aeroporto aeroporto : aeroportos) {
-            if (aeroporto.getLocal().distancia(posEmGeo) <= 100) { // isso é a distancia... 100 o que dai ja nao sei
-                //return aeroporto;
-                System.out.println("nao printa");
+            if (aeroporto.getLocal().distancia(posEmGeo) <= 50) { // isso é a distancia... 100 o que dai ja nao sei
                 return aeroporto;
             }
         }
-        System.out.println("printa pfv");
         return null;
     }
 }
