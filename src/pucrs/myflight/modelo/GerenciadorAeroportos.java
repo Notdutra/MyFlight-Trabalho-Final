@@ -65,7 +65,7 @@ public class GerenciadorAeroportos {
 
     public Aeroporto getAirportFromGPS(Geo posEmGeo) {
         for (Aeroporto aeroporto : aeroportos) {
-            if (aeroporto.getLocal().distancia(posEmGeo) <= 50) { // isso é a distancia... 100 o que dai ja nao sei
+            if (aeroporto.getLocal().distancia(posEmGeo) <= 5) { // 5 é a distancia... 5 km ta dando mais ou menos 5km entao azar
                 return aeroporto;
             }
         }
