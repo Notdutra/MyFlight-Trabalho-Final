@@ -58,9 +58,14 @@ public class JanelaFX extends Application {
 
 	private ObservableList<CiaAerea> comboCiasData;
 	private ComboBox<CiaAerea> comboCia;
+	Stage janela = new Stage();
 
-	@Override
 	public void start(Stage primaryStage) throws Exception {
+		janela = primaryStage;
+		primaryStage.setOnCloseRequest(e -> {
+            e.consume();
+            closeProgram();
+        });
 
 		setup();
 
@@ -112,19 +117,24 @@ public class JanelaFX extends Application {
 		btnConsulta2.setOnAction(e -> {
 			HashMap<String, Integer> traffic = gerRotas.getAirTraffic();
 			gerCons.setTraffic(gerenciador, gerAero, traffic);
-		});
-
-		
+		});		
 
 		pane.setCenter(mapkit);
 		pane.setTop(leftPane);
 
 		Scene scene = new Scene(pane, 1000, 1000);
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("Mapas com JavaFX");
-		primaryStage.show();
+		janela.setScene(scene);
+		janela.setTitle("Mapas com JavaFX");
+		janela.show();
 
 	}
+
+	private void closeProgram() {
+        Boolean resposta = ComfirmBox.display("Mapas com JavaFX", "Voce quer sair?");
+        if (resposta == true) {
+            janela.close();   
+        }
+    }
 
 	// Inicializando os dados aqui...
 	private void setup() {
