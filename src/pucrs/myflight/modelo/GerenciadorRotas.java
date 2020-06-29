@@ -112,4 +112,26 @@ public class GerenciadorRotas {
         }
         return rotasDaCia;
     }
+
+    public HashMap<String, Integer> getAirTraffic(){
+        HashMap<String, Integer> traffic = new HashMap<String, Integer>();
+
+        for(Rota r : rotas){
+            if(!traffic.containsKey(r.getOrigem().getCodigo())){
+                traffic.put(r.getOrigem().getCodigo(), 0);
+            } else {
+                int value = traffic.get(r.getOrigem().getCodigo());
+                traffic.replace(r.getOrigem().getCodigo(), value, ++value);
+            }
+            if(!traffic.containsKey(r.getDestino().getCodigo())){
+                traffic.put(r.getDestino().getCodigo(), 0);
+            } else {
+                int value = traffic.get(r.getDestino().getCodigo());
+                traffic.replace(r.getDestino().getCodigo(), value, ++value);
+            }
+        }
+
+        return traffic;
+
+    }
 }

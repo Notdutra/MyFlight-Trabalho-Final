@@ -1,6 +1,7 @@
 package pucrs.myflight.gui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -119,6 +120,25 @@ public class GerenciadorConsultas {
 		}
 		for(Aeroporto a : aeroportosCiaOpera){
 			lstPoints.add(new MyWaypoint(Color.GREEN, a.getCodigo(), a.getLocal(), 5));
+		}
+
+		gerMapa.setPontos(lstPoints);
+		gerMapa.getMapKit().repaint();
+	}
+
+	public void setTraffic(GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero, HashMap<String, Integer> traffic) {
+		gerMapa.clear();
+
+		List<MyWaypoint> lstPoints = new ArrayList<>();
+		
+		for(String s : traffic.keySet()){
+			Aeroporto temp = gerAero.buscarCodigo(s);
+			int tamPonto = traffic.get(s) / 10;
+			if(tamPonto < 50){
+				lstPoints.add(new MyWaypoint(Color.GREEN, temp.getCodigo(), temp.getLocal(), tamPonto));
+			} else {
+				lstPoints.add(new MyWaypoint(Color.RED, temp.getCodigo(), temp.getLocal(), tamPonto));
+			}
 		}
 
 		gerMapa.setPontos(lstPoints);
