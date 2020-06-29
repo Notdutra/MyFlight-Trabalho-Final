@@ -77,7 +77,6 @@ public class GerenciadorAeronaves {
             while ((line = reader.readLine()) != null) {
                 String[] dados = line.split(";");
                 capacity = Integer.parseInt(dados[2]);
-                System.out.println(capacity);
                 Aeronave nova = new Aeronave(dados[0], dados[1], capacity);
                 adicionar(nova);
             }

@@ -43,11 +43,11 @@ public class JanelaFX extends Application {
 
 	final SwingNode mapkit = new SwingNode();
 
+	private GerenciadorConsultas gerCons;
 	private GerenciadorCias gerCias;
+	private GerenciadorAeronaves gerAvioes;
 	private GerenciadorAeroportos gerAero;
 	private GerenciadorRotas gerRotas;
-	private GerenciadorAeronaves gerAvioes;
-	private GerenciadorConsultas gerCons;
 
 	private GerenciadorMapa gerenciador;
 
@@ -77,24 +77,40 @@ public class JanelaFX extends Application {
 		leftPane.setVgap(10);
 		leftPane.setPadding(new Insets(10, 10, 10, 10));
 
+		Button btnConsultaExemplo = new Button("Consulta Exemplo");
 		Button btnConsulta1 = new Button("Consulta 1");
 		Button btnConsulta2 = new Button("Consulta 2");
 		Button btnConsulta3 = new Button("Consulta 3");
 		Button btnConsulta4 = new Button("Consulta 4");
 
-		leftPane.add(btnConsulta1, 0, 0);
+		ObservableList<CiaAerea> olCiaAerea = FXCollections.observableArrayList(gerCias.listarTodas());
+		comboCia = new ComboBox<>(olCiaAerea);
+
+
+
+		leftPane.add(btnConsultaExemplo, 0, 0);
+		leftPane.add(btnConsulta1, 1, 0);
 		leftPane.add(btnConsulta2, 2, 0);
 		leftPane.add(btnConsulta3, 3, 0);
 		leftPane.add(btnConsulta4, 4, 0);
+		leftPane.add(comboCia, 5, 0);
 
+		btnConsultaExemplo.setOnAction(e -> {
+			consultaExeplo();
+		});
+		
 		btnConsulta1.setOnAction(e -> {
-			consulta1();
-		});			
+			if(comboCia.getValue() != null){
+				ArrayList<Rota> rotasDaCia = gerRotas.getRotasPorCia(comboCia.getValue().getCodigo());
+				gerCons.plotarAeroPorCia(gerenciador, rotasDaCia);
+			}
+		});	
+
 
 		pane.setCenter(mapkit);
 		pane.setTop(leftPane);
 
-		Scene scene = new Scene(pane, 500, 500);
+		Scene scene = new Scene(pane, 1000, 1000);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Mapas com JavaFX");
 		primaryStage.show();
@@ -103,15 +119,31 @@ public class JanelaFX extends Application {
 
 	// Inicializando os dados aqui...
 	private void setup() {
-		gerCons = new GerenciadorConsultas();
+
+		gerCons = GerenciadorConsultas.getInstance();
+		//Load the airlines to memory
 		gerCias = GerenciadorCias.getInstance();
-		gerAero = GerenciadorAeroportos.getInstance();
-		gerRotas = GerenciadorRotas.getInstance();
+		gerCias.carregaDados("airlines.dat");
+		//Load the aircrafts to memory
 		gerAvioes = GerenciadorAeronaves.getInstance();
+		gerAvioes.carregaDados("equipment.dat");
+		//Load the airports to memory
+		gerAero = GerenciadorAeroportos.getInstance();
+		gerAero.carregaDados("airports.dat");
+		//Load the routes to memory
+		gerRotas = GerenciadorRotas.getInstance();
+		gerRotas.carregaDados("routes.dat");
+
+
+
+	}
+
+	private void consultaExeplo() {
+		gerCons.consultaExemplo(gerenciador);
 	}
 
 	private void consulta1() {
-		gerCons.consulta1(gerenciador);
+		gerCons.consulta1(gerenciador, gerAero);
 	}
 
 	private class EventosMouse extends MouseAdapter {
