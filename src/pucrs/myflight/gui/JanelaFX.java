@@ -57,7 +57,9 @@ public class JanelaFX extends Application {
 	private EventosMouse mouse;
 
 	private ObservableList<CiaAerea> comboCiasData;
-	private ComboBox<CiaAerea> comboCia;
+    private ComboBox<CiaAerea> comboCia;
+
+    private static boolean consulta4Ativada = false;
 	Stage janela = new Stage();
 
 	public void start(Stage primaryStage) throws Exception {
@@ -108,6 +110,7 @@ public class JanelaFX extends Application {
 		});
 		
 		btnConsulta1.setOnAction(e -> {
+            consulta4Ativada = false;
 			if(comboCia.getValue() != null){
 				ArrayList<Rota> rotasDaCia = gerRotas.getRotasPorCia(comboCia.getValue().getCodigo());
 				gerCons.plotarAeroPorCia(gerenciador, rotasDaCia);
@@ -115,6 +118,7 @@ public class JanelaFX extends Application {
 		});	
 
 		btnConsulta2.setOnAction(e -> {
+            consulta4Ativada = false;
 			HashMap<String, Integer> traffic = gerRotas.getAirTraffic();
 			gerCons.setTraffic(gerenciador, gerAero, traffic);
 		});		
@@ -173,7 +177,7 @@ public class JanelaFX extends Application {
 			JXMapViewer mapa = gerenciador.getMapKit().getMainMap();
 			GeoPosition loc = mapa.convertPointToGeoPosition(e.getPoint());
 			lastButton = e.getButton();
-			if (lastButton == MouseEvent.BUTTON3) {
+			if (lastButton == MouseEvent.BUTTON3 && consulta4Ativada == true) {
 				gerenciador.setPosicao(loc);
 				gerenciador.getMapKit().repaint();
                 GeoPosition pos = gerenciador.getPosicao();
