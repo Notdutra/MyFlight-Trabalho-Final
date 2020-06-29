@@ -106,6 +106,12 @@ public class JanelaFX extends Application {
 			}
 		});	
 
+		btnConsulta2.setOnAction(e -> {
+			HashMap<String, Integer> traffic = gerRotas.getAirTraffic();
+			gerCons.setTraffic(gerenciador, gerAero, traffic);
+		});
+
+		
 
 		pane.setCenter(mapkit);
 		pane.setTop(leftPane);
