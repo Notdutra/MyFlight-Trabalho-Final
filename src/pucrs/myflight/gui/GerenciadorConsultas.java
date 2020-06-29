@@ -110,6 +110,12 @@ public class GerenciadorConsultas {
 			if(!aeroportosCiaOpera.contains(r.getDestino())){
 				aeroportosCiaOpera.add(r.getDestino());
 			}
+			Tracado tr2 = new Tracado();
+			tr2.setWidth(1);
+			tr2.setCor(Color.BLUE);
+			tr2.addPonto(r.getOrigem().getLocal());
+			tr2.addPonto(r.getDestino().getLocal());
+			gerMapa.addTracado(tr2);
 		}
 		for(Aeroporto a : aeroportosCiaOpera){
 			lstPoints.add(new MyWaypoint(Color.GREEN, a.getCodigo(), a.getLocal(), 5));
