@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.jxmapviewer.viewer.GeoPosition;
+
 import java.awt.Color;
 
 import pucrs.myflight.modelo.*;
@@ -143,5 +145,9 @@ public class GerenciadorConsultas {
 
 		gerMapa.setPontos(lstPoints);
 		gerMapa.getMapKit().repaint();
-	}
+    }
+    
+    public Aeroporto getAirportFromCoord(GeoPosition pos){
+        return null;
+    }
 }

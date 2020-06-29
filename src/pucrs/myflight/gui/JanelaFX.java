@@ -178,7 +178,8 @@ public class JanelaFX extends Application {
 			if (lastButton == MouseEvent.BUTTON3) {
 				gerenciador.setPosicao(loc);
 				gerenciador.getMapKit().repaint();
-				GeoPosition pos = gerenciador.getPosicao();
+                GeoPosition pos = gerenciador.getPosicao();
+                gerCons.getAirportFromCoord(pos);
 				System.out.println(pos);// pra pegar aeroporto fazer metodo q pega pos e encontra um aeroporto perto arredondando a coordenada
 			}
 		}
