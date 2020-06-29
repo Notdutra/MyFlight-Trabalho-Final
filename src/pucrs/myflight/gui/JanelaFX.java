@@ -3,6 +3,7 @@ package pucrs.myflight.gui;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,6 +13,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.SwingUtilities;
 
 import org.jxmapviewer.JXMapViewer;
@@ -40,9 +45,44 @@ import javafx.stage.Stage;
 import pucrs.myflight.modelo.*;
 
 public class JanelaFX extends Application {
+
+	private static AudioInputStream audioInput;
+	private static Clip clip;
+	
 	public static void main(String[] args) {
+		tocarMusica();
 		launch(args);
 	}
+
+	private static void tocarMusica() {
+		try {
+            File musicPath = new File("HomemMacaco.wav");
+            if (musicPath.exists()) {
+                audioInput = AudioSystem.getAudioInputStream(musicPath);
+                clip = AudioSystem.getClip();
+                //clip.loop(clip.LOOP_CONTINUOUSLY);
+                try {
+                    clip.open(audioInput);
+                } catch (final LineUnavailableException e) {
+                    System.out.println("Erro fatal");
+                    e.printStackTrace();
+                } catch (final IOException e) {
+                    System.out.println("Erro fatal");
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("erro na musica");
+            }
+        } catch (final Exception e) {
+            System.out.println("erro na musica");
+		}
+		clip.start();
+		System.out.println("Carregou");
+	}
+
+
+
+
 
 	final SwingNode mapkit = new SwingNode();
 
