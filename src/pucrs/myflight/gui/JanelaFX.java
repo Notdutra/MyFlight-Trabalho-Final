@@ -180,7 +180,7 @@ public class JanelaFX extends Application {
 				gerenciador.getMapKit().repaint();
                 GeoPosition pos = gerenciador.getPosicao();
                 gerCons.getAirportFromCoord(pos);
-				System.out.println(pos);// pra pegar aeroporto fazer metodo q pega pos e encontra um aeroporto perto arredondando a coordenada
+				System.out.println("-------" + pos);// pra pegar aeroporto fazer metodo q pega pos e encontra um aeroporto perto arredondando a coordenada
 			}
 		}
 	}

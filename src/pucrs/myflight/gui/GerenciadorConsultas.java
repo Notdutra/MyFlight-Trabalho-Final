@@ -148,6 +148,12 @@ public class GerenciadorConsultas {
     }
     
     public Aeroporto getAirportFromCoord(GeoPosition pos){
-        return null;
+        double latitude = pos.getLatitude();
+        double longitude = pos.getLongitude();
+        Geo posEmGeo = new Geo(latitude, longitude);
+        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
+        Aeroporto fetched = gerAero.getAirportFromGPS(posEmGeo);
+        return fetched;
+        
     }
 }
