@@ -146,6 +146,14 @@ public class GerenciadorConsultas {
 		gerMapa.setPontos(lstPoints);
 		gerMapa.getMapKit().repaint();
     }
+
+    public void mostarEsseAeroporto(GerenciadorMapa gerMapa, Aeroporto esseAeroporto){
+        gerMapa.clear();
+        List<MyWaypoint> lista = new ArrayList<MyWaypoint>();
+        lista.add(new MyWaypoint(Color.CYAN, esseAeroporto.getCodigo(), esseAeroporto.getLocal(), 5));
+        gerMapa.setPontos(lista);
+		gerMapa.getMapKit().repaint();
+    }
     
     public Aeroporto getAirportFromCoord(GeoPosition pos){
         double latitude = pos.getLatitude();

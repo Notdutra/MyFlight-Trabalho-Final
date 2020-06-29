@@ -172,15 +172,18 @@ public class JanelaFX extends Application {
 		public void mousePressed(MouseEvent e) {
 			JXMapViewer mapa = gerenciador.getMapKit().getMainMap();
 			GeoPosition loc = mapa.convertPointToGeoPosition(e.getPoint());
-			// System.out.println(loc.getLatitude()+", "+loc.getLongitude());
 			lastButton = e.getButton();
-			// Botão 3: seleciona localização
 			if (lastButton == MouseEvent.BUTTON3) {
 				gerenciador.setPosicao(loc);
 				gerenciador.getMapKit().repaint();
                 GeoPosition pos = gerenciador.getPosicao();
                 Aeroporto clicado = gerCons.getAirportFromCoord(pos);
-                System.out.println(clicado);
+                //inves de printar o 'clicado' ele tem q mostar o aeroporto no mapa
+                if (clicado != null) {
+                    System.out.println(clicado);
+                    gerCons.mostarEsseAeroporto(gerenciador, clicado);
+                }
+                
 				//System.out.println("-------" + pos);// pra pegar aeroporto fazer metodo q pega pos e encontra um aeroporto perto arredondando a coordenada
 			}
 		}
