@@ -40,6 +40,9 @@ import javafx.stage.Stage;
 import pucrs.myflight.modelo.*;
 
 public class JanelaFX extends Application {
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 	final SwingNode mapkit = new SwingNode();
 
@@ -176,9 +179,5 @@ public class JanelaFX extends Application {
 				swingNode.setContent(gerenciador.getMapKit());
 			}
 		});
-	}
-
-	public static void main(String[] args) {
-		launch(args);
 	}
 }
