@@ -58,6 +58,8 @@ public class JanelaFX extends Application {
 
     private ObservableList<CiaAerea> comboCiasData;
     private ComboBox<CiaAerea> comboCia;
+    private ComboBox<Aeroporto> comboAero1;
+    private ComboBox<Aeroporto> comboAero2;
 
     private static boolean consulta4Ativada = true; // isso ativa o mouse show aeroport
     Stage janela = new Stage();
@@ -95,6 +97,10 @@ public class JanelaFX extends Application {
 
         ObservableList<CiaAerea> olCiaAerea = FXCollections.observableArrayList(gerCias.listarTodas());
         comboCia = new ComboBox<>(olCiaAerea);
+        ObservableList<Aeroporto> olAero1 = FXCollections.observableArrayList(gerAero.listarTodos());
+        comboAero1 = new ComboBox<>(olAero1);
+        ObservableList<Aeroporto> olAero2 = FXCollections.observableArrayList(gerAero.listarTodos());
+        comboAero2 = new ComboBox<>(olAero2);
 
         leftPane.add(btnConsultaExemplo, 0, 0);
         leftPane.add(btnConsulta1, 1, 0);
@@ -102,6 +108,8 @@ public class JanelaFX extends Application {
         leftPane.add(btnConsulta3, 3, 0);
         leftPane.add(btnConsulta4, 4, 0);
         leftPane.add(comboCia, 5, 0);
+        leftPane.add(comboAero1, 6, 0);
+        leftPane.add(comboAero2, 7, 0);
 
         btnConsultaExemplo.setOnAction(e -> {
             consultaExeplo();
@@ -119,6 +127,9 @@ public class JanelaFX extends Application {
             consulta4Ativada = false;
             HashMap<String, Integer> traffic = gerRotas.getAirTraffic();
             gerCons.setTraffic(gerenciador, gerAero, traffic);
+        });
+        btnConsulta3.setOnAction(e -> {
+            gerCons.consulta3(gerAero, gerRotas, comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo());
         });
         btnConsulta4.setOnAction(e -> {
             consulta4Ativada = true;
