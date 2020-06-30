@@ -59,7 +59,7 @@ public class JanelaFX extends Application {
     private ObservableList<CiaAerea> comboCiasData;
     private ComboBox<CiaAerea> comboCia;
 
-    private static boolean consulta4Ativada = false;
+    private static boolean consulta4Ativada = true; // isso ativa o mouse show aeroport
     Stage janela = new Stage();
 
     public void start(Stage primaryStage) throws Exception {
