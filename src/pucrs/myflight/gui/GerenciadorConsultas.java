@@ -191,10 +191,25 @@ public class GerenciadorConsultas {
         HashMap<Aeroporto,Aeroporto> mapaOrigemInicial = gerRotas.pegaOrigem(origemInicial.getCodigo());
         HashMap<Aeroporto,Aeroporto> mapaDestinoFinal = gerRotas.pegaDestino(destinoFinal.getCodigo());
 
-        System.out.println("---------------------------------------POA---------------------------------------");
-        printarHash(mapaOrigemInicial);
-        System.out.println("---------------------------------------MIA---------------------------------------");
-        printarHash(mapaDestinoFinal);
+        String mm = "";
+
+        mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
+            mapaOrigemInicial.entrySet().forEach(origemAtual -> {
+                if (origemAtual.getKey().equals(destinoAtual.getKey())) {
+                    System.out.println(origemAtual);
+                }
+            });                
+        });
+
+
+
+         
+        
+
+        // System.out.println("---------------------------------------POA---------------------------------------");
+        // printarHash(mapaOrigemInicial);
+        // System.out.println("---------------------------------------MIA---------------------------------------");
+        // printarHash(mapaDestinoFinal);
 
         //! POA -> GRU -> MIA
     }

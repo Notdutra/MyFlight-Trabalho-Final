@@ -210,10 +210,11 @@ public class App {
         // System.out.println("Todas as rotas com destino em POA");
         // ArrayList<Rota> destinoPOALista = gerRotas.buscarDestino(poa.getCodigo());
         // gerRotas.printarArrayRota(destinoPOALista);
+        
 
         GerenciadorConsultas gerCon = GerenciadorConsultas.getInstance();
 
-        gerCon.acharRotaComUmaConexao(poa, mia);
+        gerCon.acharRotaComUmaConexao(poa, mia);// LOGICA FDP
 
         
 
