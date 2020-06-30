@@ -177,8 +177,21 @@ public class App {
         gerPaises.ordenarNome();
         ArrayList<Pais> todosPaises = gerPaises.listarTodas();
         System.out.println("Total de Paises:" + todosPaises.size());
-        for(Pais p: todosPaises)
+        for(Pais p: todosPaises){
             System.out.println(p.getCodigo() + " - " + p.getNome());
+        }
+
+        System.out.println("------------------------");
+        System.out.println("Todas as rotas com origem em POA");
+        ArrayList<Rota> origemPOALista = gerRotas.buscarOrigem(poa.getCodigo());
+        gerRotas.printarArrayRota(origemPOALista);
+
+        System.out.println("------------------------");
+        System.out.println("Todas as rotas com origem em POA");
+        ArrayList<Rota> destinoPOALista = gerRotas.buscarDestino(poa.getCodigo());
+        gerRotas.printarArrayRota(destinoPOALista);
+
+
 
     }
 }
