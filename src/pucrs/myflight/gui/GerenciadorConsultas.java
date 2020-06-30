@@ -191,7 +191,10 @@ public class GerenciadorConsultas {
         duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
         ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(aux, aux1);
         for (String string : umaConex) {
-            System.out.println(string);
+            System.out.println("uma conex--" + string);
+        }
+        for (String string : duasConex) {
+            System.out.println("duas conex--" + string);
         }
 
     }

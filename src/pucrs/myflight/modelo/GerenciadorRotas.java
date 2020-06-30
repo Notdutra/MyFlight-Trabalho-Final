@@ -205,8 +205,7 @@ public class GerenciadorRotas {
                                                                                                // mia
                                 // System.out.println(origemInicial + " -> " + xMia.getCodigo() + " -> " +
                                 // yMia.getCodigo() + " -> " + destinoFinal);
-                                listaDeConexoes.add(
-                                        origemInicial + xMia.getCodigo() + " -> " + yMia.getCodigo() + destinoFinal);
+                                listaDeConexoes.add(origemInicial + xMia.getCodigo() + yMia.getCodigo() + destinoFinal);
                             }
                         });
                     });
