@@ -116,7 +116,7 @@ public class GerenciadorRotas {
             if(r.getDestino().getCodigo().equals(codigo))
                 result.add(r);
         return result;
-    }// adicionado agora por cause de uma ideia loca - arthur 2020
+    }
 
     public  HashMap<Aeroporto,Aeroporto> pegaDestino(String codigo) {
         HashMap<Aeroporto,Aeroporto> resultado = new HashMap<>();
