@@ -9,6 +9,7 @@ import java.util.Set;
 import org.jxmapviewer.viewer.GeoPosition;
 
 import java.awt.Color;
+import java.lang.reflect.Array;
 
 import pucrs.myflight.modelo.*;
 
@@ -62,10 +63,10 @@ public class GerenciadorConsultas {
         lstPoints.add(new MyWaypoint(Color.RED, mia.getCodigo(), mia.getLocal(), 5));
 
         // Para obter um ponto clicado no mapa, usar como segue:
-        // GeoPosition pos = gerenciador.getPosicao();
-
+        // GeoPosition pos = gerMapa.getPosicao();
+        // System.out.println(pos.toString());
         // Informa o resultado para o gerenciador
-        // gerMapa.setPontos(lstPoints);
+        gerMapa.setPontos(lstPoints);
 
         // Quando for o caso de limpar os traçados...
         // gerenciador.clear();
@@ -96,6 +97,38 @@ public class GerenciadorConsultas {
         Set<Aeroporto> setAeroporto = new HashSet<Aeroporto>();
 
         gerMapa.getMapKit().repaint();
+    }
+
+    public void consulta3(GerenciadorMapa gerMapa, Aeroporto destino, Aeroporto origem, GerenciadorRotas gerRotas) {
+        ArrayList<Rota> result = new ArrayList<Rota>();
+        for (Rota rota : gerRotas.listarTodas()) {
+            if (rota.getOrigem() == origem && rota.getDestino() == destino) {// voo direto
+                result.add(rota);
+                Tracado tr2 = new Tracado();
+                tr2.setWidth(1);
+                tr2.setCor(Color.BLUE);
+                tr2.addPonto(rota.getOrigem().getLocal());
+                tr2.addPonto(rota.getDestino().getLocal());
+                gerMapa.addTracado(tr2);
+            }
+            if (rota.getOrigem() == origem && rota.getDestino() != destino) {
+                if (rota.getDestino() != rota.getOrigem()) {
+                    for (Rota rota2 : gerRotas.listarTodas()) {
+                        if (rota2.getDestino() == destino)
+                            result.add(rota2);
+                        Tracado tr2 = new Tracado();
+                        tr2.setWidth(1);
+                        tr2.setCor(Color.BLUE);
+                        tr2.addPonto(rota2.getOrigem().getLocal());
+                        tr2.addPonto(rota2.getDestino().getLocal());
+                        gerMapa.addTracado(tr2);
+                    }
+
+                }
+            }
+        }
+        System.out.println(result);
+
     }
 
     public void plotarAeroPorCia(GerenciadorMapa gerMapa, ArrayList<Rota> rotasDaCia) {
@@ -144,27 +177,5 @@ public class GerenciadorConsultas {
 
         gerMapa.setPontos(lstPoints);
         gerMapa.getMapKit().repaint();
-    }
-
-    public void mostarEsseAeroporto(GerenciadorMapa gerMapa, Aeroporto esseAeroporto) {
-        gerMapa.clear();
-        List<MyWaypoint> lista = new ArrayList<MyWaypoint>();
-        lista.add(new MyWaypoint(Color.CYAN, esseAeroporto.getCodigo(), esseAeroporto.getLocal(), 10));
-        gerMapa.setPontos(lista);
-        gerMapa.getMapKit().repaint();
-    }
-
-    public Aeroporto getAirportFromCoord(GeoPosition pos) {
-        double latitude = pos.getLatitude();
-        double longitude = pos.getLongitude();
-        Geo posEmGeo = new Geo(latitude, longitude);
-        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
-        Aeroporto fetched = gerAero.getAirportFromGPS(posEmGeo);
-        return fetched;
-
-    }
-
-    public void consulta4(GerenciadorAeroportos gerAero, GerenciadorRotas gerRotoas, Aeroporto aero) {
-
     }
 }
