@@ -164,7 +164,24 @@ public class GerenciadorConsultas {
 
     }
 
-    public void consulta4(GerenciadorAeroportos gerAero, GerenciadorRotas gerRotoas, Aeroporto aero) {
-
+    public void consulta4(Double tempoMax, GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero,
+            GerenciadorRotas gerRotoas, Aeroporto aero) {
+        double tempo = 0;
+        double dist = 0;
+        for (Rota r : gerRotoas.listarTodas()) {
+            if (r.getOrigem() == aero) {
+                dist = aero.getLocal().distancia(r.getDestino().getLocal());
+                tempo = (dist / 805) + 1;
+                if (tempo <= tempoMax) {
+                    Tracado tr2 = new Tracado();
+                    tr2.setWidth(1);
+                    tr2.setCor(Color.BLUE);
+                    tr2.addPonto(r.getOrigem().getLocal());
+                    tr2.addPonto(r.getDestino().getLocal());
+                    gerMapa.addTracado(tr2);
+                }
+            }
+        }
     }
+
 }
