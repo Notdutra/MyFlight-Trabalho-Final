@@ -106,12 +106,19 @@ public class GerenciadorConsultas {
                 result.add(rota);
             }
             if (rota.getOrigem() == origem && rota.getDestino() != destino) {
-                if (rota.getDestino() != rota.getOrigem()) {
 
-                }
             }
-        }
 
+        }
+        // System.out.println(result);
+        for (Rota r : result) {
+            Tracado tr2 = new Tracado();
+            tr2.setWidth(1);
+            tr2.setCor(new Color(0, 0, 0, 60));
+            tr2.addPonto(r.getOrigem().getLocal());
+            tr2.addPonto(r.getDestino().getLocal());
+            gerMapa.addTracado(tr2);
+        }
     }
 
     public void plotarAeroPorCia(GerenciadorMapa gerMapa, ArrayList<Rota> rotasDaCia) {
