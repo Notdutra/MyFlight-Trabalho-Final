@@ -209,7 +209,7 @@ public class App {
 
         GerenciadorConsultas gerCon = GerenciadorConsultas.getInstance();
 
-        ArrayList<String> busca = gerCon.acharRotaComUmaConexao(poa, mia);
+        ArrayList<String> busca = gerCon.acharRotaComUmaConexao("GRU", "mia");
         for (String string : busca) {
             System.out.println(string);
         }

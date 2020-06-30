@@ -202,24 +202,27 @@ public class GerenciadorConsultas {
         });
 
         return listaDeConexoes;
-
-
-
-         
-        
-
-        // System.out.println("---------------------------------------POA---------------------------------------");
-        // printarHash(mapaOrigemInicial);
-        // System.out.println("---------------------------------------MIA---------------------------------------");
-        // printarHash(mapaDestinoFinal);
-
-        //! POA -> GRU -> MIA
     }
 
-    private void printarHash(HashMap<Aeroporto,Aeroporto> mapa) {
-        mapa.entrySet().forEach(atual->{
-            System.out.println(atual.getKey() + " " + atual.getValue());  
-         });
+    public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal){
+        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+        System.out.println("---------------------------------------------");
+
+        HashMap<Aeroporto,Aeroporto> mapaOrigemInicial = gerRotas.pegaOrigem(origemInicial);
+        HashMap<Aeroporto,Aeroporto> mapaDestinoFinal = gerRotas.pegaDestino(destinoFinal);
+
+        ArrayList<String> listaDeConexoes = new ArrayList<>();
+        mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
+            mapaOrigemInicial.entrySet().forEach(origemAtual -> {
+                if (origemAtual.getKey().equals(destinoAtual.getKey())) {
+                    //System.out.println(origemAtual.getKey().getCodigo()
+                    //listaDeConexoes.add(origemInicial + " -> " + origemAtual.getKey().getCodigo() + " -> " + destinoFinal);
+                    listaDeConexoes.add(origemAtual.getKey().getCodigo());
+                }
+            });                
+        });
+
+        return listaDeConexoes;
     }
 
 }
