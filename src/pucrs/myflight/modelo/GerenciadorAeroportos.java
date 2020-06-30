@@ -9,6 +9,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import org.jxmapviewer.viewer.GeoPosition;
+
 public class GerenciadorAeroportos {
 
     private ArrayList<Aeroporto> aeroportos;
@@ -59,5 +61,14 @@ public class GerenciadorAeroportos {
         catch (IOException x) {
             System.err.format("Erro de E/S: %s%n", x);
         }
+    }
+
+    public Aeroporto getAirportFromGPS(Geo posEmGeo) {
+        for (Aeroporto aeroporto : aeroportos) {
+            if (aeroporto.getLocal().distancia(posEmGeo) <= 5) { // 5 é a distancia... 5 km ta dando mais ou menos 5km entao azar
+                return aeroporto;
+            }
+        }
+        return null;
     }
 }
