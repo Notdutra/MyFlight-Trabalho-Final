@@ -210,24 +210,12 @@ public class App {
 
         GerenciadorConsultas gerCon = GerenciadorConsultas.getInstance();
 
-        ArrayList<String> busca = gerCon.acharRotaComDuasConexoes("POA", "mia");
-        HashSet<String> buscaSemDups = new HashSet<>(busca);
+        ArrayList<String> busca = gerCon.acharRotaComDuasConexoes("POA", "MIA");
+        //HashSet<String> buscaSemDups = new HashSet<>(busca);
 
-        // for (String string : busca) {
-        //     System.out.println(string);
-        // }
-
-        for (String treco : buscaSemDups) {
-            System.out.println(treco); //todo ver isso direito dps
+        for (String string : busca) {
+             System.out.println(string);
         }
-        
-
 
     }
-
-
-
-    
 }
-
-

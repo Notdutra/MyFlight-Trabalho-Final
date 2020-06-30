@@ -217,7 +217,7 @@ public class GerenciadorConsultas {
                 if (origemAtual.getKey().equals(destinoAtual.getKey())) {
                     //System.out.println(origemAtual.getKey().getCodigo()
                     listaDeConexoes.add(origemInicial + " -> " + origemAtual.getKey().getCodigo() + " -> " + destinoFinal);
-                    listaDeConexoes.add(origemAtual.getKey().getCodigo());
+                    
                 }
             });                
         });
@@ -229,22 +229,31 @@ public class GerenciadorConsultas {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         System.out.println("---------------------------------------------");
 
-        HashMap<Aeroporto,Aeroporto> mapaOrigemInicial = gerRotas.pegaOrigem(origemInicial);
-        HashMap<Aeroporto,Aeroporto> mapaDestinoFinal = gerRotas.pegaDestino(destinoFinal);
-
+        HashMap<Aeroporto,Aeroporto> mapaPoa = gerRotas.pegaOrigem(origemInicial);
+        HashMap<Aeroporto,Aeroporto> mapaMia = gerRotas.pegaDestino(destinoFinal);
+        //x = chaveDePoa y = chaveDeMia
         ArrayList<String> listaDeConexoes = new ArrayList<>();
-        mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
-            mapaOrigemInicial.entrySet().forEach(origemAtual -> {
-                if (origemAtual.getKey().equals(destinoAtual.getKey())) {
-                    listaDeConexoes.add(origemAtual.getKey().getCodigo());
-                    String aeroportoX = origemAtual.getKey().getCodigo();
-                    listaDeConexoes.addAll(acharRotaComUmaConexao(aeroportoX, destinoFinal));
-
+        mapaMia.entrySet().forEach(chaveDeMia -> {
+            mapaPoa.entrySet().forEach(chaveDePoa -> {
+                Aeroporto xMia = chaveDePoa.getKey();
+                if (xMia.equals(chaveDeMia.getKey())) {// se poa tem conexao com mia
+                    //entao pulamos para xMia -> y -> mia
+                    HashMap<Aeroporto,Aeroporto> mapaXMia = gerRotas.pegaOrigem(origemInicial);
+                    mapaXMia.entrySet().forEach(chaveDoX -> {
+                        mapaMia.entrySet().forEach(chaveDeMiaFinal -> {
+                            Aeroporto yMia = chaveDeMiaFinal.getKey();
+                            if (yMia.equals(chaveDoX.getKey()) && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) { // se x tem conexao com mia
+                                //System.out.println(origemInicial + " -> " + xMia.getCodigo() + " -> " + yMia.getCodigo() + " -> " + destinoFinal);
+                                listaDeConexoes.add(origemInicial + " -> " + xMia.getCodigo() + " -> " + yMia.getCodigo() + " -> " + destinoFinal);
+                            }
+                        });
+                    });                   
                 }
             });                
         });
-
+        //String temp = (origemInicial + " -> " + aeroportoX + " -> " + destinoFinal);
         return listaDeConexoes;
     }
 
 }
+
