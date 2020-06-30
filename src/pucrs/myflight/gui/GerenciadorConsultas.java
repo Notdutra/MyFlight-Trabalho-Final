@@ -255,5 +255,12 @@ public class GerenciadorConsultas {
         return listaDeConexoes;
     }
 
+
+    public void consulta3(GerenciadorAeroportos gerAero, GerenciadorRotas gerRotas, String origem, String destino) {
+        ArrayList<String> duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
+        ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(origem, destino);
+
+    }
+
 }
 
