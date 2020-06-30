@@ -184,56 +184,65 @@ public class GerenciadorConsultas {
         }
     }
 
-    public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal){
+    public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         System.out.println("---------------------------------------------");
 
-        HashMap<Aeroporto,Aeroporto> mapaOrigemInicial = gerRotas.pegaOrigem(origemInicial);
-        HashMap<Aeroporto,Aeroporto> mapaDestinoFinal = gerRotas.pegaDestino(destinoFinal);
+        HashMap<Aeroporto, Aeroporto> mapaOrigemInicial = gerRotas.pegaOrigem(origemInicial);
+        HashMap<Aeroporto, Aeroporto> mapaDestinoFinal = gerRotas.pegaDestino(destinoFinal);
 
         ArrayList<String> listaDeConexoes = new ArrayList<>();
         mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
             mapaOrigemInicial.entrySet().forEach(origemAtual -> {
                 if (origemAtual.getKey().equals(destinoAtual.getKey())) {
-                    //System.out.println(origemAtual.getKey().getCodigo()
-                    listaDeConexoes.add(origemInicial + " -> " + origemAtual.getKey().getCodigo() + " -> " + destinoFinal);
-                    
+                    // System.out.println(origemAtual.getKey().getCodigo()
+                    listaDeConexoes
+                            .add(origemInicial + " -> " + origemAtual.getKey().getCodigo() + " -> " + destinoFinal);
+
                 }
-            });                
+            });
         });
 
         return listaDeConexoes;
     }
 
-    public ArrayList<String> acharRotaComDuasConexoes(String origemInicial, String destinoFinal){
+    public ArrayList<String> acharRotaComDuasConexoes(String origemInicial, String destinoFinal) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         System.out.println("---------------------------------------------");
 
-        HashMap<Aeroporto,Aeroporto> mapaPoa = gerRotas.pegaOrigem(origemInicial);
-        HashMap<Aeroporto,Aeroporto> mapaMia = gerRotas.pegaDestino(destinoFinal);
-        //x = chaveDePoa y = chaveDeMia
+        HashMap<Aeroporto, Aeroporto> mapaPoa = gerRotas.pegaOrigem(origemInicial);
+        HashMap<Aeroporto, Aeroporto> mapaMia = gerRotas.pegaDestino(destinoFinal);
+        // x = chaveDePoa y = chaveDeMia
         ArrayList<String> listaDeConexoes = new ArrayList<>();
         mapaMia.entrySet().forEach(chaveDeMia -> {
             mapaPoa.entrySet().forEach(chaveDePoa -> {
                 Aeroporto xMia = chaveDePoa.getKey();
                 if (xMia.equals(chaveDeMia.getKey())) {// se poa tem conexao com mia
-                    //entao pulamos para xMia -> y -> mia
-                    HashMap<Aeroporto,Aeroporto> mapaXMia = gerRotas.pegaOrigem(origemInicial);
+                    // entao pulamos para xMia -> y -> mia
+                    HashMap<Aeroporto, Aeroporto> mapaXMia = gerRotas.pegaOrigem(origemInicial);
                     mapaXMia.entrySet().forEach(chaveDoX -> {
                         mapaMia.entrySet().forEach(chaveDeMiaFinal -> {
                             Aeroporto yMia = chaveDeMiaFinal.getKey();
-                            if (yMia.equals(chaveDoX.getKey()) && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) { // se x tem conexao com mia
-                                //System.out.println(origemInicial + " -> " + xMia.getCodigo() + " -> " + yMia.getCodigo() + " -> " + destinoFinal);
-                                listaDeConexoes.add(origemInicial + " -> " + xMia.getCodigo() + " -> " + yMia.getCodigo() + " -> " + destinoFinal);
+                            if (yMia.equals(chaveDoX.getKey())
+                                    && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) { // se x tem conexao com
+                                                                                               // mia
+                                // System.out.println(origemInicial + " -> " + xMia.getCodigo() + " -> " +
+                                // yMia.getCodigo() + " -> " + destinoFinal);
+                                listaDeConexoes.add(origemInicial + " -> " + xMia.getCodigo() + " -> "
+                                        + yMia.getCodigo() + " -> " + destinoFinal);
                             }
                         });
-                    });                   
+                    });
                 }
-            });                
+            });
         });
-        //String temp = (origemInicial + " -> " + aeroportoX + " -> " + destinoFinal);
+        // String temp = (origemInicial + " -> " + aeroportoX + " -> " + destinoFinal);
         return listaDeConexoes;
     }
 
-}
+    public void consulta3(GerenciadorConsultas gerCons, GerenciadorRotas gerRotas, Aeroporto origem,
+            Aeroporto destino) {
 
+    }
+
+}
