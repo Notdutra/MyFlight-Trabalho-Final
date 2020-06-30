@@ -184,26 +184,6 @@ public class GerenciadorConsultas {
         }
     }
 
-    public ArrayList<String> acharRotaComUmaConexao(Aeroporto origemInicial, Aeroporto destinoFinal){
-        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
-        System.out.println("---------------------------------------------");
-
-        HashMap<Aeroporto,Aeroporto> mapaOrigemInicial = gerRotas.pegaOrigem(origemInicial.getCodigo());
-        HashMap<Aeroporto,Aeroporto> mapaDestinoFinal = gerRotas.pegaDestino(destinoFinal.getCodigo());
-
-        ArrayList<String> listaDeConexoes = new ArrayList<>();
-        mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
-            mapaOrigemInicial.entrySet().forEach(origemAtual -> {
-                if (origemAtual.getKey().equals(destinoAtual.getKey())) {
-                    //System.out.println(origemAtual.getKey().getCodigo()
-                    listaDeConexoes.add(origemInicial.getCodigo() + " -> " + origemAtual.getKey().getCodigo() + " -> " + destinoFinal.getCodigo());
-                }
-            });                
-        });
-
-        return listaDeConexoes;
-    }
-
     public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal){
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         System.out.println("---------------------------------------------");
