@@ -184,68 +184,16 @@ public class GerenciadorConsultas {
         }
     }
 
-    public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal) {
-        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
-        System.out.println("---------------------------------------------");
-
-        HashMap<Aeroporto, Aeroporto> mapaOrigemInicial = gerRotas.pegaOrigem(origemInicial);
-        HashMap<Aeroporto, Aeroporto> mapaDestinoFinal = gerRotas.pegaDestino(destinoFinal);
-
-        ArrayList<String> listaDeConexoes = new ArrayList<>();
-        mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
-            mapaOrigemInicial.entrySet().forEach(origemAtual -> {
-                if (origemAtual.getKey().equals(destinoAtual.getKey())) {
-                    // System.out.println(origemAtual.getKey().getCodigo()
-                    listaDeConexoes
-                            .add(origemInicial + " -> " + origemAtual.getKey().getCodigo() + " -> " + destinoFinal);
-
-                }
-            });
-        });
-
-        return listaDeConexoes;
-    }
-
-    public ArrayList<String> acharRotaComDuasConexoes(String origemInicial, String destinoFinal) {
-        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
-        System.out.println("---------------------------------------------");
-
-        HashMap<Aeroporto, Aeroporto> mapaPoa = gerRotas.pegaOrigem(origemInicial);
-        HashMap<Aeroporto, Aeroporto> mapaMia = gerRotas.pegaDestino(destinoFinal);
-        // x = chaveDePoa y = chaveDeMia
-        ArrayList<String> listaDeConexoes = new ArrayList<>();
-        mapaMia.entrySet().forEach(chaveDeMia -> {
-            mapaPoa.entrySet().forEach(chaveDePoa -> {
-                Aeroporto xMia = chaveDePoa.getKey();
-                if (xMia.equals(chaveDeMia.getKey())) {// se poa tem conexao com mia
-                    // entao pulamos para xMia -> y -> mia
-                    HashMap<Aeroporto, Aeroporto> mapaXMia = gerRotas.pegaOrigem(origemInicial);
-                    mapaXMia.entrySet().forEach(chaveDoX -> {
-                        mapaMia.entrySet().forEach(chaveDeMiaFinal -> {
-                            Aeroporto yMia = chaveDeMiaFinal.getKey();
-                            if (yMia.equals(chaveDoX.getKey())
-                                    && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) { // se x tem conexao com
-                                                                                               // mia
-                                // System.out.println(origemInicial + " -> " + xMia.getCodigo() + " -> " +
-                                // yMia.getCodigo() + " -> " + destinoFinal);
-                                listaDeConexoes.add(origemInicial + " -> " + xMia.getCodigo() + " -> "
-                                        + yMia.getCodigo() + " -> " + destinoFinal);
-                            }
-                        });
-                    });
-                }
-            });
-        });
-        // String temp = (origemInicial + " -> " + aeroportoX + " -> " + destinoFinal);
-        return listaDeConexoes;
-    }
-
-    public void consulta3(GerenciadorConsultas gerCons, GerenciadorRotas gerRotas, Aeroporto origem,
-            Aeroporto destino) {
-        ArrayList<String> umaConex = gerCons.acharRotaComUmaConexao(origem.getCodigo(), destino.getCodigo());
+    public void consulta3(GerenciadorRotas gerRotas, String origem, String destino) {
+        String aux = origem;
+        String aux1 = destino;
+        ArrayList<String> duasConex;
+        duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
+        ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(aux, aux1);
         for (String string : umaConex) {
-            System.out.println(string);// precisa plotar por aqui mas ta vazio a string :(
+            System.out.println(string);
         }
+
     }
 
 }

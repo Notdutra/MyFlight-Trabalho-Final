@@ -206,7 +206,7 @@ public class App {
 
         GerenciadorConsultas gerCon = GerenciadorConsultas.getInstance();
 
-        ArrayList<String> busca = gerCon.acharRotaComDuasConexoes("lax", "gru");
+        ArrayList<String> busca = gerRotas.acharRotaComDuasConexoes("lax", "gru");
         // HashSet<String> buscaSemDups = new HashSet<>(busca);
 
         for (String string : busca) {
