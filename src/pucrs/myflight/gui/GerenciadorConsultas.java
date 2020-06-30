@@ -187,17 +187,22 @@ public class GerenciadorConsultas {
     public void acharRotaComUmaConexao(Aeroporto origemInicial, Aeroporto destinoFinal){
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         System.out.println("---------------------------------------------");
-        ArrayList<Rota> listaOrigemInicial = gerRotas.buscarOrigem(origemInicial.getCodigo());
 
-        ArrayList<Rota> listaDestinoFinal = gerRotas.buscarDestino(destinoFinal.getCodigo());
+        HashMap<Aeroporto,Aeroporto> mapaOrigemInicial = gerRotas.pegaOrigem(origemInicial.getCodigo());
+        HashMap<Aeroporto,Aeroporto> mapaDestinoFinal = gerRotas.pegaDestino(destinoFinal.getCodigo());
 
-
-
-        gerRotas.printarArrayRota(listaOrigemInicial);
-        System.out.println("---------------------------------------------");
-        gerRotas.printarArrayRota(listaDestinoFinal);
+        System.out.println("---------------------------------------POA---------------------------------------");
+        printarHash(mapaOrigemInicial);
+        System.out.println("---------------------------------------MIA---------------------------------------");
+        printarHash(mapaDestinoFinal);
 
         //! POA -> GRU -> MIA
+    }
+
+    private void printarHash(HashMap<Aeroporto,Aeroporto> mapa) {
+        mapa.entrySet().forEach(atual->{
+            System.out.println(atual.getKey() + " " + atual.getValue());  
+         });
     }
 
 }

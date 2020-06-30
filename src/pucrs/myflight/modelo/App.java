@@ -1,9 +1,11 @@
 package pucrs.myflight.modelo;
 
+import java.security.KeyStore.Entry;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import pucrs.myflight.gui.GerenciadorConsultas;
 import sun.security.jca.GetInstance;
@@ -199,6 +201,11 @@ public class App {
         // ArrayList<Rota> origemGRULista = gerRotas.buscarOrigem(gru.getCodigo());
         // gerRotas.printarArrayRota(origemGRULista);
 
+
+
+
+
+
         // System.out.println("------------------------");
         // System.out.println("Todas as rotas com destino em POA");
         // ArrayList<Rota> destinoPOALista = gerRotas.buscarDestino(poa.getCodigo());
@@ -208,8 +215,12 @@ public class App {
 
         gerCon.acharRotaComUmaConexao(poa, mia);
 
+        
+
 
     }
+
+    
 }
 
 

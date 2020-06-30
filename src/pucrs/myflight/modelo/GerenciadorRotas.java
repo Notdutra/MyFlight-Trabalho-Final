@@ -118,6 +118,26 @@ public class GerenciadorRotas {
         return result;
     }// adicionado agora por cause de uma ideia loca - arthur 2020
 
+    public  HashMap<Aeroporto,Aeroporto> pegaDestino(String codigo) {
+        HashMap<Aeroporto,Aeroporto> resultado = new HashMap<>();
+        for (Rota r : rotas) {
+            if(r.getDestino().getCodigo().equalsIgnoreCase(codigo)) {
+                resultado.put(r.getOrigem(), r.getDestino());
+            }
+        }
+        return resultado;
+    }
+
+    public  HashMap<Aeroporto,Aeroporto> pegaOrigem(String codigo) {
+        HashMap<Aeroporto,Aeroporto> resultado = new HashMap<>();
+        for (Rota r : rotas) {
+            if(r.getOrigem().getCodigo().equalsIgnoreCase(codigo)) {
+                resultado.put(r.getDestino(), r.getOrigem());
+            }
+        }
+        return resultado;
+    }
+
     public ArrayList<Rota> getRotasPorCia(String codCia){
         ArrayList<Rota> rotasDaCia = new ArrayList<Rota>();
         for (Rota r : rotas){
