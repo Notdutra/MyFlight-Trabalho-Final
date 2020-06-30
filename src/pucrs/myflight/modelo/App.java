@@ -180,6 +180,11 @@ public class App {
         for(Pais p: todosPaises)
             System.out.println(p.getCodigo() + " - " + p.getNome());
 
+
+        System.out.println("------------------------");
+        ArrayList<Rota> poaLista = gerRotas.buscarDestino(poa.getCodigo());
+        System.out.println(poaLista);
+        
     }
 }
 

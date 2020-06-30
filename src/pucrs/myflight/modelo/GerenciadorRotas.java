@@ -71,6 +71,7 @@ public class GerenciadorRotas {
             System.out.println(rota + "\n");
         }
     }
+    
 
     public void carregaDados(String nomeArq){
         Path path1 = Paths.get(nomeArq);
@@ -102,6 +103,14 @@ public class GerenciadorRotas {
                 result.add(r);
         return result;
     }
+
+    public ArrayList<Rota> buscarDestino(String codigo) {
+        ArrayList<Rota> result = new ArrayList<>();
+        for(Rota r: rotas)
+            if(r.getDestino().getCodigo().equals(codigo))
+                result.add(r);
+        return result;
+    }// adicionado agora por cause de uma ideia loca - arthur 2020
 
     public ArrayList<Rota> getRotasPorCia(String codCia){
         ArrayList<Rota> rotasDaCia = new ArrayList<Rota>();
