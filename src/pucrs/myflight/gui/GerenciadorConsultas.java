@@ -216,8 +216,30 @@ public class GerenciadorConsultas {
             mapaOrigemInicial.entrySet().forEach(origemAtual -> {
                 if (origemAtual.getKey().equals(destinoAtual.getKey())) {
                     //System.out.println(origemAtual.getKey().getCodigo()
-                    //listaDeConexoes.add(origemInicial + " -> " + origemAtual.getKey().getCodigo() + " -> " + destinoFinal);
+                    listaDeConexoes.add(origemInicial + " -> " + origemAtual.getKey().getCodigo() + " -> " + destinoFinal);
                     listaDeConexoes.add(origemAtual.getKey().getCodigo());
+                }
+            });                
+        });
+
+        return listaDeConexoes;
+    }
+
+    public ArrayList<String> acharRotaComDuasConexoes(String origemInicial, String destinoFinal){
+        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+        System.out.println("---------------------------------------------");
+
+        HashMap<Aeroporto,Aeroporto> mapaOrigemInicial = gerRotas.pegaOrigem(origemInicial);
+        HashMap<Aeroporto,Aeroporto> mapaDestinoFinal = gerRotas.pegaDestino(destinoFinal);
+
+        ArrayList<String> listaDeConexoes = new ArrayList<>();
+        mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
+            mapaOrigemInicial.entrySet().forEach(origemAtual -> {
+                if (origemAtual.getKey().equals(destinoAtual.getKey())) {
+                    listaDeConexoes.add(origemAtual.getKey().getCodigo());
+                    String aeroportoX = origemAtual.getKey().getCodigo();
+                    listaDeConexoes.addAll(acharRotaComUmaConexao(aeroportoX, destinoFinal));
+
                 }
             });                
         });

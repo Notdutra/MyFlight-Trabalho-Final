@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import pucrs.myflight.gui.GerenciadorConsultas;
 import sun.security.jca.GetInstance;
@@ -209,11 +210,16 @@ public class App {
 
         GerenciadorConsultas gerCon = GerenciadorConsultas.getInstance();
 
-        ArrayList<String> busca = gerCon.acharRotaComUmaConexao("GRU", "mia");
-        for (String string : busca) {
-            System.out.println(string);
-        }
+        ArrayList<String> busca = gerCon.acharRotaComDuasConexoes("POA", "mia");
+        HashSet<String> buscaSemDups = new HashSet<>(busca);
 
+        // for (String string : busca) {
+        //     System.out.println(string);
+        // }
+
+        for (String treco : buscaSemDups) {
+            System.out.println(treco); //todo ver isso direito dps
+        }
         
 
 
