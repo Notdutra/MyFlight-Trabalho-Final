@@ -186,6 +186,7 @@ public class App {
         ArrayList<Rota> origemPOALista = gerRotas.buscarOrigem(poa.getCodigo());
         gerRotas.printarArrayRota(origemPOALista);
 
+        
         System.out.println("------------------------");
         System.out.println("Todas as rotas com origem em POA");
         ArrayList<Rota> destinoPOALista = gerRotas.buscarDestino(poa.getCodigo());
