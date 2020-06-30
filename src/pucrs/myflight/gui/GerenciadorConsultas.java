@@ -184,4 +184,20 @@ public class GerenciadorConsultas {
         }
     }
 
+    public void acharRotaComUmaConexao(Aeroporto origemInicial, Aeroporto destinoFinal){
+        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+        System.out.println("---------------------------------------------");
+        ArrayList<Rota> listaOrigemInicial = gerRotas.buscarOrigem(origemInicial.getCodigo());
+
+        ArrayList<Rota> listaDestinoFinal = gerRotas.buscarDestino(destinoFinal.getCodigo());
+
+
+
+        gerRotas.printarArrayRota(listaOrigemInicial);
+        System.out.println("---------------------------------------------");
+        gerRotas.printarArrayRota(listaDestinoFinal);
+
+        //! POA -> GRU -> MIA
+    }
+
 }

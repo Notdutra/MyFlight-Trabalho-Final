@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import pucrs.myflight.gui.GerenciadorConsultas;
 import sun.security.jca.GetInstance;
 
 public class App {
@@ -181,17 +182,31 @@ public class App {
             System.out.println(p.getCodigo() + " - " + p.getNome());
         }
 
-        System.out.println("------------------------");
-        System.out.println("Todas as rotas com origem em POA");
-        ArrayList<Rota> origemPOALista = gerRotas.buscarOrigem(poa.getCodigo());
-        gerRotas.printarArrayRota(origemPOALista);
-
+        // System.out.println("------------------------");
+        // System.out.println("Todas as rotas com origem em POA");
+        // ArrayList<Rota> origemPOALista = gerRotas.buscarOrigem(poa.getCodigo());
+        // gerRotas.printarArrayRota(origemPOALista);
         
-        System.out.println("------------------------");
-        System.out.println("Todas as rotas com origem em POA");
-        ArrayList<Rota> destinoPOALista = gerRotas.buscarDestino(poa.getCodigo());
-        gerRotas.printarArrayRota(destinoPOALista);
+        
+        
+        // System.out.println("------------------------");
+        // System.out.println("Todas as rotas com destino em POA");
+        // ArrayList<Rota> destinoPOALista = gerRotas.buscarDestino(poa.getCodigo());
+        // gerRotas.printarArrayRota(destinoPOALista);
 
+        // System.out.println("------------------------");
+        // System.out.println("Todas as rotas com origem em GRU");
+        // ArrayList<Rota> origemGRULista = gerRotas.buscarOrigem(gru.getCodigo());
+        // gerRotas.printarArrayRota(origemGRULista);
+
+        // System.out.println("------------------------");
+        // System.out.println("Todas as rotas com destino em POA");
+        // ArrayList<Rota> destinoPOALista = gerRotas.buscarDestino(poa.getCodigo());
+        // gerRotas.printarArrayRota(destinoPOALista);
+
+        GerenciadorConsultas gerCon = GerenciadorConsultas.getInstance();
+
+        gerCon.acharRotaComUmaConexao(poa, mia);
 
 
     }
