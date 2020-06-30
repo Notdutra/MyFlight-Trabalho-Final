@@ -168,4 +168,55 @@ public class GerenciadorConsultas {
         gerMapa.setPontos(lstPoints);
         gerMapa.getMapKit().repaint();
     }
+
+    public void mostarEsseAeroporto(GerenciadorMapa gerMapa, Aeroporto esseAeroporto) {
+        gerMapa.clear();
+        List<MyWaypoint> lista = new ArrayList<MyWaypoint>();
+        lista.add(new MyWaypoint(Color.CYAN, esseAeroporto.getCodigo(), esseAeroporto.getLocal(), 10));
+        gerMapa.setPontos(lista);
+        gerMapa.getMapKit().repaint();
+    }
+
+    public Aeroporto getAirportFromCoord(GeoPosition pos) {
+        double latitude = pos.getLatitude();
+        double longitude = pos.getLongitude();
+        Geo posEmGeo = new Geo(latitude, longitude);
+        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
+        Aeroporto fetched = gerAero.getAirportFromGPS(posEmGeo);
+        return fetched;
+
+    }
+
+    public void consulta4(Double tempoMax, GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero,
+            GerenciadorRotas gerRotoas, Aeroporto aero) {
+        double tempo = 0;
+        double dist = 0;
+        for (Rota r : gerRotoas.listarTodas()) {
+            if (r.getOrigem() == aero) {
+                dist = aero.getLocal().distancia(r.getDestino().getLocal());
+                tempo = (dist / 805) + 1;
+                if (tempo <= tempoMax) {
+                    Tracado tr2 = new Tracado();
+                    tr2.setWidth(1);
+                    tr2.setCor(Color.BLUE);
+                    tr2.addPonto(r.getOrigem().getLocal());
+                    tr2.addPonto(r.getDestino().getLocal());
+                    gerMapa.addTracado(tr2);
+                }
+            }
+        }
+    }
+
+    public void consulta3(GerenciadorAeroportos gerAero, GerenciadorRotas gerRotas, Aeroporto origem,
+            Aeroporto destino) {
+        ArrayList<Aeroporto> duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
+        ArrayList<Aeroporto> umaConex = gerRotas.acharRotaComUmaConexao(origem, destino);
+        // ArrayList<Ae> tdsConex = new ArrayList<>();
+
+        //for (String string : tdsConex) {
+
+        }
+
+    }
+
 }

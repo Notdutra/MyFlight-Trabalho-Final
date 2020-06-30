@@ -36,25 +36,19 @@ public class GerenciadorRotas {
     }
 
     public void ordenarNomesCias() {
-        rotas.sort( (Rota r1, Rota r2) ->
-          r1.getCia().getNome().compareTo(
-          r2.getCia().getNome()));
+        rotas.sort((Rota r1, Rota r2) -> r1.getCia().getNome().compareTo(r2.getCia().getNome()));
     }
 
     public void ordenarNomesAeroportos() {
-        rotas.sort( (Rota r1, Rota r2) ->
-                r1.getOrigem().getNome().compareTo(
-                r2.getOrigem().getNome()));
+        rotas.sort((Rota r1, Rota r2) -> r1.getOrigem().getNome().compareTo(r2.getOrigem().getNome()));
     }
 
     public void ordenarNomesAeroportosCias() {
-        rotas.sort( (Rota r1, Rota r2) -> {
-           int result = r1.getOrigem().getNome().compareTo(
-                   r2.getOrigem().getNome());
-           if(result != 0)
-               return result;
-           return r1.getCia().getNome().compareTo(
-                   r2.getCia().getNome());
+        rotas.sort((Rota r1, Rota r2) -> {
+            int result = r1.getOrigem().getNome().compareTo(r2.getOrigem().getNome());
+            if (result != 0)
+                return result;
+            return r1.getCia().getNome().compareTo(r2.getCia().getNome());
         });
     }
 
@@ -72,7 +66,7 @@ public class GerenciadorRotas {
         }
     }
 
-    public void carregaDados(String nomeArq){
+    public void carregaDados(String nomeArq) {
         Path path1 = Paths.get(nomeArq);
         try (BufferedReader reader = Files.newBufferedReader(path1, Charset.forName("utf8"))) {
             String line = null;
@@ -89,41 +83,40 @@ public class GerenciadorRotas {
                     adicionar(nova);
                 }
             }
-        }
-        catch (IOException x) {
+        } catch (IOException x) {
             System.err.format("Erro de E/S: %s%n", x);
         }
     }
 
     public ArrayList<Rota> buscarOrigem(String codigo) {
         ArrayList<Rota> result = new ArrayList<>();
-        for(Rota r: rotas)
-            if(r.getOrigem().getCodigo().equals(codigo))
+        for (Rota r : rotas)
+            if (r.getOrigem().getCodigo().equals(codigo))
                 result.add(r);
         return result;
     }
 
-    public ArrayList<Rota> getRotasPorCia(String codCia){
+    public ArrayList<Rota> getRotasPorCia(String codCia) {
         ArrayList<Rota> rotasDaCia = new ArrayList<Rota>();
-        for (Rota r : rotas){
-            if(r.getCia().getCodigo() == codCia){
+        for (Rota r : rotas) {
+            if (r.getCia().getCodigo() == codCia) {
                 rotasDaCia.add(r);
             }
         }
         return rotasDaCia;
     }
 
-    public HashMap<String, Integer> getAirTraffic(){
+    public HashMap<String, Integer> getAirTraffic() {
         HashMap<String, Integer> traffic = new HashMap<String, Integer>();
 
-        for(Rota r : rotas){
-            if(!traffic.containsKey(r.getOrigem().getCodigo())){
+        for (Rota r : rotas) {
+            if (!traffic.containsKey(r.getOrigem().getCodigo())) {
                 traffic.put(r.getOrigem().getCodigo(), 0);
             } else {
                 int value = traffic.get(r.getOrigem().getCodigo());
                 traffic.replace(r.getOrigem().getCodigo(), value, ++value);
             }
-            if(!traffic.containsKey(r.getDestino().getCodigo())){
+            if (!traffic.containsKey(r.getDestino().getCodigo())) {
                 traffic.put(r.getDestino().getCodigo(), 0);
             } else {
                 int value = traffic.get(r.getDestino().getCodigo());
