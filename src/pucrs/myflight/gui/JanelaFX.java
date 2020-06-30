@@ -129,7 +129,7 @@ public class JanelaFX extends Application {
             gerCons.setTraffic(gerenciador, gerAero, traffic);
         });
         btnConsulta3.setOnAction(e -> {
-            gerCons.consulta3(gerRotas, comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo());
+            gerCons.consulta3(gerAero, gerRotas, comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo());
         });
         btnConsulta4.setOnAction(e -> {
             consulta4Ativada = true;

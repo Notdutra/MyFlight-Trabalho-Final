@@ -184,18 +184,9 @@ public class GerenciadorConsultas {
         }
     }
 
-    public void consulta3(GerenciadorRotas gerRotas, String origem, String destino) {
-        String aux = origem;
-        String aux1 = destino;
-        ArrayList<String> duasConex;
-        duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
-        ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(aux, aux1);
-        for (String string : umaConex) {
-            System.out.println("uma conex--" + string);
-        }
-        for (String string : duasConex) {
-            System.out.println("duas conex--" + string);
-        }
+    public void consulta3(GerenciadorAeroportos gerAero, GerenciadorRotas gerRotas, String origem, String destino) {
+        ArrayList<String> duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
+        ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(origem, destino);
 
     }
 
