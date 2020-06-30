@@ -1,10 +1,14 @@
 package pucrs.myflight.modelo;
 
+import java.security.KeyStore.Entry;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
+import pucrs.myflight.gui.GerenciadorConsultas;
 import sun.security.jca.GetInstance;
 
 public class App {
@@ -177,15 +181,41 @@ public class App {
         gerPaises.ordenarNome();
         ArrayList<Pais> todosPaises = gerPaises.listarTodas();
         System.out.println("Total de Paises:" + todosPaises.size());
-        for(Pais p: todosPaises)
+        for(Pais p: todosPaises){
             System.out.println(p.getCodigo() + " - " + p.getNome());
+        }
 
-
-        System.out.println("------------------------");
-        ArrayList<Rota> poaLista = gerRotas.buscarDestino(poa.getCodigo());
-        System.out.println(poaLista);
+        // System.out.println("------------------------");
+        // System.out.println("Todas as rotas com origem em POA");
+        // ArrayList<Rota> origemPOALista = gerRotas.buscarOrigem(poa.getCodigo());
+        // gerRotas.printarArrayRota(origemPOALista);
         
+        
+        
+        // System.out.println("------------------------");
+        // System.out.println("Todas as rotas com destino em POA");
+        // ArrayList<Rota> destinoPOALista = gerRotas.buscarDestino(poa.getCodigo());
+        // gerRotas.printarArrayRota(destinoPOALista);
+
+        // System.out.println("------------------------");
+        // System.out.println("Todas as rotas com origem em GRU");
+        // ArrayList<Rota> origemGRULista = gerRotas.buscarOrigem(gru.getCodigo());
+        // gerRotas.printarArrayRota(origemGRULista);
+
+        // System.out.println("------------------------");
+        // System.out.println("Todas as rotas com destino em POA");
+        // ArrayList<Rota> destinoPOALista = gerRotas.buscarDestino(poa.getCodigo());
+        // gerRotas.printarArrayRota(destinoPOALista);
+        
+
+        GerenciadorConsultas gerCon = GerenciadorConsultas.getInstance();
+
+        ArrayList<String> busca = gerCon.acharRotaComDuasConexoes("POA", "MIA");
+        //HashSet<String> buscaSemDups = new HashSet<>(busca);
+
+        for (String string : busca) {
+             System.out.println(string);
+        }
+
     }
 }
-
-
