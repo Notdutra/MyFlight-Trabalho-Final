@@ -242,7 +242,10 @@ public class GerenciadorConsultas {
 
     public void consulta3(GerenciadorConsultas gerCons, GerenciadorRotas gerRotas, Aeroporto origem,
             Aeroporto destino) {
-
+        ArrayList<String> umaConex = gerCons.acharRotaComUmaConexao(origem.getCodigo(), destino.getCodigo());
+        for (String string : umaConex) {
+            System.out.println(string);// precisa plotar por aqui mas ta vazio a string :(
+        }
     }
 
 }
