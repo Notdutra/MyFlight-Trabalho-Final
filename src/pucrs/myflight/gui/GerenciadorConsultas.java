@@ -75,7 +75,9 @@ public class GerenciadorConsultas {
 
     public void limpar(GerenciadorMapa gerMapa) {
         List<MyWaypoint> lstPoints = new ArrayList<>();
+        lstPoints.add(null);
         lstPoints.clear();
+        gerMapa.setPontos(lstPoints);
         gerMapa.clear();
         gerMapa.getMapKit().repaint();
     
