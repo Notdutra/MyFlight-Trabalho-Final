@@ -157,7 +157,7 @@ public class GerenciadorConsultas {
 
     public void mostarEsseAeroporto(GerenciadorMapa gerMapa, Aeroporto esseAeroporto) {
         //List<MyWaypoint> lista = new ArrayList<MyWaypoint>();
-        lstPoints.add(new MyWaypoint(Color.GREEN, esseAeroporto.getCodigo(), esseAeroporto.getLocal(), 10));
+        lstPoints.add(new MyWaypoint(Color.GREEN, esseAeroporto.getCodigo(), esseAeroporto.getLocal(), 15));
         //gerMapa.setPontos(lista);
         gerMapa.setPontos(lstPoints);
         gerMapa.getMapKit().repaint();
