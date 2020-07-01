@@ -138,8 +138,7 @@ public class JanelaFX extends Application {
         });
         btnConsulta3.setOnAction(e -> {
             consulta4Ativada = false;
-            gerCons.consulta3(gerAero, gerRotas, comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo(),
-                    gerenciador);
+            gerCons.consulta3(comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo(),gerenciador);
         });
         btnConsulta4.setOnAction(e -> {
             consulta4Ativada = true;

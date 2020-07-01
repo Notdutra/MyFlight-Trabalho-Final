@@ -240,9 +240,9 @@ public class GerenciadorConsultas {
         return listaDeConexoes;
     }
 
-    public void consulta3(GerenciadorAeroportos gerAero, GerenciadorRotas gerRotas, String origem, String destino,
-            GerenciadorMapa gerMapa) {
-
+    public void consulta3(String origem, String destino, GerenciadorMapa gerMapa) {
+        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
         gerMapa.clear();
 
         ArrayList<String> direta = gerRotas.acharRotaDireta(origem, destino);
