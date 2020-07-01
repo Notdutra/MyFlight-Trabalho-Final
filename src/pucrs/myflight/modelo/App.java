@@ -212,5 +212,12 @@ public class App {
             System.out.println(string);
         }
 
+        System.out.println("Testando ---------------------------------------------------------------------");
+        HashMap<Aeroporto, Aeroporto> listinha = gerRotas.pegaOrigemComTempo("POA", 1.5);
+        listinha.entrySet().forEach(atual->{ 
+            // ESSE METODO PRINTA TODOS OS DESTINOS PRIMEIRO E A ORIGEM DEPOIS    NESSE CASO ORIGEM SENDO POA
+            System.out.println(atual.getKey().getCodigo() + " -> " + atual.getValue().getCodigo());  
+        });
+
     }
 }

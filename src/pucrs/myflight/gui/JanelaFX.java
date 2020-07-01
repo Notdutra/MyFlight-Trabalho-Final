@@ -134,7 +134,7 @@ public class JanelaFX extends Application {
         });
         btnConsulta4.setOnAction(e -> {
             consulta4Ativada = true;
-            gerCons.consulta4((double) 12, gerenciador, gerAero, gerRotas, gerAero.buscarCodigo("POA"));
+            //gerCons.consulta4((double) 12, gerenciador, gerAero.buscarCodigo("POA"));
 
         });
 

@@ -166,9 +166,11 @@ public class GerenciadorConsultas {
 
     public void consulta4(Double tempoMax, GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero,
             GerenciadorRotas gerRotoas, Aeroporto aero) {
+                
         double tempo = 0;
         double dist = 0;
-        for (Rota r : gerRotoas.listarTodas()) {
+
+        for (Rota r : gerRotas.listarTodas()) {
             if (r.getOrigem() == aero) {
                 dist = aero.getLocal().distancia(r.getDestino().getLocal());
                 tempo = (dist / 805) + 1;

@@ -113,9 +113,11 @@ public class GerenciadorRotas {
 
     public HashMap<Aeroporto, Aeroporto> pegaDestino(String codigo) {
         HashMap<Aeroporto, Aeroporto> resultado = new HashMap<>();
+
         for (Rota r : rotas) {
             if (r.getDestino().getCodigo().equalsIgnoreCase(codigo)) {
                 resultado.put(r.getOrigem(), r.getDestino());
+                System.out.println(resultado);
             }
         }
         return resultado;
@@ -130,6 +132,28 @@ public class GerenciadorRotas {
         }
         return resultado;
     }
+
+    //                        origem
+    public HashMap<Aeroporto, Aeroporto> pegaOrigemComTempo(String origem, double tempoMax) {
+        HashMap<Aeroporto, Aeroporto> resultado = new HashMap<>();
+        Aeroporto origemAero = gerAero.buscarCodigo(origem);
+        for (Rota r : rotas) {
+            double tempo = 0;
+            double dist = 0;
+            if (r.getOrigem().getCodigo().equalsIgnoreCase(origem)) {
+                Aeroporto atual = r.getDestino();
+                dist = atual.getLocal().distancia(origemAero.getLocal());
+                tempo = (dist / 805) + 1;
+                if (tempo <= tempoMax) {
+                    resultado.put(r.getDestino(), r.getOrigem());
+                }                
+            }
+        }
+        return resultado;
+    }
+
+
+
 
     public ArrayList<Rota> getRotasPorCia(String codCia) {
         ArrayList<Rota> rotasDaCia = new ArrayList<Rota>();
@@ -163,24 +187,46 @@ public class GerenciadorRotas {
 
     }
 
-    public ArrayList<String> acharRotaDireta(String origem, String destino) {
+    public ArrayList<String> acharRotaDiretaComTempo(String origem, String destino, double tempoLimite) {        
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
-        HashMap<Aeroporto, Aeroporto> origemRota = gerRotas.pegaOrigem(origem); // rotas com origem em poa
+        HashMap<Aeroporto, Aeroporto> origemRota = gerRotas.pegaOrigem(origem); 
+
+        Aeroporto destinoFinal = gerAero.buscarCodigo(destino);        
+        // rotas com origem em poa
+        // key é x e value é poa
         ArrayList<String> listaDireta = new ArrayList<>();
+
         origemRota.entrySet().forEach(atual -> {
-            if (atual.getKey().getCodigo().equalsIgnoreCase(destino)){
-                listaDireta.add(origem + ";" + atual.getKey().getCodigo());
+            Aeroporto keyAtual = atual.getKey();
+            if (keyAtual.getCodigo().equalsIgnoreCase(destino)){
+                double tempo = 0;
+                double dist = 0;
+                dist = keyAtual.getLocal().distancia(destinoFinal.getLocal());
+                tempo = (dist / 805) + 1;
+                if (tempo <= tempoLimite) {
+                    listaDireta.add(origem + ";" + atual.getKey().getCodigo());
+                    System.out.println(origem + ";" + atual.getKey().getCodigo());
+                }
+                
             }
         });
 
+
+
+
         return listaDireta;
     }
+
+
 
     public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
 
         HashMap<Aeroporto, Aeroporto> mapaOrigemInicial = gerRotas.pegaOrigem(origemInicial);
+        //chave = x value = origemInicial
+
         HashMap<Aeroporto, Aeroporto> mapaDestinoFinal = gerRotas.pegaDestino(destinoFinal);
+        // chave = y value = destinoFinal
 
         ArrayList<String> listaDeConexoes = new ArrayList<>();
         mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
