@@ -164,9 +164,10 @@ public class GerenciadorConsultas {
 
     }
 
-    public void consulta4(Double tempoMax, GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero,
-            GerenciadorRotas gerRotas, Aeroporto aero) {
-
+    public void consulta4(Double tempoMax, GerenciadorMapa gerMapa, Aeroporto aero) {
+        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
+        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+        
         ArrayList<Rota> result = new ArrayList<>();
         double tempo = 0;
         double dist = 0;
