@@ -165,8 +165,8 @@ public class GerenciadorConsultas {
     }
 
     public void consulta4(Double tempoMax, GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero,
-            GerenciadorRotas gerRotoas, Aeroporto aero) {
-                
+            GerenciadorRotas gerRotas, Aeroporto aero) {
+
         double tempo = 0;
         double dist = 0;
 
@@ -186,94 +186,98 @@ public class GerenciadorConsultas {
         }
     }
 
-    public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal){
+    public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
 
-        HashMap<Aeroporto,Aeroporto> mapaOrigemInicial = gerRotas.pegaOrigem(origemInicial);
-        HashMap<Aeroporto,Aeroporto> mapaDestinoFinal = gerRotas.pegaDestino(destinoFinal);
+        HashMap<Aeroporto, Aeroporto> mapaOrigemInicial = gerRotas.pegaOrigem(origemInicial);
+        HashMap<Aeroporto, Aeroporto> mapaDestinoFinal = gerRotas.pegaDestino(destinoFinal);
 
         ArrayList<String> listaDeConexoes = new ArrayList<>();
         mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
             mapaOrigemInicial.entrySet().forEach(origemAtual -> {
                 if (origemAtual.getKey().equals(destinoAtual.getKey())) {
-                    //System.out.println(origemAtual.getKey().getCodigo()
-                    listaDeConexoes.add(origemInicial + " -> " + origemAtual.getKey().getCodigo() + " -> " + destinoFinal);
-                    
+                    // System.out.println(origemAtual.getKey().getCodigo()
+                    listaDeConexoes
+                            .add(origemInicial + " -> " + origemAtual.getKey().getCodigo() + " -> " + destinoFinal);
+
                 }
-            });                
+            });
         });
 
         return listaDeConexoes;
     }
 
-    public ArrayList<String> acharRotaComDuasConexoes(String origemInicial, String destinoFinal){
+    public ArrayList<String> acharRotaComDuasConexoes(String origemInicial, String destinoFinal) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
 
-        HashMap<Aeroporto,Aeroporto> mapaPoa = gerRotas.pegaOrigem(origemInicial);
-        HashMap<Aeroporto,Aeroporto> mapaMia = gerRotas.pegaDestino(destinoFinal);
-        //x = chaveDePoa y = chaveDeMia
+        HashMap<Aeroporto, Aeroporto> mapaPoa = gerRotas.pegaOrigem(origemInicial);
+        HashMap<Aeroporto, Aeroporto> mapaMia = gerRotas.pegaDestino(destinoFinal);
+        // x = chaveDePoa y = chaveDeMia
         ArrayList<String> listaDeConexoes = new ArrayList<>();
         mapaMia.entrySet().forEach(chaveDeMia -> {
             mapaPoa.entrySet().forEach(chaveDePoa -> {
                 Aeroporto xMia = chaveDePoa.getKey();
                 if (xMia.equals(chaveDeMia.getKey())) {// se poa tem conexao com mia
-                    //entao pulamos para xMia -> y -> mia
-                    HashMap<Aeroporto,Aeroporto> mapaXMia = gerRotas.pegaOrigem(origemInicial);
+                    // entao pulamos para xMia -> y -> mia
+                    HashMap<Aeroporto, Aeroporto> mapaXMia = gerRotas.pegaOrigem(origemInicial);
                     mapaXMia.entrySet().forEach(chaveDoX -> {
                         mapaMia.entrySet().forEach(chaveDeMiaFinal -> {
                             Aeroporto yMia = chaveDeMiaFinal.getKey();
-                            if (yMia.equals(chaveDoX.getKey()) && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) { // se x tem conexao com mia
-                                //System.out.println(origemInicial + " -> " + xMia.getCodigo() + " -> " + yMia.getCodigo() + " -> " + destinoFinal);
-                                listaDeConexoes.add(origemInicial + " -> " + xMia.getCodigo() + " -> " + yMia.getCodigo() + " -> " + destinoFinal);
+                            if (yMia.equals(chaveDoX.getKey())
+                                    && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) { // se x tem conexao com
+                                                                                               // mia
+                                // System.out.println(origemInicial + " -> " + xMia.getCodigo() + " -> " +
+                                // yMia.getCodigo() + " -> " + destinoFinal);
+                                listaDeConexoes.add(origemInicial + " -> " + xMia.getCodigo() + " -> "
+                                        + yMia.getCodigo() + " -> " + destinoFinal);
                             }
                         });
-                    });                   
+                    });
                 }
-            });                
+            });
         });
-        //String temp = (origemInicial + " -> " + aeroportoX + " -> " + destinoFinal);
+        // String temp = (origemInicial + " -> " + aeroportoX + " -> " + destinoFinal);
         return listaDeConexoes;
     }
 
+    public void consulta3(GerenciadorAeroportos gerAero, GerenciadorRotas gerRotas, String origem, String destino,
+            GerenciadorMapa gerMapa) {
 
-    public void consulta3(GerenciadorAeroportos gerAero, GerenciadorRotas gerRotas, String origem, String destino, GerenciadorMapa gerMapa) {
-        
         gerMapa.clear();
 
         ArrayList<String> duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
         ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(origem, destino);
-        
+
         plotarRota(duasConex, gerAero, gerMapa);
-       
+
     }
 
     public void plotarRota(ArrayList<String> rotas, GerenciadorAeroportos gerAero, GerenciadorMapa gerMapa) {
         List<MyWaypoint> lstPoints = new ArrayList<>();
-        for(String s : rotas){
+        for (String s : rotas) {
             lstPoints.clear();
             String[] aeros = s.split(";");
             System.out.println(aeros.length);
-            int limite = aeros.length-1;
+            int limite = aeros.length - 1;
             int ntraco = 0;
-            for(String sAero : aeros){
+            for (String sAero : aeros) {
                 Aeroporto aeroporto = gerAero.buscarCodigo(sAero);
                 lstPoints.add(new MyWaypoint(Color.GREEN, aeroporto.getCodigo(), aeroporto.getLocal(), 10));
                 gerMapa.setPontos(lstPoints);
                 gerMapa.getMapKit().repaint();
-            if(ntraco < limite) {
-                Aeroporto aeroOrigem = gerAero.buscarCodigo(aeros[ntraco]);
-                Aeroporto aeroDestino = gerAero.buscarCodigo(aeros[ntraco+1]);
-                Tracado tr2 = new Tracado();
-                tr2.setWidth(1);
-                tr2.setCor(Color.BLUE);
-                tr2.addPonto(aeroOrigem.getLocal());
-                tr2.addPonto(aeroDestino.getLocal());
-                gerMapa.addTracado(tr2);
-                System.out.println(ntraco);
-                ntraco += 1;
-            }            
-        }
+                if (ntraco < limite) {
+                    Aeroporto aeroOrigem = gerAero.buscarCodigo(aeros[ntraco]);
+                    Aeroporto aeroDestino = gerAero.buscarCodigo(aeros[ntraco + 1]);
+                    Tracado tr2 = new Tracado();
+                    tr2.setWidth(1);
+                    tr2.setCor(Color.BLUE);
+                    tr2.addPonto(aeroOrigem.getLocal());
+                    tr2.addPonto(aeroDestino.getLocal());
+                    gerMapa.addTracado(tr2);
+                    System.out.println(ntraco);
+                    ntraco += 1;
+                }
+            }
         }
     }
 }
-
