@@ -173,17 +173,11 @@ public class GerenciadorConsultas {
 
     }
 
-<<<<<<< HEAD
     public void consulta4(Double tempoMax, GerenciadorMapa gerMapa, Aeroporto aero) {
         GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         
-        ArrayList<Rota> result = new ArrayList<>();
-=======
-    public void consulta4(Double tempoMax, GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero,GerenciadorRotas gerRotas, Aeroporto aero) {
-                lstPoints.clear();
-
->>>>>>> parent of f254a28... consul4 tentativa
+        //ArrayList<Rota> result = new ArrayList<>();
         double tempo = 0;
         double dist = 0;
 
