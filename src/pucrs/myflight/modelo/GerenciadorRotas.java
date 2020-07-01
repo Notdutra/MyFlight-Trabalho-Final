@@ -217,6 +217,18 @@ public class GerenciadorRotas {
         return listaDireta;
     }
 
+    public ArrayList<String> acharRotaDireta(String origem, String destino) {
+        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+        HashMap<Aeroporto, Aeroporto> origemRota = gerRotas.pegaOrigem(origem); // rotas com origem em poa
+        ArrayList<String> listaDireta = new ArrayList<>();
+        origemRota.entrySet().forEach(atual -> {
+            if (atual.getKey().getCodigo().equalsIgnoreCase(destino)){
+                listaDireta.add(origem + ";" + atual.getKey().getCodigo());
+            }
+        });
+
+        return listaDireta;
+    }
 
 
     public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal) {

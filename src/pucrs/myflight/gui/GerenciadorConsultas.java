@@ -240,10 +240,17 @@ public class GerenciadorConsultas {
         
         gerMapa.clear();
 
-        ArrayList<String> duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
+        ArrayList<String> direta = gerRotas.acharRotaDireta(origem, destino);
         ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(origem, destino);
+        ArrayList<String> duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
+
+        ArrayList<String> total = new ArrayList<>();
+
+        total.addAll(direta);
+        total.addAll(umaConex);
+        total.addAll(duasConex);
         
-        plotarRota(duasConex, gerAero, gerMapa);
+        plotarRota(total, gerAero, gerMapa);
        
     }
 
