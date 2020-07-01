@@ -94,7 +94,7 @@ public class JanelaFX extends Application {
         leftPane.setVgap(10);
         leftPane.setPadding(new Insets(10, 10, 10, 10));
 
-        Button btnMarcarRotaVermelha = new Button("Marcar Rota");
+        Button btnLimpar = new Button("Limpar");
         Button btnConsulta1 = new Button("Consulta 1");
         Button btnConsulta2 = new Button("Consulta 2");
         Button btnConsulta3 = new Button("Consulta 3");
@@ -110,7 +110,7 @@ public class JanelaFX extends Application {
         comboHoras = new ComboBox<>();
         comboHoras.setEditable(true);
 
-        leftPane.add(btnMarcarRotaVermelha, 0, 0);
+        leftPane.add(btnLimpar, 0, 0);
         leftPane.add(btnConsulta1, 1, 0);
         leftPane.add(btnConsulta2, 2, 0);
         leftPane.add(btnConsulta3, 3, 0);
@@ -119,8 +119,8 @@ public class JanelaFX extends Application {
         leftPane.add(comboAero1, 6, 0);
         leftPane.add(comboAero2, 7, 0);
 
-        btnMarcarRotaVermelha.setOnAction(e -> {
-            marcarRotaVemelha();
+        btnLimpar.setOnAction(e -> {
+            limpar();
         });
 
         btnConsulta1.setOnAction(e -> {
@@ -198,9 +198,8 @@ public class JanelaFX extends Application {
 
     }
 
-    private void marcarRotaVemelha() {
-        gerCons.consultaExemplo(gerenciador); // ver depois
-                                              // ----------------------------------------------------------------------------
+    private void limpar() {
+        gerCons.limpar(gerenciador);
     }
 
     private void consulta1() {
@@ -242,7 +241,7 @@ public class JanelaFX extends Application {
                 double latitude = pos.getLatitude();
                 Geo posDaLinha = new Geo(latitude, longitude);
                 if (gerAero.getAirportFromGPS(posDaLinha) != null) {
-                    gerenciador.verificaTracado(clicado, posDaLinha);
+                    gerenciador.consulta4Marcar(posDaLinha);
                 }
 
             }

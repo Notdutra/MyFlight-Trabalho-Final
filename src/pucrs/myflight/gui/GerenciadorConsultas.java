@@ -73,6 +73,14 @@ public class GerenciadorConsultas {
         gerMapa.getMapKit().repaint();
     }
 
+    public void limpar(GerenciadorMapa gerMapa) {
+        List<MyWaypoint> lstPoints = new ArrayList<>();
+        lstPoints.clear();
+        gerMapa.clear();
+        gerMapa.getMapKit().repaint();
+    
+    }
+
     public void consulta1(GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero) {
         gerMapa.clear();
 
@@ -147,7 +155,6 @@ public class GerenciadorConsultas {
     }
 
     public void mostarEsseAeroporto(GerenciadorMapa gerMapa, Aeroporto esseAeroporto) {
-        gerMapa.clear();
         List<MyWaypoint> lista = new ArrayList<MyWaypoint>();
         lista.add(new MyWaypoint(Color.CYAN, esseAeroporto.getCodigo(), esseAeroporto.getLocal(), 10));
         gerMapa.setPontos(lista);
@@ -263,7 +270,7 @@ public class GerenciadorConsultas {
         for (String s : rotas) {
             lstPoints.clear();
             String[] aeros = s.split(";");
-            System.out.println(aeros.length);
+            //System.out.println(aeros.length);
             int limite = aeros.length - 1;
             int ntraco = 0;
             for (String sAero : aeros) {
@@ -280,7 +287,7 @@ public class GerenciadorConsultas {
                     tr2.addPonto(aeroOrigem.getLocal());
                     tr2.addPonto(aeroDestino.getLocal());
                     gerMapa.addTracado(tr2);
-                    System.out.println(ntraco);
+                    //System.out.println(ntraco);
                     ntraco += 1;
                 }
             }

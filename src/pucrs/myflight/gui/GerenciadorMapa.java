@@ -323,20 +323,18 @@ public class GerenciadorMapa {
 		return jXMapKit;
     }
     
-    public void verificaTracado(Aeroporto clicado, Geo posDoMouse) {
-        Geo diferente = clicado.getLocal();
-        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
-        for (Tracado pontos: linhas) {
-            ArrayList<Geo> aeroportos = pontos.getPontos();
-            for (Geo geo : aeroportos) {
-                if (geo.distancia(posDoMouse) < 5 && geo.distancia(diferente) > 8) {
-                    pontos.setCor(Color.RED);
-                }
-            }
-        }
-        
-
-    }
+	
+	public void consulta4Marcar(Geo posDoMouse) {
+		for (Tracado ponto : linhas) {
+			ArrayList<Geo> aeroportos = ponto.getPontos();
+			for (Geo geo : aeroportos) {
+				if (geo.distancia(posDoMouse) <= 6) {
+					ponto.setCor(Color.RED);
+					ponto.setWidth(5);
+				}
+			}
+		}
+	}
 
 
 }
