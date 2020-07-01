@@ -235,14 +235,21 @@ public class GerenciadorConsultas {
 
 
     public void consulta3(GerenciadorAeroportos gerAero, GerenciadorRotas gerRotas, String origem, String destino, GerenciadorMapa gerMapa) {
-        
+
         gerMapa.clear();
 
         ArrayList<String> duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
         ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(origem, destino);
+        ArrayList<String> direta = gerRotas.acharRotaDireta(origem, destino);
+
+        ArrayList<String> total = new ArrayList<>();
+        total.addAll(direta);
+        total.addAll(umaConex);
+        total.addAll(duasConex);
         
-        plotarRota(duasConex, gerAero, gerMapa);
-       
+        plotarRota(total, gerAero, gerMapa);
+        //plotarRota(umaConex, gerAero, gerMapa);
+        //plotarRota(direta, gerAero, gerMapa);
     }
 
     public void plotarRota(ArrayList<String> rotas, GerenciadorAeroportos gerAero, GerenciadorMapa gerMapa) {
