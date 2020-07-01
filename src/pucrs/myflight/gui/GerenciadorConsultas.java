@@ -13,6 +13,8 @@ import java.awt.Color;
 import pucrs.myflight.modelo.*;
 
 public class GerenciadorConsultas {
+    
+    private static List<MyWaypoint> lstPoints = new ArrayList<>();
 
     private static GerenciadorConsultas instance;
     private static GerenciadorRotas gerRotas;
@@ -29,7 +31,6 @@ public class GerenciadorConsultas {
 
     public void consultaExemplo(GerenciadorMapa gerMapa) {
         // Lista para armazenar o resultado da consulta
-        List<MyWaypoint> lstPoints = new ArrayList<>();
 
         Aeroporto poa = new Aeroporto("POA", "Salgado Filho", new Geo(-29.9939, -51.1711));
         Aeroporto gru = new Aeroporto("GRU", "Guarulhos", new Geo(-23.4356, -46.4731));
@@ -74,7 +75,6 @@ public class GerenciadorConsultas {
     }
 
     public void limpar(GerenciadorMapa gerMapa) {
-        List<MyWaypoint> lstPoints = new ArrayList<>();
         lstPoints.add(null);
         lstPoints.clear();
         gerMapa.setPontos(lstPoints);
@@ -97,7 +97,6 @@ public class GerenciadorConsultas {
             gerMapa.addTracado(tr2);
         }
 
-        List<MyWaypoint> lstPoints = new ArrayList<>();
         for (Aeroporto a : gerAero.listarTodos()) {
             lstPoints.add(new MyWaypoint(Color.GREEN, a.getCodigo(), a.getLocal(), 5));
         }
@@ -110,10 +109,10 @@ public class GerenciadorConsultas {
 
     public void plotarAeroPorCia(GerenciadorMapa gerMapa, ArrayList<Rota> rotasDaCia) {
         gerMapa.clear();
+        lstPoints.clear();
 
         HashSet<Aeroporto> aeroportosCiaOpera = new HashSet<Aeroporto>();
 
-        List<MyWaypoint> lstPoints = new ArrayList<>();
 
         for (Rota r : rotasDaCia) {
             if (!aeroportosCiaOpera.contains(r.getOrigem())) {
@@ -139,8 +138,8 @@ public class GerenciadorConsultas {
 
     public void setTraffic(GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero, HashMap<String, Integer> traffic) {
         gerMapa.clear();
+        lstPoints.clear();
 
-        List<MyWaypoint> lstPoints = new ArrayList<>();
 
         for (String s : traffic.keySet()) {
             Aeroporto temp = gerAero.buscarCodigo(s);
@@ -157,9 +156,10 @@ public class GerenciadorConsultas {
     }
 
     public void mostarEsseAeroporto(GerenciadorMapa gerMapa, Aeroporto esseAeroporto) {
-        List<MyWaypoint> lista = new ArrayList<MyWaypoint>();
-        lista.add(new MyWaypoint(Color.CYAN, esseAeroporto.getCodigo(), esseAeroporto.getLocal(), 10));
-        gerMapa.setPontos(lista);
+        //List<MyWaypoint> lista = new ArrayList<MyWaypoint>();
+        lstPoints.add(new MyWaypoint(Color.GREEN, esseAeroporto.getCodigo(), esseAeroporto.getLocal(), 10));
+        //gerMapa.setPontos(lista);
+        gerMapa.setPontos(lstPoints);
         gerMapa.getMapKit().repaint();
     }
 
@@ -173,8 +173,8 @@ public class GerenciadorConsultas {
 
     }
 
-    public void consulta4(Double tempoMax, GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero,
-            GerenciadorRotas gerRotas, Aeroporto aero) {
+    public void consulta4(Double tempoMax, GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero,GerenciadorRotas gerRotas, Aeroporto aero) {
+                lstPoints.clear();
 
         double tempo = 0;
         double dist = 0;
@@ -252,7 +252,9 @@ public class GerenciadorConsultas {
     public void consulta3(String origem, String destino, GerenciadorMapa gerMapa) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
+
         gerMapa.clear();
+        lstPoints.clear();
 
         ArrayList<String> direta = gerRotas.acharRotaDireta(origem, destino);
         ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(origem, destino);
@@ -268,7 +270,7 @@ public class GerenciadorConsultas {
     }
 
     public void plotarRota(ArrayList<String> rotas, GerenciadorAeroportos gerAero, GerenciadorMapa gerMapa) {
-        List<MyWaypoint> lstPoints = new ArrayList<>();
+        lstPoints.clear();
         for (String s : rotas) {
             lstPoints.clear();
             String[] aeros = s.split(";");
