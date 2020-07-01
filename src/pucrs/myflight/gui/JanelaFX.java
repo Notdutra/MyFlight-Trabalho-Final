@@ -202,10 +202,6 @@ public class JanelaFX extends Application {
         gerCons.limpar(gerenciador);
     }
 
-    private void consulta1() {
-        gerCons.consulta1(gerenciador, gerAero);
-    }
-
     private static Aeroporto clicado;
 
     private class EventosMouse extends MouseAdapter {
