@@ -42,14 +42,14 @@ public class GerenciadorConsultas {
         tr.setWidth(5);
         tr.setCor(new Color(0, 0, 0, 60));
         tr.addPonto(poa.getLocal());
-        tr.addPonto(mia.getLocal());
+        tr.addPonto(gru.getLocal());
 
         gerMapa.addTracado(tr);
 
         Tracado tr2 = new Tracado();
         tr2.setWidth(5);
         tr2.setCor(Color.BLUE);
-        tr2.addPonto(gru.getLocal());
+        tr2.addPonto(mia.getLocal());
         tr2.addPonto(lis.getLocal());
         gerMapa.addTracado(tr2);
 
@@ -235,21 +235,14 @@ public class GerenciadorConsultas {
 
 
     public void consulta3(GerenciadorAeroportos gerAero, GerenciadorRotas gerRotas, String origem, String destino, GerenciadorMapa gerMapa) {
-
+        
         gerMapa.clear();
 
         ArrayList<String> duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
         ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(origem, destino);
-        ArrayList<String> direta = gerRotas.acharRotaDireta(origem, destino);
-
-        ArrayList<String> total = new ArrayList<>();
-        total.addAll(direta);
-        total.addAll(umaConex);
-        total.addAll(duasConex);
         
-        plotarRota(total, gerAero, gerMapa);
-        //plotarRota(umaConex, gerAero, gerMapa);
-        //plotarRota(direta, gerAero, gerMapa);
+        plotarRota(duasConex, gerAero, gerMapa);
+       
     }
 
     public void plotarRota(ArrayList<String> rotas, GerenciadorAeroportos gerAero, GerenciadorMapa gerMapa) {

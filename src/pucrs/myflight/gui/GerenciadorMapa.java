@@ -26,8 +26,9 @@ import org.jxmapviewer.viewer.WaypointPainter;
 import org.jxmapviewer.viewer.WaypointRenderer;
 
 import net.sf.geographiclib.*;
-
+import pucrs.myflight.modelo.Aeroporto;
 import pucrs.myflight.modelo.Geo;
+import pucrs.myflight.modelo.GerenciadorAeroportos;
 
 /**
  * Classe para gerenciar um mapa
@@ -320,6 +321,22 @@ public class GerenciadorMapa {
 	 */
 	public JXMapKit getMapKit() {
 		return jXMapKit;
-	}
+    }
+    
+    public void verificaTracado(Aeroporto clicado, Geo posDoMouse) {
+        Geo diferente = clicado.getLocal();
+        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
+        for (Tracado pontos: linhas) {
+            ArrayList<Geo> aeroportos = pontos.getPontos();
+            for (Geo geo : aeroportos) {
+                if (geo.distancia(posDoMouse) < 5 && geo.distancia(diferente) > 8) {
+                    pontos.setCor(Color.RED);
+                }
+            }
+        }
+        
+
+    }
+
 
 }

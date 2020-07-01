@@ -61,7 +61,7 @@ public class JanelaFX extends Application {
     private ComboBox<Aeroporto> comboAero1;
     private ComboBox<Aeroporto> comboAero2;
 
-    private static boolean consulta4Ativada = true; // isso ativa o mouse show aeroport
+    private static boolean consulta4Ativada = false; // isso ativa o mouse show aeroport
     Stage janela = new Stage();
 
     public void start(Stage primaryStage) throws Exception {
@@ -89,7 +89,7 @@ public class JanelaFX extends Application {
         leftPane.setVgap(10);
         leftPane.setPadding(new Insets(10, 10, 10, 10));
 
-        Button btnConsultaExemplo = new Button("Consulta Exemplo");
+        Button btnMarcarRotaVermelha = new Button("Marcar Rota");
         Button btnConsulta1 = new Button("Consulta 1");
         Button btnConsulta2 = new Button("Consulta 2");
         Button btnConsulta3 = new Button("Consulta 3");
@@ -102,7 +102,7 @@ public class JanelaFX extends Application {
         ObservableList<Aeroporto> olAero2 = FXCollections.observableArrayList(gerAero.listarTodos());
         comboAero2 = new ComboBox<>(olAero2);
 
-        leftPane.add(btnConsultaExemplo, 0, 0);
+        leftPane.add(btnMarcarRotaVermelha, 0, 0);
         leftPane.add(btnConsulta1, 1, 0);
         leftPane.add(btnConsulta2, 2, 0);
         leftPane.add(btnConsulta3, 3, 0);
@@ -111,8 +111,8 @@ public class JanelaFX extends Application {
         leftPane.add(comboAero1, 6, 0);
         leftPane.add(comboAero2, 7, 0);
 
-        btnConsultaExemplo.setOnAction(e -> {
-            consultaExeplo();
+        btnMarcarRotaVermelha.setOnAction(e -> {
+            marcarRotaVemelha();
         });
 
         btnConsulta1.setOnAction(e -> {
@@ -174,13 +174,15 @@ public class JanelaFX extends Application {
 
     }
 
-    private void consultaExeplo() {
-        gerCons.consultaExemplo(gerenciador);
+    private void marcarRotaVemelha() {
+        gerCons.consultaExemplo(gerenciador); //ver depois ----------------------------------------------------------------------------
     }
 
     private void consulta1() {
         gerCons.consulta1(gerenciador, gerAero);
     }
+
+    private static Aeroporto clicado;
 
     private class EventosMouse extends MouseAdapter {
         private int lastButton = -1;
@@ -190,19 +192,35 @@ public class JanelaFX extends Application {
             JXMapViewer mapa = gerenciador.getMapKit().getMainMap();
             GeoPosition loc = mapa.convertPointToGeoPosition(e.getPoint());
             lastButton = e.getButton();
-            if (lastButton == MouseEvent.BUTTON3 && consulta4Ativada == true) {
+            if (lastButton == MouseEvent.BUTTON3) {
                 gerenciador.setPosicao(loc);
                 gerenciador.getMapKit().repaint();
                 GeoPosition pos = gerenciador.getPosicao();
-                Aeroporto clicado = gerCons.getAirportFromCoord(pos);
+               clicado = gerCons.getAirportFromCoord(pos);
+
+
                 // inves de printar o 'clicado' ele tem q mostar o aeroporto no mapa
-                if (clicado != null) {
+                if (clicado != null && consulta4Ativada == false) {
                     System.out.println(clicado);
                     gerCons.mostarEsseAeroporto(gerenciador, clicado);
                 }
 
                 // System.out.println("-------" + pos);// pra pegar aeroporto fazer metodo q
                 // pega pos e encontra um aeroporto perto arredondando a coordenada
+            }
+
+            if (lastButton == MouseEvent.BUTTON1) {
+                gerenciador.setPosicao(loc);
+                gerenciador.getMapKit().repaint();
+                GeoPosition pos = gerenciador.getPosicao();
+                
+                double longitude = pos.getLongitude();
+                double latitude = pos.getLatitude();
+                Geo posDaLinha = new Geo(latitude, longitude);
+                if (gerAero.getAirportFromGPS(posDaLinha) != null ) {
+                    gerenciador.verificaTracado(clicado, posDaLinha);
+                }
+                
             }
         }
     }
