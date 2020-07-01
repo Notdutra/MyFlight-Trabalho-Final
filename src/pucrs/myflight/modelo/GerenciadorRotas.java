@@ -165,7 +165,6 @@ public class GerenciadorRotas {
 
     public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
-        System.out.println("---------------------------------------------");
 
         HashMap<Aeroporto, Aeroporto> mapaOrigemInicial = gerRotas.pegaOrigem(origemInicial);
         HashMap<Aeroporto, Aeroporto> mapaDestinoFinal = gerRotas.pegaDestino(destinoFinal);
@@ -175,7 +174,7 @@ public class GerenciadorRotas {
             mapaOrigemInicial.entrySet().forEach(origemAtual -> {
                 if (origemAtual.getKey().equals(destinoAtual.getKey())) {
                     // System.out.println(origemAtual.getKey().getCodigo()
-                    listaDeConexoes.add(origemInicial + origemAtual.getKey().getCodigo() + destinoFinal);
+                    listaDeConexoes.add(origemInicial +";"+ origemAtual.getKey().getCodigo() +";"+ destinoFinal);
 
                 }
             });
@@ -186,7 +185,6 @@ public class GerenciadorRotas {
 
     public ArrayList<String> acharRotaComDuasConexoes(String origemInicial, String destinoFinal) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
-        System.out.println("---------------------------------------------");
 
         HashMap<Aeroporto, Aeroporto> mapaPoa = gerRotas.pegaOrigem(origemInicial);
         HashMap<Aeroporto, Aeroporto> mapaMia = gerRotas.pegaDestino(destinoFinal);
@@ -206,7 +204,7 @@ public class GerenciadorRotas {
                                                                                                // mia
                                 // System.out.println(origemInicial + " -> " + xMia.getCodigo() + " -> " +
                                 // yMia.getCodigo() + " -> " + destinoFinal);
-                                listaDeConexoes.add(origemInicial + xMia.getCodigo() + yMia.getCodigo() + destinoFinal);
+                                listaDeConexoes.add(origemInicial +";"+ xMia.getCodigo() +";"+ yMia.getCodigo() +";"+ destinoFinal);
                             }
                         });
                     });
