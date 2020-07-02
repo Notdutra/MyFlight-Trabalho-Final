@@ -65,6 +65,9 @@ public class JanelaFX extends Application {
     private ComboBox<CiaAerea> comboCia;
     private ComboBox<Aeroporto> comboAero1;
     private ComboBox<Aeroporto> comboAero2;
+    private Stage window;
+    private Button button;
+    private Scene scene;
     private ComboBox<Double> comboHoras;
 
     private static boolean consulta4Ativada = false; // isso ativa o mouse show aeroport
@@ -139,15 +142,32 @@ public class JanelaFX extends Application {
         });
         btnConsulta3.setOnAction(e -> {
             consulta4Ativada = false;
-            gerCons.consulta3(comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo(),gerenciador);
+            gerCons.consulta3(comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo(), gerenciador);
         });
         btnConsulta4.setOnAction(e -> {
-            //consulta4Ativada = true;
-            //double tempoMax = 2; // --------------------------------------------------------------------------
-            // gerCons.consulta4(tempoMax, gerenciador, gerAero.buscarCodigo("POA"));
-            Aeroporto port = gerAero.buscarCodigo("POA");
-            HashSet<String> resultado = gerRotas.consulta4Arthur(port);         
-            System.out.println(resultado);   
+            // consulta4Ativada = true;
+            window = new Stage();
+            comboHoras = new ComboBox<>();
+            comboHoras.setPromptText("Entre com tempo em horas");
+            comboHoras.setEditable(true);
+            comboHoras.setEditable(true);
+            button = new Button("Inserir");
+            comboHoras.setOnAction(e -> System.out.println(comboHoras.getValue() + " Inserido"));
+
+            VBox layout = new VBox(10);
+            layout.setPadding(new Insets(20));
+            layout.getChildren().addAll(comboHoras, button);
+
+            scene = new Scene(layout, 300, 200);
+            window.setScene(scene);
+            window.show();
+            // System.out.println(tempoMax);
+            if (comboAero1.getValue().getCodigo() != null) {
+                gerenciador.clear();
+                Aeroporto port = gerAero.buscarCodigo(comboAero1.getValue().getCodigo());
+                HashSet<String> resultado = gerRotas.consulta4Arthur(port);
+                gerCons.plotarNoMapa(gerenciador, gerAero, resultado);
+            }
         });
 
         pane.setCenter(mapkit);
@@ -168,17 +188,22 @@ public class JanelaFX extends Application {
     }
 
     private double inputHoras() {
-        Stage janelaHoras = new Stage();
-        VBox box = new VBox(20);
-        TextField horasField = new TextField();
-        Label commentlabel = new Label("Insira o tempo em horas");
-        Button addComment = new Button("inserir");
-        box.getChildren().addAll(commentlabel, horasField, addComment);
-        janelaHoras.setScene(new Scene(box, 250, 150));
-        janelaHoras.show();
-        String horas = horasField.getAccessibleText();
-        return Double.valueOf(horas);
+        window = new Stage();
+        comboHoras = new ComboBox<>();
+        comboHoras.setPromptText("Entre com tempo em horas");
+        comboHoras.setEditable(true);
+        comboHoras.setEditable(true);
+        button = new Button("Inserir");
+        comboHoras.setOnAction(e -> System.out.println(comboHoras.getValue() + " Inserido"));
 
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(20));
+        layout.getChildren().addAll(comboHoras, button);
+
+        scene = new Scene(layout, 300, 200);
+        window.setScene(scene);
+        window.show();
+        return comboHoras.getValue();
     }
 
     // Inicializando os dados aqui...
