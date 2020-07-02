@@ -181,8 +181,7 @@ public class GerenciadorConsultas {
         
         gerMapa.clear();
         lstPoints.clear();
-        ArrayList<String> testando = new ArrayList<>(resultado);
-        plotarRota(testando, gerMapa);
+        System.out.println("Acabei");
     }
 
 
