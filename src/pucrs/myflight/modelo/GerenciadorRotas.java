@@ -123,6 +123,13 @@ public class GerenciadorRotas {
         return resultado;
     }
 
+    public boolean ehDireto(Rota direta, Aeroporto origem, Aeroporto destino) {
+        if (direta.getOrigem().equals(origem) && direta.getDestino().equals(destino)) {
+            return true;
+        }
+        return false;
+    }
+
     public HashMap<Aeroporto, Aeroporto> pegaOrigem(String codigo) {
         HashMap<Aeroporto, Aeroporto> resultado = new HashMap<>();
         for (Rota r : rotas) {
@@ -133,6 +140,15 @@ public class GerenciadorRotas {
         return resultado;
     }
 
+    public ArrayList<Aeroporto> pegaOrigemTest(Aeroporto origem) {
+        ArrayList<Aeroporto> resultado = new ArrayList<>();
+        for (Rota r : rotas) {
+            if (r.getOrigem().equals(origem)) {
+                resultado.add(r.getDestino());
+            }
+        }
+        return resultado;
+    }
     //                        origem
     public HashMap<Aeroporto, Aeroporto> pegaOrigemComTempo(String origem, double tempoMax) {
         HashMap<Aeroporto, Aeroporto> resultado = new HashMap<>();
@@ -284,5 +300,24 @@ public class GerenciadorRotas {
         });
         // String temp = (origemInicial + " -> " + aeroportoX + " -> " + destinoFinal);
         return listaDeConexoes;
+    }
+
+    public HashSet<String> consulta4Arthur(Aeroporto origem) {
+        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+        HashSet<String> resultadoSemDups = new HashSet<>();
+    
+        ArrayList<Aeroporto> listaDeDestinosDaOrigem = gerRotas.pegaOrigemTest(origem);
+        for (Aeroporto aeroPortoAtualX : listaDeDestinosDaOrigem) {
+            ArrayList<Aeroporto> listaDeDestinosDaX = gerRotas.pegaOrigemTest(aeroPortoAtualX);
+            for (Aeroporto aeroPortoAtualY : listaDeDestinosDaX) {
+                ArrayList<Aeroporto> listaDeDestinosFinais = gerRotas.pegaOrigemTest(aeroPortoAtualX);
+                for (Aeroporto aeroportoFinal : listaDeDestinosFinais) {
+                    if (!resultadoSemDups.contains("POA -> " + aeroPortoAtualX.getCodigo() + " -> " + aeroPortoAtualY.getCodigo() + " -> " + aeroportoFinal.getCodigo())) {
+                        resultadoSemDups.add("POA -> " + aeroPortoAtualX.getCodigo() + " -> " + aeroPortoAtualY.getCodigo() + " -> " + aeroportoFinal.getCodigo() + "\n");
+                    }                    
+                }                
+            }
+        }
+        return resultadoSemDups;
     }
 }
