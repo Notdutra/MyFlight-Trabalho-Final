@@ -113,6 +113,7 @@ public class JanelaFX extends Application {
 
         btnLimpar.setOnAction(e -> {
             limpar();
+            clicado = null;
         });
 
         btnConsulta1.setOnAction(e -> {

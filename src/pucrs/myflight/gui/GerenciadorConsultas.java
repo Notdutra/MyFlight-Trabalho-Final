@@ -178,7 +178,6 @@ public class GerenciadorConsultas {
         System.out.println(gerRotas.consulta4Arthur(tempoMax,origem));    
         // gerMapa.clear();
         // lstPoints.clear();
-        System.out.println("Acabei");
     }
 
 
