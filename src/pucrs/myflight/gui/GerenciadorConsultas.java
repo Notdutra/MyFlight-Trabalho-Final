@@ -282,4 +282,20 @@ public class GerenciadorConsultas {
         }
         System.out.println("TERMINOU");
     }
+
+	public void plotarNoMapa(GerenciadorMapa gerenciador, GerenciadorAeroportos gerAero, HashSet<String> resultado) {
+        HashSet<String> sanitizado = new HashSet<>();
+
+        for(String s : resultado){
+            String[] dados = s.split(";|:");
+            for(String dado : dados){
+                sanitizado.add(dado);
+            }
+        }
+        for(String s2 : sanitizado){
+            Aeroporto aero = gerAero.buscarCodigo(s2);
+            mostarEsseAeroporto(gerenciador, aero);
+        }
+        
+	}
 }
