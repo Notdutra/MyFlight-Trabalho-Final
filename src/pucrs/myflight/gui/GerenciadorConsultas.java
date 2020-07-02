@@ -173,14 +173,10 @@ public class GerenciadorConsultas {
 
     }
 
-    public void consulta4(Double tempoMax, GerenciadorMapa gerMapa, Aeroporto origem) {
-        HashSet<String> resultado = gerRotas.consulta4Arthur(origem);
-        double tempo = 0;
-        double dist = 0;
-
-        
-        gerMapa.clear();
-        lstPoints.clear();
+    public void consulta4(GerenciadorMapa gerMapa, Aeroporto origem) {
+        System.out.println(gerRotas.consulta4Arthur(origem));    
+        // gerMapa.clear();
+        // lstPoints.clear();
         System.out.println("Acabei");
     }
 

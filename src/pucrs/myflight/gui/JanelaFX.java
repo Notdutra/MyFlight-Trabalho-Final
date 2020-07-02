@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -141,12 +142,12 @@ public class JanelaFX extends Application {
             gerCons.consulta3(comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo(),gerenciador);
         });
         btnConsulta4.setOnAction(e -> {
-            consulta4Ativada = true;
+            //consulta4Ativada = true;
             //double tempoMax = 2; // --------------------------------------------------------------------------
             // gerCons.consulta4(tempoMax, gerenciador, gerAero.buscarCodigo("POA"));
             Aeroporto port = gerAero.buscarCodigo("POA");
-            gerRotas.consulta4Arthur(port);
-            //gerCons.consulta4(0.0, gerenciador, port);
+            HashSet<String> resultado = gerRotas.consulta4Arthur(port);         
+            System.out.println(resultado);   
         });
 
         pane.setCenter(mapkit);
