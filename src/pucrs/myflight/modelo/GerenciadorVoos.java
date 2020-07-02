@@ -2,7 +2,6 @@ package pucrs.myflight.modelo;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Comparator;
 
