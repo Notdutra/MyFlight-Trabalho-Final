@@ -147,8 +147,7 @@ public class JanelaFX extends Application {
                 gerenciador.clear();
                 HashSet<String> resultado = gerRotas.consulta4Arthur(tempoMax,clicado);         
                 gerCons.plotarNoMapa(gerenciador, gerAero, resultado);
-                System.out.println("operacao terminada");
-            }               
+            }           
 
             
         });

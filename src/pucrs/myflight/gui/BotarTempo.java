@@ -30,12 +30,13 @@ public class BotarTempo {
                 }
             }
         });
+
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(10, 10, 10, 10));
         layout.getChildren().addAll(timeInput, btnSelecionar);
         Scene scene = new Scene(layout, 200, 90);
         window.setScene(scene);
-        window.show();
+        window.showAndWait();
 
         return resposta;
 
