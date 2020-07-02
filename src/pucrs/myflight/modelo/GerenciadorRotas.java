@@ -116,7 +116,6 @@ public class GerenciadorRotas {
         for (Rota r : rotas) {
             if (r.getDestino().getCodigo().equalsIgnoreCase(codigo)) {
                 resultado.put(r.getOrigem(), r.getDestino());
-                System.out.println(resultado);
             }
         }
         return resultado;
@@ -218,7 +217,6 @@ public class GerenciadorRotas {
                 tempo = (dist / 805) + 1;
                 if (tempo <= tempoLimite) {
                     listaDireta.add(origem + ";" + atual.getKey().getCodigo());
-                    System.out.println(origem + ";" + atual.getKey().getCodigo());
                 }
 
             }
@@ -253,7 +251,6 @@ public class GerenciadorRotas {
         mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
             mapaOrigemInicial.entrySet().forEach(origemAtual -> {
                 if (origemAtual.getKey().equals(destinoAtual.getKey())) {
-                    // System.out.println(origemAtual.getKey().getCodigo()
                     listaDeConexoes.add(origemInicial + ";" + origemAtual.getKey().getCodigo() + ";" + destinoFinal);
 
                 }
@@ -280,12 +277,8 @@ public class GerenciadorRotas {
                         mapaMia.entrySet().forEach(chaveDeMiaFinal -> {
                             Aeroporto yMia = chaveDeMiaFinal.getKey();
                             if (yMia.equals(chaveDoX.getKey())
-                                    && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) { // se x tem conexao com
-                                                                                               // mia
-                                // System.out.println(origemInicial + " -> " + xMia.getCodigo() + " -> " +
-                                // yMia.getCodigo() + " -> " + destinoFinal);
-                                listaDeConexoes.add(origemInicial + ";" + xMia.getCodigo() + ";" + yMia.getCodigo()
-                                        + ";" + destinoFinal);
+                                    && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) {
+                                listaDeConexoes.add(origemInicial + ";" + xMia.getCodigo() + ";" + yMia.getCodigo() + ";" + destinoFinal);
                             }
                         });
                     });
@@ -297,8 +290,6 @@ public class GerenciadorRotas {
     }
 
     public HashSet<String> consulta4Arthur(Double tempoMax, Aeroporto origem) {
-        System.out.println("INDO");
-
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         HashSet<String> resultadoSemDups = new HashSet<>();
 
@@ -321,7 +312,6 @@ public class GerenciadorRotas {
                 }
             }
         }
-        System.out.println("FOI");
         return resultadoSemDups;
     }
 

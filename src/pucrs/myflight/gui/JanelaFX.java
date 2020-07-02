@@ -54,8 +54,6 @@ public class JanelaFX extends Application {
     private ComboBox<Aeroporto> comboAero1;
     private ComboBox<Aeroporto> comboAero2;
     private ComboBox<Double> comboHoras;
-
-    private static boolean consulta4Ativada = false; // isso ativa o mouse show aeroport
     Stage janela = new Stage();
 
     public void start(Stage primaryStage) throws Exception {
@@ -114,7 +112,6 @@ public class JanelaFX extends Application {
         });
 
         btnConsulta1.setOnAction(e -> {
-            consulta4Ativada = false;
             if (comboCia.getValue() != null) {
                 ArrayList<Rota> rotasDaCia = gerRotas.getRotasPorCia(comboCia.getValue().getCodigo());
                 gerCons.plotarAeroPorCia(gerenciador, rotasDaCia);
@@ -122,14 +119,12 @@ public class JanelaFX extends Application {
         });
 
         btnConsulta2.setOnAction(e -> {
-            consulta4Ativada = false;
             HashMap<String, Integer> traffic = gerRotas.getAirTraffic();
             gerCons.setTraffic(gerenciador, gerAero, traffic);
         });
 
 
         btnConsulta3.setOnAction(e -> {
-            consulta4Ativada = false;
             if (comboAero1.getValue() != null && comboAero2.getValue() != null) {
                 gerCons.consulta3(comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo(),gerenciador);
             }
@@ -137,17 +132,13 @@ public class JanelaFX extends Application {
         });
 
 
-        btnConsulta4.setOnAction(e -> {
-            consulta4Ativada = true;
-            
+        btnConsulta4.setOnAction(e -> {           
             if (clicado != null) {         
                 double tempoMax = BotarTempo.pegaHorario();       
                 gerenciador.clear();
                 HashSet<String> resultado = gerRotas.consulta4Arthur(tempoMax,clicado);         
                 gerCons.plotarNoMapa(gerenciador, gerAero, resultado);
-            }           
-
-            
+            }            
         });
 
         pane.setCenter(mapkit);

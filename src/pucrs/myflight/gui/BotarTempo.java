@@ -45,7 +45,7 @@ public class BotarTempo {
     private static boolean ehDouble(String valorX) {
         try {
             double valor = Double.parseDouble(valorX);
-            System.out.println("Horario selecionado " + valor);
+            // System.out.println("Horario selecionado " + valor);
             return true;
         } catch (Exception e) {
             System.out.println("erro " + valorX + " nao é um numero");
