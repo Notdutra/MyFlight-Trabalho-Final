@@ -145,9 +145,12 @@ public class JanelaFX extends Application {
             //consulta4Ativada = true;
             //double tempoMax = 2; // --------------------------------------------------------------------------
             // gerCons.consulta4(tempoMax, gerenciador, gerAero.buscarCodigo("POA"));
-            Aeroporto port = gerAero.buscarCodigo("POA");
-            HashSet<String> resultado = gerRotas.consulta4Arthur(port);         
-            gerCons.plotarNoMapa(gerenciador, gerAero, resultado);
+            if(comboAero1.getValue().getCodigo() != null){
+                gerenciador.clear();
+                Aeroporto port = gerAero.buscarCodigo(comboAero1.getValue().getCodigo());
+                HashSet<String> resultado = gerRotas.consulta4Arthur(port);         
+                gerCons.plotarNoMapa(gerenciador, gerAero, resultado);
+            }
         });
 
         pane.setCenter(mapkit);
