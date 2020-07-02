@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import pucrs.myflight.gui.BotarTempo;
 import pucrs.myflight.gui.GerenciadorConsultas;
 import sun.security.jca.GetInstance;
 
@@ -38,5 +39,6 @@ public class App {
    
         System.out.println("\n\nApp terminou");
 
+        
     }
 }
