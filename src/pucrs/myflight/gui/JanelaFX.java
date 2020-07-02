@@ -128,23 +128,29 @@ public class JanelaFX extends Application {
             HashMap<String, Integer> traffic = gerRotas.getAirTraffic();
             gerCons.setTraffic(gerenciador, gerAero, traffic);
         });
+
+
         btnConsulta3.setOnAction(e -> {
             consulta4Ativada = false;
-            gerCons.consulta3(comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo(),gerenciador);
+            if (comboAero1.getValue() != null && comboAero2.getValue() != null) {
+                gerCons.consulta3(comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo(),gerenciador);
+            }
+            
         });
-        btnConsulta4.setOnAction(e -> {
-            //consulta4Ativada = true;
-            //double tempoMax = 2; // --------------------------------------------------------------------------
-            // gerCons.consulta4(tempoMax, gerenciador, gerAero.buscarCodigo("POA"));
-            // if(comboAero1.getValue().getCodigo() != null){
-            //     gerenciador.clear();
-            //     Aeroporto port = gerAero.buscarCodigo(comboAero1.getValue().getCodigo());
-            //     HashSet<String> resultado = gerRotas.consulta4Arthur(port);         
-            //     gerCons.plotarNoMapa(gerenciador, gerAero, resultado);
-            // }
 
-            double valor = BotarTempo.pegaHorario();
-            System.out.println(valor);
+
+        btnConsulta4.setOnAction(e -> {
+            consulta4Ativada = true;
+            
+            if (clicado != null) {         
+                double tempoMax = BotarTempo.pegaHorario();       
+                gerenciador.clear();
+                HashSet<String> resultado = gerRotas.consulta4Arthur(tempoMax,clicado);         
+                gerCons.plotarNoMapa(gerenciador, gerAero, resultado);
+                System.out.println("operacao terminada");
+            }               
+
+            
         });
 
         pane.setCenter(mapkit);
@@ -205,7 +211,7 @@ public class JanelaFX extends Application {
                 clicado = gerCons.getAirportFromCoord(pos);
 
                 // inves de printar o 'clicado' ele tem q mostar o aeroporto no mapa
-                if (clicado != null && consulta4Ativada == false) {
+                if (clicado != null) {
                     System.out.println(clicado);
                     gerCons.mostarEsseAeroporto(gerenciador, clicado);
                 }

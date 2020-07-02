@@ -19,13 +19,15 @@ public class BotarTempo {
 
         Button btnSelecionar = new Button("Selecionar");
         btnSelecionar.setOnAction(e -> {
-            if (ehDouble(timeInput.getText()) == true) {
-                resposta = Double.parseDouble(timeInput.getText());
-                window.close();
-            } else {
-                timeInput.setPromptText("Digite um numero!");
-                timeInput.clear();
-                timeInput.setFocusTraversable(false);
+            if (timeInput != null) {
+                if (ehDouble(timeInput.getText()) == true) {
+                    resposta = Double.parseDouble(timeInput.getText());
+                    window.close();
+                } else {
+                    timeInput.setPromptText("Digite um numero!");
+                    timeInput.clear();
+                    timeInput.setFocusTraversable(false);
+                }
             }
         });
         VBox layout = new VBox(10);

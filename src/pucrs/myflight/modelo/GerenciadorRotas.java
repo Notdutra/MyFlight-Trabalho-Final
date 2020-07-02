@@ -302,21 +302,38 @@ public class GerenciadorRotas {
         return listaDeConexoes;
     }
 
-    public HashSet<String> consulta4Arthur(Aeroporto origem) {
+    public HashSet<String> consulta4Arthur(Double tempoMax, Aeroporto origem) {
         System.out.println("INDO");
+        Double dist = 0.0;
+        Double tempo = 0.0;
+
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         HashSet<String> resultadoSemDups = new HashSet<>();
-    
+
         ArrayList<Aeroporto> listaDeDestinosDaOrigem = gerRotas.pegaOrigemTest(origem);
         for (Aeroporto aeroPortoAtualX : listaDeDestinosDaOrigem) {
-            ArrayList<Aeroporto> listaDeDestinosDaX = gerRotas.pegaOrigemTest(aeroPortoAtualX);
-            for (Aeroporto aeroPortoAtualY : listaDeDestinosDaX) {
-                ArrayList<Aeroporto> listaDeDestinosFinais = gerRotas.pegaOrigemTest(aeroPortoAtualX);
-                for (Aeroporto aeroportoFinal : listaDeDestinosFinais) {
-                    if (!resultadoSemDups.contains(origem.getCodigo() + ";" + aeroPortoAtualX.getCodigo() + ";" + aeroPortoAtualY.getCodigo() + ":" + aeroportoFinal.getCodigo())) {
-                        resultadoSemDups.add(origem.getCodigo() + ";" + aeroPortoAtualX.getCodigo() + ";" + aeroPortoAtualY.getCodigo() + ":" + aeroportoFinal.getCodigo());
-                    }                    
-                }                
+            dist = origem.getLocal().distancia(aeroPortoAtualX.getLocal());
+            tempo = (dist / 805) + 1;
+            if (tempo <= tempoMax) {
+                ArrayList<Aeroporto> listaDeDestinosDaX = gerRotas.pegaOrigemTest(aeroPortoAtualX);
+                for (Aeroporto aeroPortoAtualY : listaDeDestinosDaX) {
+                    dist = origem.getLocal().distancia(aeroPortoAtualX.getLocal());
+                    tempo = (dist / 805) + 2;
+                    if (tempo <= tempoMax) {
+                        ArrayList<Aeroporto> listaDeDestinosFinais = gerRotas.pegaOrigemTest(aeroPortoAtualX);
+                        for (Aeroporto aeroportoFinal : listaDeDestinosFinais) {
+                            dist = origem.getLocal().distancia(aeroPortoAtualX.getLocal());
+                            tempo = (dist / 805) + 3;
+                            if (tempo <= tempoMax) {
+                                if (!resultadoSemDups.contains(origem.getCodigo() + ";" + aeroPortoAtualX.getCodigo()
+                                        + ";" + aeroPortoAtualY.getCodigo() + ":" + aeroportoFinal.getCodigo())) {
+                                    resultadoSemDups.add(origem.getCodigo() + ";" + aeroPortoAtualX.getCodigo() + ";"
+                                            + aeroPortoAtualY.getCodigo() + ":" + aeroportoFinal.getCodigo());
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         System.out.println("FOI");
