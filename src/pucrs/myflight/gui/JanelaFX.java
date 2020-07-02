@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -18,6 +19,7 @@ import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.viewer.GeoPosition;
 
 import javafx.application.Application;
+import javafx.beans.value.ObservableDoubleValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingNode;
@@ -27,8 +29,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.scene.control.*;
+import javafx.stage.*;
 // import pucrs.myflight.modelo.Aeroporto;
 // import pucrs.myflight.modelo.CiaAerea;
 // import pucrs.myflight.modelo.Geo;
@@ -60,8 +65,9 @@ public class JanelaFX extends Application {
     private ComboBox<CiaAerea> comboCia;
     private ComboBox<Aeroporto> comboAero1;
     private ComboBox<Aeroporto> comboAero2;
+    private ComboBox<Double> comboHoras;
 
-    private static boolean consulta4Ativada = true; // isso ativa o mouse show aeroport
+    private static boolean consulta4Ativada = false; // isso ativa o mouse show aeroport
     Stage janela = new Stage();
 
     public void start(Stage primaryStage) throws Exception {
@@ -89,7 +95,7 @@ public class JanelaFX extends Application {
         leftPane.setVgap(10);
         leftPane.setPadding(new Insets(10, 10, 10, 10));
 
-        Button btnConsultaExemplo = new Button("Consulta Exemplo");
+        Button btnLimpar = new Button("Limpar");
         Button btnConsulta1 = new Button("Consulta 1");
         Button btnConsulta2 = new Button("Consulta 2");
         Button btnConsulta3 = new Button("Consulta 3");
@@ -102,7 +108,10 @@ public class JanelaFX extends Application {
         ObservableList<Aeroporto> olAero2 = FXCollections.observableArrayList(gerAero.listarTodos());
         comboAero2 = new ComboBox<>(olAero2);
 
-        leftPane.add(btnConsultaExemplo, 0, 0);
+        comboHoras = new ComboBox<>();
+        comboHoras.setEditable(true);
+
+        leftPane.add(btnLimpar, 0, 0);
         leftPane.add(btnConsulta1, 1, 0);
         leftPane.add(btnConsulta2, 2, 0);
         leftPane.add(btnConsulta3, 3, 0);
@@ -111,8 +120,8 @@ public class JanelaFX extends Application {
         leftPane.add(comboAero1, 6, 0);
         leftPane.add(comboAero2, 7, 0);
 
-        btnConsultaExemplo.setOnAction(e -> {
-            consultaExeplo();
+        btnLimpar.setOnAction(e -> {
+            limpar();
         });
 
         btnConsulta1.setOnAction(e -> {
@@ -129,12 +138,16 @@ public class JanelaFX extends Application {
             gerCons.setTraffic(gerenciador, gerAero, traffic);
         });
         btnConsulta3.setOnAction(e -> {
-            gerCons.consulta3(gerAero, gerRotas, comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo(), gerenciador);
+            consulta4Ativada = false;
+            gerCons.consulta3(comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo(),gerenciador);
         });
         btnConsulta4.setOnAction(e -> {
-            consulta4Ativada = true;
-            gerCons.consulta4((double) 12, gerenciador, gerAero, gerRotas, gerAero.buscarCodigo("POA"));
-
+            //consulta4Ativada = true;
+            //double tempoMax = 2; // --------------------------------------------------------------------------
+            // gerCons.consulta4(tempoMax, gerenciador, gerAero.buscarCodigo("POA"));
+            Aeroporto port = gerAero.buscarCodigo("POA");
+            HashSet<String> resultado = gerRotas.consulta4Arthur(port);         
+            System.out.println(resultado);   
         });
 
         pane.setCenter(mapkit);
@@ -152,6 +165,20 @@ public class JanelaFX extends Application {
         if (resposta == true) {
             janela.close();
         }
+    }
+
+    private double inputHoras() {
+        Stage janelaHoras = new Stage();
+        VBox box = new VBox(20);
+        TextField horasField = new TextField();
+        Label commentlabel = new Label("Insira o tempo em horas");
+        Button addComment = new Button("inserir");
+        box.getChildren().addAll(commentlabel, horasField, addComment);
+        janelaHoras.setScene(new Scene(box, 250, 150));
+        janelaHoras.show();
+        String horas = horasField.getAccessibleText();
+        return Double.valueOf(horas);
+
     }
 
     // Inicializando os dados aqui...
@@ -173,13 +200,11 @@ public class JanelaFX extends Application {
 
     }
 
-    private void consultaExeplo() {
-        gerCons.consultaExemplo(gerenciador);
+    private void limpar() {
+        gerCons.limpar(gerenciador);
     }
 
-    private void consulta1() {
-        gerCons.consulta1(gerenciador, gerAero);
-    }
+    private static Aeroporto clicado;
 
     private class EventosMouse extends MouseAdapter {
         private int lastButton = -1;
@@ -189,19 +214,34 @@ public class JanelaFX extends Application {
             JXMapViewer mapa = gerenciador.getMapKit().getMainMap();
             GeoPosition loc = mapa.convertPointToGeoPosition(e.getPoint());
             lastButton = e.getButton();
-            if (lastButton == MouseEvent.BUTTON3 && consulta4Ativada == true) {
+            if (lastButton == MouseEvent.BUTTON3) {
                 gerenciador.setPosicao(loc);
                 gerenciador.getMapKit().repaint();
                 GeoPosition pos = gerenciador.getPosicao();
-                Aeroporto clicado = gerCons.getAirportFromCoord(pos);
+                clicado = gerCons.getAirportFromCoord(pos);
+
                 // inves de printar o 'clicado' ele tem q mostar o aeroporto no mapa
-                if (clicado != null) {
+                if (clicado != null && consulta4Ativada == false) {
                     System.out.println(clicado);
                     gerCons.mostarEsseAeroporto(gerenciador, clicado);
                 }
 
                 // System.out.println("-------" + pos);// pra pegar aeroporto fazer metodo q
                 // pega pos e encontra um aeroporto perto arredondando a coordenada
+            }
+
+            if (lastButton == MouseEvent.BUTTON1) {
+                gerenciador.setPosicao(loc);
+                gerenciador.getMapKit().repaint();
+                GeoPosition pos = gerenciador.getPosicao();
+
+                double longitude = pos.getLongitude();
+                double latitude = pos.getLatitude();
+                Geo posDaLinha = new Geo(latitude, longitude);
+                if (gerAero.getAirportFromGPS(posDaLinha) != null) {
+                    gerenciador.consulta4Marcar(posDaLinha);
+                }
+
             }
         }
     }

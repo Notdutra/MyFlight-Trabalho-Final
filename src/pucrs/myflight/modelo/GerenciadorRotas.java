@@ -113,12 +113,21 @@ public class GerenciadorRotas {
 
     public HashMap<Aeroporto, Aeroporto> pegaDestino(String codigo) {
         HashMap<Aeroporto, Aeroporto> resultado = new HashMap<>();
+
         for (Rota r : rotas) {
             if (r.getDestino().getCodigo().equalsIgnoreCase(codigo)) {
                 resultado.put(r.getOrigem(), r.getDestino());
+                System.out.println(resultado);
             }
         }
         return resultado;
+    }
+
+    public boolean ehDireto(Rota direta, Aeroporto origem, Aeroporto destino) {
+        if (direta.getOrigem().equals(origem) && direta.getDestino().equals(destino)) {
+            return true;
+        }
+        return false;
     }
 
     public HashMap<Aeroporto, Aeroporto> pegaOrigem(String codigo) {
@@ -130,6 +139,37 @@ public class GerenciadorRotas {
         }
         return resultado;
     }
+
+    public ArrayList<Aeroporto> pegaOrigemTest(Aeroporto origem) {
+        ArrayList<Aeroporto> resultado = new ArrayList<>();
+        for (Rota r : rotas) {
+            if (r.getOrigem().equals(origem)) {
+                resultado.add(r.getDestino());
+            }
+        }
+        return resultado;
+    }
+    //                        origem
+    public HashMap<Aeroporto, Aeroporto> pegaOrigemComTempo(String origem, double tempoMax) {
+        HashMap<Aeroporto, Aeroporto> resultado = new HashMap<>();
+        Aeroporto origemAero = gerAero.buscarCodigo(origem);
+        for (Rota r : rotas) {
+            double tempo = 0;
+            double dist = 0;
+            if (r.getOrigem().getCodigo().equalsIgnoreCase(origem)) {
+                Aeroporto atual = r.getDestino();
+                dist = atual.getLocal().distancia(origemAero.getLocal());
+                tempo = (dist / 805) + 1;
+                if (tempo <= tempoMax) {
+                    resultado.put(r.getDestino(), r.getOrigem());
+                }                
+            }
+        }
+        return resultado;
+    }
+
+
+
 
     public ArrayList<Rota> getRotasPorCia(String codCia) {
         ArrayList<Rota> rotasDaCia = new ArrayList<Rota>();
@@ -163,11 +203,58 @@ public class GerenciadorRotas {
 
     }
 
+    public ArrayList<String> acharRotaDiretaComTempo(String origem, String destino, double tempoLimite) {        
+        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+        HashMap<Aeroporto, Aeroporto> origemRota = gerRotas.pegaOrigem(origem); 
+
+        Aeroporto destinoFinal = gerAero.buscarCodigo(destino);        
+        // rotas com origem em poa
+        // key é x e value é poa
+        ArrayList<String> listaDireta = new ArrayList<>();
+
+        origemRota.entrySet().forEach(atual -> {
+            Aeroporto keyAtual = atual.getKey();
+            if (keyAtual.getCodigo().equalsIgnoreCase(destino)){
+                double tempo = 0;
+                double dist = 0;
+                dist = keyAtual.getLocal().distancia(destinoFinal.getLocal());
+                tempo = (dist / 805) + 1;
+                if (tempo <= tempoLimite) {
+                    listaDireta.add(origem + ";" + atual.getKey().getCodigo());
+                    System.out.println(origem + ";" + atual.getKey().getCodigo());
+                }
+                
+            }
+        });
+
+
+
+
+        return listaDireta;
+    }
+
+    public ArrayList<String> acharRotaDireta(String origem, String destino) {
+        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+        HashMap<Aeroporto, Aeroporto> origemRota = gerRotas.pegaOrigem(origem); // rotas com origem em poa
+        ArrayList<String> listaDireta = new ArrayList<>();
+        origemRota.entrySet().forEach(atual -> {
+            if (atual.getKey().getCodigo().equalsIgnoreCase(destino)){
+                listaDireta.add(origem + ";" + atual.getKey().getCodigo());
+            }
+        });
+
+        return listaDireta;
+    }
+
+
     public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
 
         HashMap<Aeroporto, Aeroporto> mapaOrigemInicial = gerRotas.pegaOrigem(origemInicial);
+        //chave = x value = origemInicial
+
         HashMap<Aeroporto, Aeroporto> mapaDestinoFinal = gerRotas.pegaDestino(destinoFinal);
+        // chave = y value = destinoFinal
 
         ArrayList<String> listaDeConexoes = new ArrayList<>();
         mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
@@ -213,5 +300,26 @@ public class GerenciadorRotas {
         });
         // String temp = (origemInicial + " -> " + aeroportoX + " -> " + destinoFinal);
         return listaDeConexoes;
+    }
+
+    public HashSet<String> consulta4Arthur(Aeroporto origem) {
+        System.out.println("INDO");
+        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+        HashSet<String> resultadoSemDups = new HashSet<>();
+    
+        ArrayList<Aeroporto> listaDeDestinosDaOrigem = gerRotas.pegaOrigemTest(origem);
+        for (Aeroporto aeroPortoAtualX : listaDeDestinosDaOrigem) {
+            ArrayList<Aeroporto> listaDeDestinosDaX = gerRotas.pegaOrigemTest(aeroPortoAtualX);
+            for (Aeroporto aeroPortoAtualY : listaDeDestinosDaX) {
+                ArrayList<Aeroporto> listaDeDestinosFinais = gerRotas.pegaOrigemTest(aeroPortoAtualX);
+                for (Aeroporto aeroportoFinal : listaDeDestinosFinais) {
+                    if (!resultadoSemDups.contains(origem.getCodigo() + ";" + aeroPortoAtualX.getCodigo() + ";" + aeroPortoAtualY.getCodigo() + ":" + aeroportoFinal.getCodigo())) {
+                        resultadoSemDups.add(origem.getCodigo() + ";" + aeroPortoAtualX.getCodigo() + ";" + aeroPortoAtualY.getCodigo() + ":" + aeroportoFinal.getCodigo());
+                    }                    
+                }                
+            }
+        }
+        System.out.println("FOI");
+        return resultadoSemDups;
     }
 }
