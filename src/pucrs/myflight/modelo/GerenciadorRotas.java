@@ -303,6 +303,7 @@ public class GerenciadorRotas {
     }
 
     public HashSet<String> consulta4Arthur(Aeroporto origem) {
+        System.out.println("INDO");
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         HashSet<String> resultadoSemDups = new HashSet<>();
     
@@ -312,12 +313,13 @@ public class GerenciadorRotas {
             for (Aeroporto aeroPortoAtualY : listaDeDestinosDaX) {
                 ArrayList<Aeroporto> listaDeDestinosFinais = gerRotas.pegaOrigemTest(aeroPortoAtualX);
                 for (Aeroporto aeroportoFinal : listaDeDestinosFinais) {
-                    if (!resultadoSemDups.contains("POA -> " + aeroPortoAtualX.getCodigo() + " -> " + aeroPortoAtualY.getCodigo() + " -> " + aeroportoFinal.getCodigo())) {
-                        resultadoSemDups.add("POA -> " + aeroPortoAtualX.getCodigo() + " -> " + aeroPortoAtualY.getCodigo() + " -> " + aeroportoFinal.getCodigo() + "\n");
+                    if (!resultadoSemDups.contains(origem.getCodigo() + ";" + aeroPortoAtualX.getCodigo() + ";" + aeroPortoAtualY.getCodigo() + ":" + aeroportoFinal.getCodigo())) {
+                        resultadoSemDups.add(origem.getCodigo() + ";" + aeroPortoAtualX.getCodigo() + ";" + aeroPortoAtualY.getCodigo() + ":" + aeroportoFinal.getCodigo());
                     }                    
                 }                
             }
         }
+        System.out.println("FOI");
         return resultadoSemDups;
     }
 }

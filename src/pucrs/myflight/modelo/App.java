@@ -35,9 +35,7 @@ public class App {
         gerAero.adicionar(new Aeroporto("POA", "Salgado Filho Intl", new Geo(-29.9939, -51.1711)));
 
         GerenciadorConsultas gerCon = GerenciadorConsultas.getInstance();
-        
-        Aeroporto poa = gerAero.buscarCodigo("POA");
-
+   
         System.out.println("\n\nApp terminou");
 
     }

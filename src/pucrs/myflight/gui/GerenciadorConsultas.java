@@ -173,33 +173,18 @@ public class GerenciadorConsultas {
 
     }
 
-    public void consulta4(Double tempoMax, GerenciadorMapa gerMapa, Aeroporto poa) {
-
+    public void consulta4(Double tempoMax, GerenciadorMapa gerMapa, Aeroporto origem) {
+        HashSet<String> resultado = gerRotas.consulta4Arthur(origem);
         double tempo = 0;
         double dist = 0;
 
+        
+        gerMapa.clear();
+        lstPoints.clear();
+        ArrayList<String> testando = new ArrayList<>(resultado);
+        plotarRota(testando, gerMapa);
     }
 
-    public HashSet<String> consulta4Arthur(Aeroporto origem) {
-        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
-        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
-        ArrayList<Rota> result = new ArrayList<>();
-        HashSet<String> resultadoSemDups = new HashSet<>();
-    
-        ArrayList<Aeroporto> listaDeDestinosDaOrigem = gerRotas.pegaOrigemTest(origem);
-        for (Aeroporto aeroPortoAtualX : listaDeDestinosDaOrigem) {
-            ArrayList<Aeroporto> listaDeDestinosDaX = gerRotas.pegaOrigemTest(aeroPortoAtualX);
-            for (Aeroporto aeroPortoAtualY : listaDeDestinosDaX) {
-                ArrayList<Aeroporto> listaDeDestinosFinais = gerRotas.pegaOrigemTest(aeroPortoAtualX);
-                for (Aeroporto aeroportoFinal : listaDeDestinosFinais) {
-                    if (!resultadoSemDups.contains("POA -> " + aeroPortoAtualX.getCodigo() + " -> " + aeroPortoAtualY.getCodigo() + " -> " + aeroportoFinal.getCodigo())) {
-                        resultadoSemDups.add("POA -> " + aeroPortoAtualX.getCodigo() + " -> " + aeroPortoAtualY.getCodigo() + " -> " + aeroportoFinal.getCodigo());
-                    }                    
-                }                
-            }
-        }
-        return resultadoSemDups;
-    }
 
     public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
@@ -257,10 +242,6 @@ public class GerenciadorConsultas {
 
     public void consulta3(String origem, String destino, GerenciadorMapa gerMapa) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
-        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
-
-        gerMapa.clear();
-        lstPoints.clear();
 
         ArrayList<String> direta = gerRotas.acharRotaDireta(origem, destino);
         ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(origem, destino);
@@ -272,10 +253,12 @@ public class GerenciadorConsultas {
         total.addAll(umaConex);
         total.addAll(duasConex);
         
-        plotarRota(total, gerAero, gerMapa);
+        plotarRota(total, gerMapa);
     }
 
-    public void plotarRota(ArrayList<String> rotas, GerenciadorAeroportos gerAero, GerenciadorMapa gerMapa) {
+    public void plotarRota(ArrayList<String> rotas, GerenciadorMapa gerMapa) {
+        System.out.println("PLOTANDO");
+        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
         lstPoints.clear();
         for (String s : rotas) {
             lstPoints.clear();
@@ -302,5 +285,6 @@ public class GerenciadorConsultas {
                 }
             }
         }
+        System.out.println("TERMINOU");
     }
 }
