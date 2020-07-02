@@ -173,28 +173,32 @@ public class GerenciadorConsultas {
 
     }
 
-    public void consulta4(Double tempoMax, GerenciadorMapa gerMapa, Aeroporto aero) {
-        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
-        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
-        
-        //ArrayList<Rota> result = new ArrayList<>();
+    public void consulta4(Double tempoMax, GerenciadorMapa gerMapa, Aeroporto poa) {
+
         double tempo = 0;
         double dist = 0;
 
-        for (Rota r : gerRotas.listarTodas()) {
-            if (r.getOrigem() == aero) {
-                dist = aero.getLocal().distancia(r.getDestino().getLocal());
-                tempo = (dist / 805) + 1;
-                if (tempo <= tempoMax) {
-                    Tracado tr2 = new Tracado();
-                    tr2.setWidth(1);
-                    tr2.setCor(Color.BLUE);
-                    tr2.addPonto(r.getOrigem().getLocal());
-                    tr2.addPonto(r.getDestino().getLocal());
-                    gerMapa.addTracado(tr2);
-                }
+    }
+
+    public HashSet<String> consulta4Arthur(Aeroporto origem) {
+        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
+        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+        ArrayList<Rota> result = new ArrayList<>();
+        HashSet<String> resultadoSemDups = new HashSet<>();
+    
+        ArrayList<Aeroporto> listaDeDestinosDaOrigem = gerRotas.pegaOrigemTest(origem);
+        for (Aeroporto aeroPortoAtualX : listaDeDestinosDaOrigem) {
+            ArrayList<Aeroporto> listaDeDestinosDaX = gerRotas.pegaOrigemTest(aeroPortoAtualX);
+            for (Aeroporto aeroPortoAtualY : listaDeDestinosDaX) {
+                ArrayList<Aeroporto> listaDeDestinosFinais = gerRotas.pegaOrigemTest(aeroPortoAtualX);
+                for (Aeroporto aeroportoFinal : listaDeDestinosFinais) {
+                    if (!resultadoSemDups.contains("POA -> " + aeroPortoAtualX.getCodigo() + " -> " + aeroPortoAtualY.getCodigo() + " -> " + aeroportoFinal.getCodigo())) {
+                        resultadoSemDups.add("POA -> " + aeroPortoAtualX.getCodigo() + " -> " + aeroPortoAtualY.getCodigo() + " -> " + aeroportoFinal.getCodigo());
+                    }                    
+                }                
             }
         }
+        return resultadoSemDups;
     }
 
     public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal) {
