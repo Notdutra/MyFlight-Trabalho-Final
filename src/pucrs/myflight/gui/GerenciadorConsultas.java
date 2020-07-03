@@ -249,6 +249,8 @@ public class GerenciadorConsultas {
         total.addAll(duasConex);
         
         plotarRota(total, gerMapa);
+        ListaDeRotas.todasRotas(total);
+        
     }
 
     public void plotarRota(ArrayList<String> rotas, GerenciadorMapa gerMapa) {
