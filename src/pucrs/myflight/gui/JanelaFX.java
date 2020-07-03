@@ -45,6 +45,7 @@ public class JanelaFX extends Application {
     private GerenciadorAeronaves gerAvioes;
     private GerenciadorAeroportos gerAero;
     private GerenciadorRotas gerRotas;
+    private GerenciadorPaises gerPaises;
 
     private GerenciadorMapa gerenciador;
 
@@ -87,6 +88,7 @@ public class JanelaFX extends Application {
         Button btnConsulta2 = new Button("Consulta 2");
         Button btnConsulta3 = new Button("Consulta 3");
         Button btnConsulta4 = new Button("Consulta 4");
+        Button btnConsulta5 = new Button("Consulta 5");
 
         ObservableList<CiaAerea> olCiaAerea = FXCollections.observableArrayList(gerCias.listarTodas());
         comboCia = new ComboBox<>(olCiaAerea);
@@ -106,9 +108,10 @@ public class JanelaFX extends Application {
         topPane.add(btnConsulta2, 2, 0);
         topPane.add(btnConsulta3, 3, 0);
         topPane.add(btnConsulta4, 4, 0);
-        topPane.add(comboCia, 5, 0);
-        topPane.add(comboAero1, 6, 0);
-        topPane.add(comboAero2, 7, 0);
+        topPane.add(btnConsulta5, 5, 0);
+        topPane.add(comboCia, 6, 0);
+        topPane.add(comboAero1, 7, 0);
+        topPane.add(comboAero2, 8, 0);
 
         btnLimpar.setOnAction(e -> {
             limpar();
@@ -146,6 +149,11 @@ public class JanelaFX extends Application {
             }            
         });
 
+        btnConsulta5.setOnAction(e -> {           
+            ArrayList<Aeroporto>listaDeAeroportos =  gerAero.listarTodos();
+            JanelaTurista.todasRotas(listaDeAeroportos, gerenciador);   
+        });
+
         pane.setCenter(mapkit);
         pane.setTop(topPane);
 
@@ -180,6 +188,9 @@ public class JanelaFX extends Application {
         // Load the routes to memory
         gerRotas = GerenciadorRotas.getInstance();
         gerRotas.carregaDados("routes.dat");
+        // Load the countries to memory
+        gerPaises = GerenciadorPaises.getInstance();
+        gerPaises.carregaDados("countries.dat");
 
     }
 
