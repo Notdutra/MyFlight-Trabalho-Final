@@ -128,6 +128,8 @@ public class JanelaFX extends Application {
             if (comboAero1.getValue() != null && comboAero2.getValue() != null) {
                 gerCons.consulta3(comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo(),gerenciador);
             }
+            gerCons.consulta3("POA", "MIA",gerenciador); // REMOVER DEPOIS ---------------------------------------------------------------------------------
+            System.out.println("isso tem que printar por ultimo");
             
         });
 
