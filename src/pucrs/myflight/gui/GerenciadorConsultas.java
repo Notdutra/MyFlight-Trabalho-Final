@@ -247,17 +247,21 @@ public class GerenciadorConsultas {
         total.addAll(direta);
         total.addAll(umaConex);
         total.addAll(duasConex);
+
+        plotarRota(total, gerMapa, Color.BLUE);
+        ArrayList<String> selecao = new ArrayList<>();
+    
+        selecao = ListaDeRotas.todasRotas(total,gerMapa);
+                
         
-        plotarRota(total, gerMapa);
     }
 
-    public void plotarRota(ArrayList<String> rotas, GerenciadorMapa gerMapa) {
-        System.out.println("PLOTANDO");
+    public void plotarRota(ArrayList<String> rotas, GerenciadorMapa gerMapa, Color cor) {
         GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
         lstPoints.clear();
         for (String s : rotas) {
             lstPoints.clear();
-            String[] aeros = s.split(";");
+            String[] aeros = s.split(";| -> |->");
             //System.out.println(aeros.length);
             int limite = aeros.length - 1;
             int ntraco = 0;
@@ -271,7 +275,7 @@ public class GerenciadorConsultas {
                     Aeroporto aeroDestino = gerAero.buscarCodigo(aeros[ntraco + 1]);
                     Tracado tr2 = new Tracado();
                     tr2.setWidth(1);
-                    tr2.setCor(Color.BLUE);
+                    tr2.setCor(cor);
                     tr2.addPonto(aeroOrigem.getLocal());
                     tr2.addPonto(aeroDestino.getLocal());
                     gerMapa.addTracado(tr2);
@@ -280,14 +284,13 @@ public class GerenciadorConsultas {
                 }
             }
         }
-        System.out.println("TERMINOU");
     }
 
 	public void plotarNoMapa(GerenciadorMapa gerenciador, GerenciadorAeroportos gerAero, HashSet<String> resultado) {
         HashSet<String> sanitizado = new HashSet<>();
 
         for(String s : resultado){
-            String[] dados = s.split(";|:");
+            String[] dados = s.split(";|:| -> ");
             for(String dado : dados){
                 sanitizado.add(dado);
             }
