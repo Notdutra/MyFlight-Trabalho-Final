@@ -250,19 +250,18 @@ public class GerenciadorConsultas {
 
         plotarRota(total, gerMapa, Color.BLUE);
         ArrayList<String> selecao = new ArrayList<>();
+    
         selecao = ListaDeRotas.todasRotas(total,gerMapa);
                 
         
     }
 
     public void plotarRota(ArrayList<String> rotas, GerenciadorMapa gerMapa, Color cor) {
-
-        System.out.println("PLOTANDO");
         GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
         lstPoints.clear();
         for (String s : rotas) {
             lstPoints.clear();
-            String[] aeros = s.split(";");
+            String[] aeros = s.split(";| -> |->");
             //System.out.println(aeros.length);
             int limite = aeros.length - 1;
             int ntraco = 0;
@@ -285,14 +284,13 @@ public class GerenciadorConsultas {
                 }
             }
         }
-        System.out.println("TERMINOU");
     }
 
 	public void plotarNoMapa(GerenciadorMapa gerenciador, GerenciadorAeroportos gerAero, HashSet<String> resultado) {
         HashSet<String> sanitizado = new HashSet<>();
 
         for(String s : resultado){
-            String[] dados = s.split(";|:");
+            String[] dados = s.split(";|:| -> ");
             for(String dado : dados){
                 sanitizado.add(dado);
             }

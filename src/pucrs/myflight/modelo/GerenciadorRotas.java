@@ -231,7 +231,7 @@ public class GerenciadorRotas {
         ArrayList<String> listaDireta = new ArrayList<>();
         origemRota.entrySet().forEach(atual -> {
             if (atual.getKey().getCodigo().equalsIgnoreCase(destino)) {
-                listaDireta.add(origem + ";" + atual.getKey().getCodigo());
+                listaDireta.add(origem + " -> " + atual.getKey().getCodigo());
             }
         });
 
@@ -251,7 +251,7 @@ public class GerenciadorRotas {
         mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
             mapaOrigemInicial.entrySet().forEach(origemAtual -> {
                 if (origemAtual.getKey().equals(destinoAtual.getKey())) {
-                    listaDeConexoes.add(origemInicial + ";" + origemAtual.getKey().getCodigo() + ";" + destinoFinal);
+                    listaDeConexoes.add(origemInicial + " -> " + origemAtual.getKey().getCodigo() + " -> " + destinoFinal);
 
                 }
             });
@@ -278,7 +278,7 @@ public class GerenciadorRotas {
                             Aeroporto yMia = chaveDeMiaFinal.getKey();
                             if (yMia.equals(chaveDoX.getKey())
                                     && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) {
-                                listaDeConexoes.add(origemInicial + ";" + xMia.getCodigo() + ";" + yMia.getCodigo() + ";" + destinoFinal);
+                                listaDeConexoes.add(origemInicial + " -> " + xMia.getCodigo() + " -> " + yMia.getCodigo() + " -> " + destinoFinal);
                             }
                         });
                     });
@@ -296,16 +296,16 @@ public class GerenciadorRotas {
         ArrayList<Aeroporto> listaDeDestinosDaOrigem = gerRotas.pegaOrigemTest(origem);
         for (Aeroporto aeroPortoAtualX : listaDeDestinosDaOrigem) {
             if (calcTempo(aeroPortoAtualX, origem) + 1 <= tempoMax) {
-                resultadoSemDups.add(origem.getCodigo() + ";" + aeroPortoAtualX.getCodigo());
+                resultadoSemDups.add(origem.getCodigo() + " -> " + aeroPortoAtualX.getCodigo());
                 ArrayList<Aeroporto> listaDeDestinosDaX = gerRotas.pegaOrigemTest(aeroPortoAtualX);
                 for (Aeroporto aeroPortoAtualY : listaDeDestinosDaX) {
                     if (calcTempo(aeroPortoAtualX, aeroPortoAtualY) + 2 <= tempoMax) {
-                        resultadoSemDups.add(aeroPortoAtualY.getCodigo() + ";" + aeroPortoAtualX.getCodigo());
+                        resultadoSemDups.add(aeroPortoAtualY.getCodigo() + " -> " + aeroPortoAtualX.getCodigo());
                         ArrayList<Aeroporto> listaDeDestinosFinais = gerRotas.pegaOrigemTest(aeroPortoAtualX);
                         for (Aeroporto aeroportoFinal : listaDeDestinosFinais) {
                             if (calcTempo(aeroPortoAtualY, aeroportoFinal) + 3 <= tempoMax) {
 
-                                resultadoSemDups.add(aeroPortoAtualY.getCodigo() + ";" + aeroportoFinal.getCodigo());
+                                resultadoSemDups.add(aeroPortoAtualY.getCodigo() + " -> " + aeroportoFinal.getCodigo());
                             }
                         }
                     }
