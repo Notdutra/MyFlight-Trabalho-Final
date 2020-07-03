@@ -45,7 +45,7 @@ public static HashSet<String> todasRotas() {
     // Scene
     scene = new Scene(layout, 300, 300);
     window.setScene(scene);
-    window.show();
+    window.showAndWait();
 
     return rotas;
 

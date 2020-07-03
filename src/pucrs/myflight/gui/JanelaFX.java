@@ -127,7 +127,9 @@ public class JanelaFX extends Application {
         btnConsulta3.setOnAction(e -> {
             if (comboAero1.getValue() != null && comboAero2.getValue() != null) {
                 gerCons.consulta3(comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo(),gerenciador);
+                ListaDeRotas.todasRotas();
             }
+            System.out.println("isso tem que printar por ultimo");
             
         });
 
