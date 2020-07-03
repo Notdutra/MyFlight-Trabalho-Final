@@ -78,6 +78,10 @@ public class GerenciadorRotas {
             String line = null;
             while ((line = reader.readLine()) != null) {
                 String[] dados = line.split(";| ");
+                if (line.matches(" ")) {
+                    continue;
+                }
+                
 
                 CiaAerea novaCiaAerea = gerCias.buscarCodigo(dados[0]);
                 Aeroporto novoOrigem = gerAero.buscarCodigo(dados[1]);

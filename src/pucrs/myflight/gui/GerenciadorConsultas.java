@@ -280,7 +280,6 @@ public class GerenciadorConsultas {
                     tr2.addPonto(aeroOrigem.getLocal());
                     tr2.addPonto(aeroDestino.getLocal());
                     gerMapa.addTracado(tr2);
-                    //System.out.println(ntraco);
                     ntraco += 1;
                 }
             }

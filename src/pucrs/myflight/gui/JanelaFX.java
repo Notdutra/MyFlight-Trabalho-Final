@@ -74,12 +74,13 @@ public class JanelaFX extends Application {
         createSwingContent(mapkit);
 
         BorderPane pane = new BorderPane();
-        GridPane leftPane = new GridPane();
+        GridPane topPane = new GridPane();
 
-        leftPane.setAlignment(Pos.CENTER);
-        leftPane.setHgap(10);
-        leftPane.setVgap(10);
-        leftPane.setPadding(new Insets(10, 10, 10, 10));
+        topPane.setAlignment(Pos.CENTER);
+        topPane.setHgap(10);
+        topPane.setVgap(10);
+        topPane.setPadding(new Insets(10, 10, 10, 10));
+        
 
         Button btnLimpar = new Button("Limpar");
         Button btnConsulta1 = new Button("Consulta 1");
@@ -89,22 +90,25 @@ public class JanelaFX extends Application {
 
         ObservableList<CiaAerea> olCiaAerea = FXCollections.observableArrayList(gerCias.listarTodas());
         comboCia = new ComboBox<>(olCiaAerea);
+        comboCia.promptTextProperty().set("Companhias Aéreas - Consulta 1");
         ObservableList<Aeroporto> olAero1 = FXCollections.observableArrayList(gerAero.listarTodos());
         comboAero1 = new ComboBox<>(olAero1);
+        comboAero1.promptTextProperty().set("Aeroporto de origem - Consulta 3");
         ObservableList<Aeroporto> olAero2 = FXCollections.observableArrayList(gerAero.listarTodos());
         comboAero2 = new ComboBox<>(olAero2);
+        comboAero2.promptTextProperty().set("Aeroporto de destino - Consulta 3");
 
         comboHoras = new ComboBox<>();
         comboHoras.setEditable(true);
 
-        leftPane.add(btnLimpar, 0, 0);
-        leftPane.add(btnConsulta1, 1, 0);
-        leftPane.add(btnConsulta2, 2, 0);
-        leftPane.add(btnConsulta3, 3, 0);
-        leftPane.add(btnConsulta4, 4, 0);
-        leftPane.add(comboCia, 5, 0);
-        leftPane.add(comboAero1, 6, 0);
-        leftPane.add(comboAero2, 7, 0);
+        topPane.add(btnLimpar, 0, 0);
+        topPane.add(btnConsulta1, 1, 0);
+        topPane.add(btnConsulta2, 2, 0);
+        topPane.add(btnConsulta3, 3, 0);
+        topPane.add(btnConsulta4, 4, 0);
+        topPane.add(comboCia, 5, 0);
+        topPane.add(comboAero1, 6, 0);
+        topPane.add(comboAero2, 7, 0);
 
         btnLimpar.setOnAction(e -> {
             limpar();
@@ -129,22 +133,21 @@ public class JanelaFX extends Application {
                 gerCons.consulta3(comboAero1.getValue().getCodigo(), comboAero2.getValue().getCodigo(),gerenciador);
             }
             gerCons.consulta3("POA", "MIA",gerenciador); // REMOVER DEPOIS ---------------------------------------------------------------------------------
-            System.out.println("isso tem que printar por ultimo");
             
         });
 
 
         btnConsulta4.setOnAction(e -> {           
-            if (clicado != null) {         
+            if (clicado != null) {
                 double tempoMax = BotarTempo.pegaHorario();       
-                gerenciador.clear();
+                gerCons.limpar(gerenciador);
                 HashSet<String> resultado = gerRotas.consulta4Arthur(tempoMax,clicado);         
                 gerCons.plotarNoMapa(gerenciador, gerAero, resultado);
             }            
         });
 
         pane.setCenter(mapkit);
-        pane.setTop(leftPane);
+        pane.setTop(topPane);
 
         Scene scene = new Scene(pane, 1000, 1000);
         janela.setScene(scene);
