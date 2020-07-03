@@ -247,13 +247,16 @@ public class GerenciadorConsultas {
         total.addAll(direta);
         total.addAll(umaConex);
         total.addAll(duasConex);
-        
-        plotarRota(total, gerMapa);
-        ListaDeRotas.todasRotas(total);
+
+        plotarRota(total, gerMapa, Color.BLUE);
+        ArrayList<String> selecao = new ArrayList<>();
+        selecao = ListaDeRotas.todasRotas(total,gerMapa);
+                
         
     }
 
-    public void plotarRota(ArrayList<String> rotas, GerenciadorMapa gerMapa) {
+    public void plotarRota(ArrayList<String> rotas, GerenciadorMapa gerMapa, Color cor) {
+
         System.out.println("PLOTANDO");
         GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
         lstPoints.clear();
@@ -273,7 +276,7 @@ public class GerenciadorConsultas {
                     Aeroporto aeroDestino = gerAero.buscarCodigo(aeros[ntraco + 1]);
                     Tracado tr2 = new Tracado();
                     tr2.setWidth(1);
-                    tr2.setCor(Color.BLUE);
+                    tr2.setCor(cor);
                     tr2.addPonto(aeroOrigem.getLocal());
                     tr2.addPonto(aeroDestino.getLocal());
                     gerMapa.addTracado(tr2);

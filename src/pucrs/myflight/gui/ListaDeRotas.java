@@ -5,6 +5,7 @@ import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -13,16 +14,15 @@ import javafx.geometry.*;
 
 public class ListaDeRotas {
 
-    static double resposta;
-
     private static Stage window;
     private static Scene scene;
     private static Button button;
     private static ListView<String> listView;
     private static ArrayList<String> rotas;
+    private static GerenciadorConsultas gc = GerenciadorConsultas.getInstance();
 
-
-public static ArrayList<String> todasRotas(ArrayList<String> total) {
+public static ArrayList<String> todasRotas(ArrayList<String> total, GerenciadorMapa gerMapa) {
+    
     window = new Stage();
     window.setTitle("Mapas com JavaFX");
 
@@ -33,7 +33,11 @@ public static ArrayList<String> todasRotas(ArrayList<String> total) {
 
     
     button = new Button("Selecionar");
-    button.setOnAction(e -> buttonClicked());
+    button.setOnAction(e -> {
+       rotas = buttonClicked();
+       gc.limpar(gerMapa);
+       gc.plotarRota(rotas, gerMapa, Color.RED);
+    });
 
 
     // VBox
@@ -50,20 +54,12 @@ public static ArrayList<String> todasRotas(ArrayList<String> total) {
 
 }
 
-private static void buttonClicked() {
-    String message = "";
-    ObservableList<String> movies;
-    movies = listView.getSelectionModel().getSelectedItems();
-
-    for (String movie : movies) {
-        message += movie + ";";
+    private static ArrayList<String> buttonClicked() {
+        ObservableList<String> rotas;
+        rotas = listView.getSelectionModel().getSelectedItems();
+        ArrayList<String> selecao = new ArrayList<>(rotas);
+        return selecao;
     }
-
-    System.out.println(message);
-
-    System.out.println("Deu?");
-
-}
 }
 
 
