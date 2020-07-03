@@ -1,16 +1,5 @@
 package pucrs.myflight.modelo;
 
-import java.security.KeyStore.Entry;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-
-import pucrs.myflight.gui.GerenciadorConsultas;
-import sun.security.jca.GetInstance;
-
 public class App {
 
     public static void main(String[] args) {
@@ -30,13 +19,6 @@ public class App {
 
         GerenciadorPaises gerPaises = GerenciadorPaises.getInstance();
         gerPaises.carregaDados("countries.dat");
-
-
-        gerAero.adicionar(new Aeroporto("POA", "Salgado Filho Intl", new Geo(-29.9939, -51.1711)));
-
-        GerenciadorConsultas gerCon = GerenciadorConsultas.getInstance();
-   
-        System.out.println("\n\nApp terminou");
-
+        System.out.println("tetas");
     }
 }

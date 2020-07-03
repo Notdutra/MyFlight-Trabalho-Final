@@ -71,7 +71,6 @@ public class GerenciadorRotas {
             System.out.println(rota + "\n");
         }
     }
-    
 
     public void carregaDados(String nomeArq) {
         Path path1 = Paths.get(nomeArq);
@@ -117,7 +116,6 @@ public class GerenciadorRotas {
         for (Rota r : rotas) {
             if (r.getDestino().getCodigo().equalsIgnoreCase(codigo)) {
                 resultado.put(r.getOrigem(), r.getDestino());
-                System.out.println(resultado);
             }
         }
         return resultado;
@@ -149,7 +147,8 @@ public class GerenciadorRotas {
         }
         return resultado;
     }
-    //                        origem
+
+    // origem
     public HashMap<Aeroporto, Aeroporto> pegaOrigemComTempo(String origem, double tempoMax) {
         HashMap<Aeroporto, Aeroporto> resultado = new HashMap<>();
         Aeroporto origemAero = gerAero.buscarCodigo(origem);
@@ -162,14 +161,11 @@ public class GerenciadorRotas {
                 tempo = (dist / 805) + 1;
                 if (tempo <= tempoMax) {
                     resultado.put(r.getDestino(), r.getOrigem());
-                }                
+                }
             }
         }
         return resultado;
     }
-
-
-
 
     public ArrayList<Rota> getRotasPorCia(String codCia) {
         ArrayList<Rota> rotasDaCia = new ArrayList<Rota>();
@@ -203,32 +199,28 @@ public class GerenciadorRotas {
 
     }
 
-    public ArrayList<String> acharRotaDiretaComTempo(String origem, String destino, double tempoLimite) {        
+    public ArrayList<String> acharRotaDiretaComTempo(String origem, String destino, double tempoLimite) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
-        HashMap<Aeroporto, Aeroporto> origemRota = gerRotas.pegaOrigem(origem); 
+        HashMap<Aeroporto, Aeroporto> origemRota = gerRotas.pegaOrigem(origem);
 
-        Aeroporto destinoFinal = gerAero.buscarCodigo(destino);        
+        Aeroporto destinoFinal = gerAero.buscarCodigo(destino);
         // rotas com origem em poa
         // key é x e value é poa
         ArrayList<String> listaDireta = new ArrayList<>();
 
         origemRota.entrySet().forEach(atual -> {
             Aeroporto keyAtual = atual.getKey();
-            if (keyAtual.getCodigo().equalsIgnoreCase(destino)){
+            if (keyAtual.getCodigo().equalsIgnoreCase(destino)) {
                 double tempo = 0;
                 double dist = 0;
                 dist = keyAtual.getLocal().distancia(destinoFinal.getLocal());
                 tempo = (dist / 805) + 1;
                 if (tempo <= tempoLimite) {
                     listaDireta.add(origem + ";" + atual.getKey().getCodigo());
-                    System.out.println(origem + ";" + atual.getKey().getCodigo());
                 }
-                
+
             }
         });
-
-
-
 
         return listaDireta;
     }
@@ -238,7 +230,7 @@ public class GerenciadorRotas {
         HashMap<Aeroporto, Aeroporto> origemRota = gerRotas.pegaOrigem(origem); // rotas com origem em poa
         ArrayList<String> listaDireta = new ArrayList<>();
         origemRota.entrySet().forEach(atual -> {
-            if (atual.getKey().getCodigo().equalsIgnoreCase(destino)){
+            if (atual.getKey().getCodigo().equalsIgnoreCase(destino)) {
                 listaDireta.add(origem + ";" + atual.getKey().getCodigo());
             }
         });
@@ -246,12 +238,11 @@ public class GerenciadorRotas {
         return listaDireta;
     }
 
-
     public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
 
         HashMap<Aeroporto, Aeroporto> mapaOrigemInicial = gerRotas.pegaOrigem(origemInicial);
-        //chave = x value = origemInicial
+        // chave = x value = origemInicial
 
         HashMap<Aeroporto, Aeroporto> mapaDestinoFinal = gerRotas.pegaDestino(destinoFinal);
         // chave = y value = destinoFinal
@@ -260,8 +251,7 @@ public class GerenciadorRotas {
         mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
             mapaOrigemInicial.entrySet().forEach(origemAtual -> {
                 if (origemAtual.getKey().equals(destinoAtual.getKey())) {
-                    // System.out.println(origemAtual.getKey().getCodigo()
-                    listaDeConexoes.add(origemInicial +";"+ origemAtual.getKey().getCodigo() +";"+ destinoFinal);
+                    listaDeConexoes.add(origemInicial + ";" + origemAtual.getKey().getCodigo() + ";" + destinoFinal);
 
                 }
             });
@@ -287,11 +277,8 @@ public class GerenciadorRotas {
                         mapaMia.entrySet().forEach(chaveDeMiaFinal -> {
                             Aeroporto yMia = chaveDeMiaFinal.getKey();
                             if (yMia.equals(chaveDoX.getKey())
-                                    && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) { // se x tem conexao com
-                                                                                               // mia
-                                // System.out.println(origemInicial + " -> " + xMia.getCodigo() + " -> " +
-                                // yMia.getCodigo() + " -> " + destinoFinal);
-                                listaDeConexoes.add(origemInicial +";"+ xMia.getCodigo() +";"+ yMia.getCodigo() +";"+ destinoFinal);
+                                    && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) {
+                                listaDeConexoes.add(origemInicial + ";" + xMia.getCodigo() + ";" + yMia.getCodigo() + ";" + destinoFinal);
                             }
                         });
                     });
@@ -302,24 +289,33 @@ public class GerenciadorRotas {
         return listaDeConexoes;
     }
 
-    public HashSet<String> consulta4Arthur(Aeroporto origem) {
-        System.out.println("INDO");
+    public HashSet<String> consulta4Arthur(Double tempoMax, Aeroporto origem) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         HashSet<String> resultadoSemDups = new HashSet<>();
-    
+
         ArrayList<Aeroporto> listaDeDestinosDaOrigem = gerRotas.pegaOrigemTest(origem);
         for (Aeroporto aeroPortoAtualX : listaDeDestinosDaOrigem) {
-            ArrayList<Aeroporto> listaDeDestinosDaX = gerRotas.pegaOrigemTest(aeroPortoAtualX);
-            for (Aeroporto aeroPortoAtualY : listaDeDestinosDaX) {
-                ArrayList<Aeroporto> listaDeDestinosFinais = gerRotas.pegaOrigemTest(aeroPortoAtualX);
-                for (Aeroporto aeroportoFinal : listaDeDestinosFinais) {
-                    if (!resultadoSemDups.contains(origem.getCodigo() + ";" + aeroPortoAtualX.getCodigo() + ";" + aeroPortoAtualY.getCodigo() + ":" + aeroportoFinal.getCodigo())) {
-                        resultadoSemDups.add(origem.getCodigo() + ";" + aeroPortoAtualX.getCodigo() + ";" + aeroPortoAtualY.getCodigo() + ":" + aeroportoFinal.getCodigo());
-                    }                    
-                }                
+            if (calcTempo(aeroPortoAtualX, origem) + 1 <= tempoMax) {
+                resultadoSemDups.add(origem.getCodigo() + ";" + aeroPortoAtualX.getCodigo());
+                ArrayList<Aeroporto> listaDeDestinosDaX = gerRotas.pegaOrigemTest(aeroPortoAtualX);
+                for (Aeroporto aeroPortoAtualY : listaDeDestinosDaX) {
+                    if (calcTempo(aeroPortoAtualX, aeroPortoAtualY) + 2 <= tempoMax) {
+                        resultadoSemDups.add(aeroPortoAtualY.getCodigo() + ";" + aeroPortoAtualX.getCodigo());
+                        ArrayList<Aeroporto> listaDeDestinosFinais = gerRotas.pegaOrigemTest(aeroPortoAtualX);
+                        for (Aeroporto aeroportoFinal : listaDeDestinosFinais) {
+                            if (calcTempo(aeroPortoAtualY, aeroportoFinal) + 3 <= tempoMax) {
+
+                                resultadoSemDups.add(aeroPortoAtualY.getCodigo() + ";" + aeroportoFinal.getCodigo());
+                            }
+                        }
+                    }
+                }
             }
         }
-        System.out.println("FOI");
         return resultadoSemDups;
+    }
+
+    public double calcTempo(Aeroporto origem, Aeroporto destino) {
+        return origem.getLocal().distancia(destino.getLocal()) / 805;
     }
 }

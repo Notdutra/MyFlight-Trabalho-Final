@@ -173,11 +173,11 @@ public class GerenciadorConsultas {
 
     }
 
-    public void consulta4(GerenciadorMapa gerMapa, Aeroporto origem) {
-        System.out.println(gerRotas.consulta4Arthur(origem));    
+    public void consulta4(GerenciadorMapa gerMapa, double tempoMax, Aeroporto origem) {
+        tempoMax = 0;
+        System.out.println(gerRotas.consulta4Arthur(tempoMax,origem));    
         // gerMapa.clear();
         // lstPoints.clear();
-        System.out.println("Acabei");
     }
 
 
