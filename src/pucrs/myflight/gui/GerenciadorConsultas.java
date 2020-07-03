@@ -13,7 +13,7 @@ import java.awt.Color;
 import pucrs.myflight.modelo.*;
 
 public class GerenciadorConsultas {
-    
+
     private static List<MyWaypoint> lstPoints = new ArrayList<>();
 
     private static GerenciadorConsultas instance;
@@ -80,7 +80,7 @@ public class GerenciadorConsultas {
         gerMapa.setPontos(lstPoints);
         gerMapa.clear();
         gerMapa.getMapKit().repaint();
-    
+
     }
 
     public void consulta1(GerenciadorMapa gerMapa, GerenciadorAeroportos gerAero) {
@@ -113,7 +113,6 @@ public class GerenciadorConsultas {
 
         HashSet<Aeroporto> aeroportosCiaOpera = new HashSet<Aeroporto>();
 
-
         for (Rota r : rotasDaCia) {
             if (!aeroportosCiaOpera.contains(r.getOrigem())) {
                 aeroportosCiaOpera.add(r.getOrigem());
@@ -140,7 +139,6 @@ public class GerenciadorConsultas {
         gerMapa.clear();
         lstPoints.clear();
 
-
         for (String s : traffic.keySet()) {
             Aeroporto temp = gerAero.buscarCodigo(s);
             int tamPonto = traffic.get(s) / 10;
@@ -156,9 +154,9 @@ public class GerenciadorConsultas {
     }
 
     public void mostarEsseAeroporto(GerenciadorMapa gerMapa, Aeroporto esseAeroporto) {
-        //List<MyWaypoint> lista = new ArrayList<MyWaypoint>();
+        // List<MyWaypoint> lista = new ArrayList<MyWaypoint>();
         lstPoints.add(new MyWaypoint(Color.GREEN, esseAeroporto.getCodigo(), esseAeroporto.getLocal(), 15));
-        //gerMapa.setPontos(lista);
+        // gerMapa.setPontos(lista);
         gerMapa.setPontos(lstPoints);
         gerMapa.getMapKit().repaint();
     }
@@ -175,11 +173,10 @@ public class GerenciadorConsultas {
 
     public void consulta4(GerenciadorMapa gerMapa, double tempoMax, Aeroporto origem) {
         tempoMax = 0;
-        System.out.println(gerRotas.consulta4Arthur(tempoMax,origem));    
+        System.out.println(gerRotas.consulta4Arthur(tempoMax, origem));
         // gerMapa.clear();
         // lstPoints.clear();
     }
-
 
     public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
@@ -247,7 +244,7 @@ public class GerenciadorConsultas {
         total.addAll(direta);
         total.addAll(umaConex);
         total.addAll(duasConex);
-        
+
         plotarRota(total, gerMapa);
     }
 
@@ -258,7 +255,7 @@ public class GerenciadorConsultas {
         for (String s : rotas) {
             lstPoints.clear();
             String[] aeros = s.split(";");
-            //System.out.println(aeros.length);
+            // System.out.println(aeros.length);
             int limite = aeros.length - 1;
             int ntraco = 0;
             for (String sAero : aeros) {
@@ -275,7 +272,7 @@ public class GerenciadorConsultas {
                     tr2.addPonto(aeroOrigem.getLocal());
                     tr2.addPonto(aeroDestino.getLocal());
                     gerMapa.addTracado(tr2);
-                    //System.out.println(ntraco);
+                    // System.out.println(ntraco);
                     ntraco += 1;
                 }
             }
@@ -283,19 +280,45 @@ public class GerenciadorConsultas {
         System.out.println("TERMINOU");
     }
 
-	public void plotarNoMapa(GerenciadorMapa gerenciador, GerenciadorAeroportos gerAero, HashSet<String> resultado) {
+    public void plotarNoMapa(GerenciadorMapa gerenciador, GerenciadorAeroportos gerAero, HashSet<String> resultado) {
         HashSet<String> sanitizado = new HashSet<>();
 
-        for(String s : resultado){
+        for (String s : resultado) {
             String[] dados = s.split(";|:");
-            for(String dado : dados){
+            for (String dado : dados) {
                 sanitizado.add(dado);
             }
         }
-        for(String s2 : sanitizado){
+        for (String s2 : sanitizado) {
             Aeroporto aero = gerAero.buscarCodigo(s2);
             mostarEsseAeroporto(gerenciador, aero);
         }
-        
-	}
+
+    }
+
+    public void consulta5(ArrayList<Aeroporto> listAero, GerenciadorAeroportos gerAero, GerenciadorRotas gerRotas) {
+        Aeroporto origem = listAero.get(0);// onde começa e onde acaba
+        Aeroporto atual;
+        for (Rota r : gerRotas.listarTodas()) {
+            for (Aeroporto a : listAero) {
+                atual = a;
+                if (r.getOrigem() == origem) {
+
+                }
+            }
+        }
+    }
+
+    public void plotaAero1AteAero2(GerenciadorMapa gerMapa, GerenciadorRotas gerRotas, Aeroporto a1, Aeroporto a2) {
+        for (Rota r : gerRotas.listarTodas()) {
+            if ((a1 == r.getDestino() && a2 == r.getOrigem())) {
+                Tracado tr2 = new Tracado();
+                tr2.setWidth(1);
+                tr2.setCor(Color.BLUE);
+                tr2.addPonto(a1.getLocal());
+                tr2.addPonto(a2.getLocal());
+                gerMapa.addTracado(tr2);
+            }
+        }
+    }
 }
