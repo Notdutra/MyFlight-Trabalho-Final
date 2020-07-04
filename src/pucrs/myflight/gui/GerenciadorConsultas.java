@@ -237,7 +237,7 @@ public class GerenciadorConsultas {
 
     public void consulta3(String origem, String destino, GerenciadorMapa gerMapa) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
-
+        //! ADD TIME SHIT
         ArrayList<String> direta = gerRotas.acharRotaDireta(origem, destino);
         ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(origem, destino);
         ArrayList<String> duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
@@ -261,7 +261,7 @@ public class GerenciadorConsultas {
         lstPoints.clear();
         for (String s : rotas) {
             lstPoints.clear();
-            String[] aeros = s.split(";| -> |->");
+            String[] aeros = s.split(";| -> |->| - Tempo aproximado total de vôo: .*? horas.|Codigo do aeroporto: | -  Pais: .*? .");
             //System.out.println(aeros.length);
             int limite = aeros.length - 1;
             int ntraco = 0;
@@ -279,7 +279,6 @@ public class GerenciadorConsultas {
                     tr2.addPonto(aeroOrigem.getLocal());
                     tr2.addPonto(aeroDestino.getLocal());
                     gerMapa.addTracado(tr2);
-                    //System.out.println(ntraco);
                     ntraco += 1;
                 }
             }

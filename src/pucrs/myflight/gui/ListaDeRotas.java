@@ -46,7 +46,7 @@ public static ArrayList<String> todasRotas(ArrayList<String> total, GerenciadorM
     layout.getChildren().addAll(button, listView);
 
     // Scene
-    scene = new Scene(layout, 300, 300);
+    scene = new Scene(layout, 480, 300);
     window.setScene(scene);
     window.showAndWait();
 
@@ -58,6 +58,7 @@ public static ArrayList<String> todasRotas(ArrayList<String> total, GerenciadorM
         ObservableList<String> rotas;
         rotas = listView.getSelectionModel().getSelectedItems();
         ArrayList<String> selecao = new ArrayList<>(rotas);
+        System.out.println(rotas);
         return selecao;
     }
 }

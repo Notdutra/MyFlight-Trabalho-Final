@@ -34,6 +34,15 @@ public class GerenciadorPaises {
         return new ArrayList<>(paises);
     }
 
+    public String pegaNomeDoPaisPorCodigo(String codigo) {
+        for (Pais pais : paises) {
+            if (pais.getCodigo().equalsIgnoreCase(codigo)) {
+                return pais.getNome();
+            }
+        }
+        return null;
+    }
+
     public Pais buscarCodigo(String codigo) {
         for (Pais p : paises){
             if (p.getCodigo().equals(codigo))
