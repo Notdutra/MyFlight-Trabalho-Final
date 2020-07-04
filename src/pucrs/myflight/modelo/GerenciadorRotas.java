@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -313,7 +314,7 @@ public class GerenciadorRotas {
         return listaDeConexoes;
     }
 
-    public HashSet<String> consulta4Arthur(Double tempoMax, Aeroporto origem) {
+    public HashSet<String> consulta4(Double tempoMax, Aeroporto origem) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         HashSet<String> resultadoSemDups = new HashSet<>();
 
@@ -337,6 +338,17 @@ public class GerenciadorRotas {
             }
         }
         return resultadoSemDups;
+    }
+
+    public ArrayList<String> consulta5(String origem, String destino) {
+        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
+
+        Aeroporto aeroportOrigem = gerAero.buscarCodigo(origem);
+        Aeroporto aeroportoDestino = gerAero.buscarCodigo(destino);
+
+
+
+        return null;
     }
 
     public double calcTempo(Aeroporto origem, Aeroporto destino) {

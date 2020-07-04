@@ -173,11 +173,21 @@ public class GerenciadorConsultas {
 
     }
 
-    public void consulta4(GerenciadorMapa gerMapa, double tempoMax, Aeroporto origem) {
-        tempoMax = 0;
-        System.out.println(gerRotas.consulta4Arthur(tempoMax,origem));    
-        // gerMapa.clear();
-        // lstPoints.clear();
+    public void consulta5(ArrayList<String> aeroportosDoRoteiro) {
+        ArrayList<String> aeroportosRepetidos = new ArrayList<>();
+
+        String aeroOrigem = JanelaTurista.getOrigem();
+        String aeroQuinto = JanelaTurista.getQuinto();
+
+        System.out.println("\n\n\nTeste do caralho");
+
+        for (int i = 0; i < aeroportosDoRoteiro.size(); i++) {
+            
+        }
+    
+
+        
+
     }
 
 
@@ -237,7 +247,6 @@ public class GerenciadorConsultas {
 
     public void consulta3(String origem, String destino, GerenciadorMapa gerMapa) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
-        //! ADD TIME SHIT
         ArrayList<String> direta = gerRotas.acharRotaDireta(origem, destino);
         ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(origem, destino);
         ArrayList<String> duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
@@ -249,9 +258,12 @@ public class GerenciadorConsultas {
         total.addAll(duasConex);
 
         plotarRota(total, gerMapa, Color.BLUE);
-        ArrayList<String> selecao = new ArrayList<>();
+
+        //* qq é isso----------------------------------
+        ArrayList<String> selecao = new ArrayList<>(); //* ver depois se selecao esta sendo utilizado 
     
         selecao = ListaDeRotas.todasRotas(total,gerMapa);
+        //*---------------------------------------------
                 
         
     }
@@ -266,20 +278,22 @@ public class GerenciadorConsultas {
             int limite = aeros.length - 1;
             int ntraco = 0;
             for (String sAero : aeros) {
-                Aeroporto aeroporto = gerAero.buscarCodigo(sAero);
-                lstPoints.add(new MyWaypoint(Color.GREEN, aeroporto.getCodigo(), aeroporto.getLocal(), 10));
-                gerMapa.setPontos(lstPoints);
-                gerMapa.getMapKit().repaint();
-                if (ntraco < limite) {
-                    Aeroporto aeroOrigem = gerAero.buscarCodigo(aeros[ntraco]);
-                    Aeroporto aeroDestino = gerAero.buscarCodigo(aeros[ntraco + 1]);
-                    Tracado tr2 = new Tracado();
-                    tr2.setWidth(1);
-                    tr2.setCor(cor);
-                    tr2.addPonto(aeroOrigem.getLocal());
-                    tr2.addPonto(aeroDestino.getLocal());
-                    gerMapa.addTracado(tr2);
-                    ntraco += 1;
+                if (!sAero.equalsIgnoreCase(";| -> |->| | - Tempo aproximado total de vôo: .*? horas.|Codigo do aeroporto: | -  Pais: .*? .")) {
+                    Aeroporto aeroporto = gerAero.buscarCodigo(sAero);
+                    lstPoints.add(new MyWaypoint(Color.GREEN, aeroporto.getCodigo(), aeroporto.getLocal(), 10));
+                    gerMapa.setPontos(lstPoints);
+                    gerMapa.getMapKit().repaint();
+                    if (ntraco < limite) {
+                        Aeroporto aeroOrigem = gerAero.buscarCodigo(aeros[ntraco]);
+                        Aeroporto aeroDestino = gerAero.buscarCodigo(aeros[ntraco + 1]);
+                        Tracado tr2 = new Tracado();
+                        tr2.setWidth(1);
+                        tr2.setCor(cor);
+                        tr2.addPonto(aeroOrigem.getLocal());
+                        tr2.addPonto(aeroDestino.getLocal());
+                        gerMapa.addTracado(tr2);
+                        ntraco += 1;
+                    }
                 }
             }
         }

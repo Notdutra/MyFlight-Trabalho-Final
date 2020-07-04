@@ -144,7 +144,7 @@ public class JanelaFX extends Application {
             if (clicado != null) {
                 double tempoMax = BotarTempo.pegaHorario();       
                 gerCons.limpar(gerenciador);
-                HashSet<String> resultado = gerRotas.consulta4Arthur(tempoMax,clicado);         
+                HashSet<String> resultado = gerRotas.consulta4(tempoMax,clicado);//! SERA QUE MUDAMOS ESSE CONSULTA4 PRA GERCONS????    
                 gerCons.plotarNoMapa(gerenciador, gerAero, resultado);
             }            
         });
@@ -153,9 +153,11 @@ public class JanelaFX extends Application {
             ArrayList<Aeroporto> listaDeAeroportos =  gerAero.listarTodos();
             ArrayList<String> resultado = JanelaTurista.todasRotas(listaDeAeroportos, gerenciador);
 
-            for (String string : resultado) { //TODO DELETAR ESSE FOR LOOP E CRIAR O METODO PARA LIDAR COM CONSULTA 5
-                System.out.println("\n" + string);
+            for (String aeroporto : resultado) {
+                System.out.println(aeroporto);
             }
+            //gerCons.consulta5(resultado);
+
         });
 
         pane.setCenter(mapkit);

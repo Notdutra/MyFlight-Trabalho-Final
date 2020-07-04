@@ -108,6 +108,41 @@ public class JanelaTurista {
 
     }
 
+    public static String getOrigem() {
+        if (origem != null) {
+            return origem;
+        }
+        return null;        
+    }
+
+    public static String getSegundo() {
+        if (segundo != null) {
+            return segundo;
+        }
+        return null; 
+    }
+
+    public static String getTerceiro() {
+        if (terceiro != null) {
+            return terceiro;
+        }
+        return null; 
+    }
+
+    public static String getQuarto() {
+        if (quarto != null) {
+            return quarto;
+        }
+        return null; 
+    }
+
+    public static String getQuinto() {
+        if (quinto != null) {
+            return quinto;
+        }
+        return null; 
+    }
+
     private static ArrayList<String> addRoute() {
         ObservableList<String> rotas;
         rotas = listView.getSelectionModel().getSelectedItems();
@@ -132,12 +167,16 @@ public class JanelaTurista {
 
         for (String pal : comDups) { 
             if (!semDups.contains(pal)) { 
-                semDups.add(pal); 
+                String[] x = pal.split("-> |->|Codigo do aeroporto: | |-  Pais: .*? .");
+                for (String somenteAeroPorto : x) {
+                    semDups.add(somenteAeroPorto);
+                }                 
             } 
         } 
+
+        
         return semDups; 
     } 
-
 
 }
 
