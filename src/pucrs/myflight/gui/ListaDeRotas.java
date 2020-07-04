@@ -58,6 +58,7 @@ public static ArrayList<String> todasRotas(ArrayList<String> total, GerenciadorM
         ObservableList<String> rotas;
         rotas = listView.getSelectionModel().getSelectedItems();
         ArrayList<String> selecao = new ArrayList<>(rotas);
+        System.out.println(rotas);
         return selecao;
     }
 }

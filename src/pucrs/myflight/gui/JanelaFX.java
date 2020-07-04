@@ -151,7 +151,7 @@ public class JanelaFX extends Application {
 
         btnConsulta5.setOnAction(e -> {           
             ArrayList<Aeroporto>listaDeAeroportos =  gerAero.listarTodos();
-            JanelaTurista.todasRotas(listaDeAeroportos, gerenciador);   
+            JanelaTurista.todasRotas(listaDeAeroportos, gerenciador);
         });
 
         pane.setCenter(mapkit);

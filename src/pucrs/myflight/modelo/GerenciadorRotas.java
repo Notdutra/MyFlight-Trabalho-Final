@@ -72,6 +72,8 @@ public class GerenciadorRotas {
         }
     }
 
+    
+
     public void carregaDados(String nomeArq) {
         Path path1 = Paths.get(nomeArq);
         try (BufferedReader reader = Files.newBufferedReader(path1, Charset.forName("utf8"))) {

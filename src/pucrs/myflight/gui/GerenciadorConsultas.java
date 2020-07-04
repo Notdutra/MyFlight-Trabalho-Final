@@ -261,8 +261,7 @@ public class GerenciadorConsultas {
         lstPoints.clear();
         for (String s : rotas) {
             lstPoints.clear();
-            //String newsValues = s.replaceAll(".*?jssdK));", "GaleryjssdK));");
-            String[] aeros = s.split(";| -> |->| - Tempo aproximado total de vôo: .*? horas.");
+            String[] aeros = s.split(";| -> |->| - Tempo aproximado total de vôo: .*? horas.|Codigo do aeroporto: | -  Pais: .*? .");
             //System.out.println(aeros.length);
             int limite = aeros.length - 1;
             int ntraco = 0;
