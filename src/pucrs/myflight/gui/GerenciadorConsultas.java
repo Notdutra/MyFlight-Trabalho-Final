@@ -6,9 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
 import org.jxmapviewer.viewer.GeoPosition;
 
 import java.awt.Color;
+import java.sql.Array;
 
 import pucrs.myflight.modelo.*;
 
@@ -173,14 +176,6 @@ public class GerenciadorConsultas {
 
     }
 
-    public void consulta4(GerenciadorMapa gerMapa, double tempoMax, Aeroporto origem) {
-        tempoMax = 0;
-        System.out.println(gerRotas.consulta4Arthur(tempoMax,origem));    
-        // gerMapa.clear();
-        // lstPoints.clear();
-    }
-
-
     public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
 
@@ -191,7 +186,6 @@ public class GerenciadorConsultas {
         mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
             mapaOrigemInicial.entrySet().forEach(origemAtual -> {
                 if (origemAtual.getKey().equals(destinoAtual.getKey())) {
-                    // System.out.println(origemAtual.getKey().getCodigo()
                     listaDeConexoes
                             .add(origemInicial + " -> " + origemAtual.getKey().getCodigo() + " -> " + destinoFinal);
 
@@ -219,10 +213,7 @@ public class GerenciadorConsultas {
                         mapaMia.entrySet().forEach(chaveDeMiaFinal -> {
                             Aeroporto yMia = chaveDeMiaFinal.getKey();
                             if (yMia.equals(chaveDoX.getKey())
-                                    && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) { // se x tem conexao com
-                                                                                               // mia
-                                // System.out.println(origemInicial + " -> " + xMia.getCodigo() + " -> " +
-                                // yMia.getCodigo() + " -> " + destinoFinal);
+                                    && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) { 
                                 listaDeConexoes.add(origemInicial + " -> " + xMia.getCodigo() + " -> "
                                         + yMia.getCodigo() + " -> " + destinoFinal);
                             }
@@ -237,7 +228,6 @@ public class GerenciadorConsultas {
 
     public void consulta3(String origem, String destino, GerenciadorMapa gerMapa) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
-        //! ADD TIME SHIT
         ArrayList<String> direta = gerRotas.acharRotaDireta(origem, destino);
         ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(origem, destino);
         ArrayList<String> duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
@@ -249,11 +239,129 @@ public class GerenciadorConsultas {
         total.addAll(duasConex);
 
         plotarRota(total, gerMapa, Color.BLUE);
-        ArrayList<String> selecao = new ArrayList<>();
+
+        //* qq é isso----------------------------------
+        ArrayList<String> selecao = new ArrayList<>(); //* ver depois se selecao esta sendo utilizado 
     
         selecao = ListaDeRotas.todasRotas(total,gerMapa);
-                
+        //*--------------------------------------------       
         
+    }
+
+    public ArrayList<String> consulta5(ArrayList<String> rotaTurista, GerenciadorMapa gerMapa) {
+        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
+        int numMaxDeAeroportos = -1;
+        
+
+       for (String string : rotaTurista) {
+            if (string == null) {
+                numMaxDeAeroportos = rotaTurista.indexOf(string);
+                break;
+            } else {
+                numMaxDeAeroportos ++;
+            }
+        }
+
+        ArrayList<String> temp = new ArrayList<>();
+        
+
+        for (int i = 0; i < numMaxDeAeroportos; i++) {
+            String origemAtual = rotaTurista.get(i);
+            String destinoAtual = rotaTurista.get(i+1);
+
+            temp.addAll(gerRotas.acharDireto5(origemAtual, destinoAtual));
+            temp.addAll(gerRotas.acharRotaComUmaConexao5(origemAtual, destinoAtual, rotaTurista));
+            temp.addAll(gerRotas.acharRotaComDuasConexoes5(origemAtual, destinoAtual, rotaTurista));
+        }
+
+        // HORA DE VOLTAR PRA CASA E FERIAS
+        String ultimoAeroporto = rotaTurista.get(rotaTurista.size()-1);
+        String casa = rotaTurista.get(0);
+
+        temp.addAll(gerRotas.acharDireto5(ultimoAeroporto, casa));
+        temp.addAll(gerRotas.voltarPraCasaComUmaConexoesConsulta5(ultimoAeroporto, casa));
+        temp.addAll(gerRotas.voltarPraCasaComDuasConexoesConsulta5(ultimoAeroporto, casa));
+        ArrayList<String> total = new ArrayList<>();
+        total.addAll(temp);
+
+    
+        ArrayList<String> organizado = organizacaoDeString(total, rotaTurista);
+
+        //                         consulta5PlotarComJanela(organizado, gerMapa, rotaTurista); 
+
+        return organizado;
+        
+    }
+
+
+    private ArrayList<String> organizacaoDeString(ArrayList<String> tudoJunto, ArrayList<String> rotaTurista) {
+        ArrayList<String> limpo = limpezaDeString(tudoJunto, rotaTurista);
+
+        String aeroOrigem = rotaTurista.get(0);
+        String aeroSegundo = rotaTurista.get(1);
+        String aeroTerceiro = rotaTurista.get(2);
+        String aeroQuarto = rotaTurista.get(3);
+        String aeroQuinto = rotaTurista.get(4);
+
+
+        ArrayList<String> listaOrigem = separacaoSmart(limpo, aeroOrigem);
+        ArrayList<String> listaSegundo = separacaoSmart(limpo, aeroSegundo);
+        ArrayList<String> listaTerceiro = separacaoSmart(limpo, aeroTerceiro);
+        ArrayList<String> listaQuarto = separacaoSmart(limpo, aeroQuarto);
+        ArrayList<String> listaQuinto = separacaoSmart(limpo, aeroQuinto);
+             
+        ArrayList<String> total = new ArrayList<>();
+        total.addAll(listaOrigem);
+        total.addAll(listaSegundo);
+        total.addAll(listaTerceiro);
+        total.addAll(listaQuarto);
+        total.addAll(listaQuinto);
+
+        // ArrayList<String> umComDois = juntarString(limpo, listaOrigem, aeroOrigem, listaSegundo, aeroSegundo);
+        // ArrayList<String> doisComTres = juntarString(limpo, umComDois, aeroSegundo, listaTerceiro, aeroTerceiro);
+        // ArrayList<String> tresComQuatro = juntarString(limpo, doisComTres, aeroTerceiro, listaQuarto, aeroQuarto);
+        // ArrayList<String> quatroComQuinco = juntarString(limpo, tresComQuatro, aeroQuarto, listaQuinto, aeroQuinto);
+    
+        return total;
+    }
+
+    private ArrayList<String> separacaoSmart(ArrayList<String> limpo, String isso) {
+        ArrayList<String> queComecaComIsso = new ArrayList<>();
+        for (String rota : limpo) {
+                if (rota.startsWith(isso)) {
+                    queComecaComIsso.add(rota);
+                    System.out.println(rota);
+                }
+            }
+            //queComecaComIsso.add("_______________________________________________");
+        return queComecaComIsso;
+    }
+
+    private ArrayList<String> limpezaDeString(ArrayList<String> tudoJunto, ArrayList<String> rotaTurista) {
+        ArrayList<String> limpo = new ArrayList<>();
+        
+        for (String s : tudoJunto) {
+            String[] aeros = s.split(" - .*?\\ horas.");
+            for (String sAero : aeros) {
+                if (sAero != (" |") || sAero != null) {
+                    limpo.add(sAero);
+                }
+            }
+        }
+
+        return limpo;
+
+    }
+
+    private void consulta5PlotarComJanela(ArrayList<String> total, GerenciadorMapa gerMapa, ArrayList<String> rotaTurista) {
+        // DisplayFinal.todasRotas(total, gerMapa, rotaTurista);
+        plotarRota(total, gerMapa, Color.BLUE);
+
+        ArrayList<String> selecao = new ArrayList<>();
+        // ta sendo utilizado sim vs retardado
+    
+        //selecao = DisplayFinal.todasRotas(total,gerMapa, rotaTurista);
     }
 
     public void plotarRota(ArrayList<String> rotas, GerenciadorMapa gerMapa, Color cor) {
@@ -262,24 +370,25 @@ public class GerenciadorConsultas {
         for (String s : rotas) {
             lstPoints.clear();
             String[] aeros = s.split(";| -> |->| - Tempo aproximado total de vôo: .*? horas.|Codigo do aeroporto: | -  Pais: .*? .");
-            //System.out.println(aeros.length);
             int limite = aeros.length - 1;
             int ntraco = 0;
             for (String sAero : aeros) {
-                Aeroporto aeroporto = gerAero.buscarCodigo(sAero);
-                lstPoints.add(new MyWaypoint(Color.GREEN, aeroporto.getCodigo(), aeroporto.getLocal(), 10));
-                gerMapa.setPontos(lstPoints);
-                gerMapa.getMapKit().repaint();
-                if (ntraco < limite) {
-                    Aeroporto aeroOrigem = gerAero.buscarCodigo(aeros[ntraco]);
-                    Aeroporto aeroDestino = gerAero.buscarCodigo(aeros[ntraco + 1]);
-                    Tracado tr2 = new Tracado();
-                    tr2.setWidth(1);
-                    tr2.setCor(cor);
-                    tr2.addPonto(aeroOrigem.getLocal());
-                    tr2.addPonto(aeroDestino.getLocal());
-                    gerMapa.addTracado(tr2);
-                    ntraco += 1;
+                if (!sAero.equalsIgnoreCase(";| -> |->| | - Tempo aproximado total de vôo: .*? horas.|Codigo do aeroporto: | -  Pais: .*? .")) {
+                    Aeroporto aeroporto = gerAero.buscarCodigo(sAero);
+                    lstPoints.add(new MyWaypoint(Color.GREEN, aeroporto.getCodigo(), aeroporto.getLocal(), 10));
+                    gerMapa.setPontos(lstPoints);
+                    gerMapa.getMapKit().repaint();
+                    if (ntraco < limite) {
+                        Aeroporto aeroOrigem = gerAero.buscarCodigo(aeros[ntraco]);
+                        Aeroporto aeroDestino = gerAero.buscarCodigo(aeros[ntraco + 1]);
+                        Tracado tr2 = new Tracado();
+                        tr2.setWidth(1);
+                        tr2.setCor(cor);
+                        tr2.addPonto(aeroOrigem.getLocal());
+                        tr2.addPonto(aeroDestino.getLocal());
+                        gerMapa.addTracado(tr2);
+                        ntraco += 1;
+                    }
                 }
             }
         }
@@ -299,5 +408,36 @@ public class GerenciadorConsultas {
             mostarEsseAeroporto(gerenciador, aero);
         }
         
-	}
+    }
+    
+    
+    public ArrayList<String> getListaOrigem(ArrayList<String> limpo, ArrayList<String> rotaTurista) {
+        String aeroOrigem = rotaTurista.get(0);
+        ArrayList<String> listaOrigem = separacaoSmart(limpo, aeroOrigem);
+        return listaOrigem;
+    }
+
+    public ArrayList<String> getListaSegundo(ArrayList<String> limpo, ArrayList<String> rotaTurista) {
+        String aeroSegundo = rotaTurista.get(1);    
+        ArrayList<String> listaSegundo = separacaoSmart(limpo, aeroSegundo);
+        return listaSegundo;
+    }
+
+    public ArrayList<String> getListaTerceiro(ArrayList<String> limpo, ArrayList<String> rotaTurista) {
+        String aeroTerceiro = rotaTurista.get(2);
+        ArrayList<String> listaTerceiro = separacaoSmart(limpo, aeroTerceiro);
+        return listaTerceiro;
+    }
+
+    public ArrayList<String> getListaQuarto(ArrayList<String> limpo, ArrayList<String> rotaTurista) {
+        String aeroQuarto = rotaTurista.get(3);
+        ArrayList<String> listaQuarto = separacaoSmart(limpo, aeroQuarto);
+        return listaQuarto;
+    }
+
+    public ArrayList<String> getListaQuinto(ArrayList<String> limpo, ArrayList<String> rotaTurista) {
+        String aeroQuinto = rotaTurista.get(4);
+        ArrayList<String> listaQuinto = separacaoSmart(limpo, aeroQuinto);
+        return listaQuinto;
+    }
 }

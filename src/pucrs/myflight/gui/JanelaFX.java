@@ -1,3 +1,19 @@
+/**
+ *                 -----------------------------------------------------------------------------------------
+                    |   __  __       ______ _ _       _     _         _              _____            _     |
+                    |   |  \/  |     |  ____| (_)     | |   | |       | |            / ____|          (_)   |
+                    |   | \  / |_   _| |__  | |_  __ _| |__ | |_    __| | ___  ___  | |  __ _   _ _ __ _    |
+                    |   | |\/| | | | |  __| | | |/ _` | '_ \| __|  / _` |/ _ \/ __| | | |_ | | | | '__| |   |
+                    |   | |  | | |_| | |    | | | (_| | | | | |_  | (_| | (_) \__ \ | |__| | |_| | |  | |   |
+                    |   |_|  |_|\__, |_|    |_|_|\__, |_| |_|\__|  \__,_|\___/|___/  \_____|\__,_|_|  |_|   |
+                    |           __/ |            __/ |                                                      | 
+                    |           |___/            |___/                                                      |
+                    |                                                                                       |
+                    -----------------------------------------------------------------------------------------
+                                    Coded by: Arthur Dutra, Gustavo Batista, Henrique Zwetsch                                                  
+*/
+
+
 package pucrs.myflight.gui;
 
 import java.awt.event.MouseAdapter;
@@ -144,18 +160,36 @@ public class JanelaFX extends Application {
             if (clicado != null) {
                 double tempoMax = BotarTempo.pegaHorario();       
                 gerCons.limpar(gerenciador);
-                HashSet<String> resultado = gerRotas.consulta4Arthur(tempoMax,clicado);         
+                HashSet<String> resultado = gerRotas.consulta4(tempoMax,clicado);//! SERA QUE MUDAMOS ESSE CONSULTA4 PRA GERCONS????    
                 gerCons.plotarNoMapa(gerenciador, gerAero, resultado);
             }            
         });
 
-        btnConsulta5.setOnAction(e -> {           
+        btnConsulta5.setOnAction(e -> {
+            gerCons.limpar(gerenciador);
             ArrayList<Aeroporto> listaDeAeroportos =  gerAero.listarTodos();
-            ArrayList<String> resultado = JanelaTurista.todasRotas(listaDeAeroportos, gerenciador);
+            ArrayList<String> rotaTurista = JanelaTurista.todasRotas(listaDeAeroportos, gerenciador);
+            
+            ArrayList<String> limpo = gerCons.consulta5(rotaTurista, gerenciador);
+            
+            ArrayList<String> listaOrigem = gerCons.getListaOrigem(limpo, rotaTurista);            
+            if (DisplayFinal.todasRotas(listaOrigem, gerenciador)) {
+                ArrayList<String> listaSegundo = gerCons.getListaSegundo(limpo, rotaTurista);
+                if (DisplayFinal.todasRotas(listaSegundo, gerenciador)) {
+                    ArrayList<String> listaTerceiro = gerCons.getListaTerceiro(limpo, rotaTurista);
+                    if (DisplayFinal.todasRotas(listaTerceiro, gerenciador)) {
+                        ArrayList<String> listaQuarto = gerCons.getListaQuarto(limpo, rotaTurista);
+                        if (DisplayFinal.todasRotas(listaQuarto, gerenciador)) {
+                            ArrayList<String> listaQuinto = gerCons.getListaQuinto(limpo, rotaTurista);
+                            if (DisplayFinal.todasRotas(listaQuinto, gerenciador)) {                                
+                            }return;                            
+                        } return;
+                    } return;
+                } return;
+            } return;
+            
 
-            for (String string : resultado) { //TODO DELETAR ESSE FOR LOOP E CRIAR O METODO PARA LIDAR COM CONSULTA 5
-                System.out.println("\n" + string);
-            }
+                        
         });
 
         pane.setCenter(mapkit);
@@ -220,12 +254,8 @@ public class JanelaFX extends Application {
 
                 // inves de printar o 'clicado' ele tem q mostar o aeroporto no mapa
                 if (clicado != null) {
-                    System.out.println(clicado);
                     gerCons.mostarEsseAeroporto(gerenciador, clicado);
                 }
-
-                // System.out.println("-------" + pos);// pra pegar aeroporto fazer metodo q
-                // pega pos e encontra um aeroporto perto arredondando a coordenada
             }
 
             if (lastButton == MouseEvent.BUTTON1) {

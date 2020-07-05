@@ -2,6 +2,7 @@ package pucrs.myflight.gui;
 
 import javafx.stage.*;
 import pucrs.myflight.modelo.Aeroporto;
+import pucrs.myflight.modelo.GerenciadorAeroportos;
 import pucrs.myflight.modelo.GerenciadorPaises;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -15,7 +16,7 @@ public class JanelaTurista {
     private static Scene scene;
     private static ListView<String> listView;
 
-    private static ArrayList<String> temporario = new ArrayList<>();
+    private static ArrayList<String> semDupsorario = new ArrayList<>();
     private static ArrayList<String> total = new ArrayList<>();
 
     private static String origem = "";
@@ -25,6 +26,8 @@ public class JanelaTurista {
     private static String quinto = "";
 
     public static ArrayList<String> todasRotas(ArrayList<Aeroporto> listaDeAeroportos, GerenciadorMapa gerMapa) {
+        total.clear();
+        semDupsorario.clear();
         GerenciadorPaises gerPaises = GerenciadorPaises.getInstance();
         
         window = new Stage();
@@ -32,7 +35,7 @@ public class JanelaTurista {
 
         ArrayList<String> codigoDosAeroportos = new ArrayList<>();
         for (Aeroporto aeroporto : listaDeAeroportos) {
-            codigoDosAeroportos.add("Codigo do aeroporto: " + aeroporto.getCodigo() + " -  Pais: " + gerPaises.pegaNomeDoPaisPorCodigo(aeroporto.getNome()) + ".");
+            codigoDosAeroportos.add("Codigo do aeroporto: " + aeroporto.getCodigo() + " - Pais: " + gerPaises.pegaNomeDoPaisPorCodigo(aeroporto.getNome()) + ".");
         }
 
         listView = new ListView<>();
@@ -44,44 +47,51 @@ public class JanelaTurista {
         Button btnSegundo = new Button("Segundo");
         Button btnTerceiro = new Button("Terceiro");
         Button btnQuarto = new Button("Quarto");
-        Button btnQuinto = new Button("Quinto");        
-
+        Button btnQuinto = new Button("Quinto");      
+        
+        ArrayList<String> duranteOsTest = new ArrayList<>();
+        duranteOsTest.add("POA");
+        duranteOsTest.add("LAX");
+        duranteOsTest.add("JFK");
+        duranteOsTest.add("FRA");
+        duranteOsTest.add("MIA");
+        //POA -> LAX -> JFK -> FRA -> MIA
         btnOrigem.setOnAction( e ->{
             origem = "";
-            temporario = addRoute();            
-            for (String pal : temporario) {
+            semDupsorario = addRoute();            
+            for (String pal : semDupsorario) {
                 origem += pal;
             }
         });
 
         btnSegundo.setOnAction( e ->{
             segundo = "";
-            temporario = addRoute();            
-            for (String pal : temporario) {
+            semDupsorario = addRoute();            
+            for (String pal : semDupsorario) {
                 segundo += pal;
             }
         });
 
         btnTerceiro.setOnAction( e ->{
             terceiro = "";
-            temporario = addRoute();            
-            for (String pal : temporario) {
+            semDupsorario = addRoute();            
+            for (String pal : semDupsorario) {
                 terceiro += pal;
             }
         });
 
         btnQuarto.setOnAction( e ->{
             quarto = "";
-            temporario = addRoute();            
-            for (String pal : temporario) {
+            semDupsorario = addRoute();            
+            for (String pal : semDupsorario) {
                 quarto += pal;
             }
         });
 
         btnQuinto.setOnAction( e ->{
             quinto = "";
-            temporario = addRoute();            
-            for (String pal : temporario) {
+            semDupsorario = addRoute();            
+            for (String pal : semDupsorario) {
                 quinto += pal;
             }
         });        
@@ -104,8 +114,47 @@ public class JanelaTurista {
         window.setScene(scene);
         window.showAndWait();
 
-        return tirarDuplicados(total);
+        
+        
+        return duranteOsTest; //! REMOVER ISSO QUANDO FOR ENTREGAR PRO SOR
+        //return tirarDuplicados(total); //! E BOTAR ESSA
 
+        
+    }
+
+    public static String getOrigem() {
+        if (origem != null) {
+            return origem;
+        }
+        return null;        
+    }
+
+    public static String getSegundo() {
+        if (segundo != null) {
+            return segundo;
+        }
+        return null; 
+    }
+
+    public static String getTerceiro() {
+        if (terceiro != null) {
+            return terceiro;
+        }
+        return null; 
+    }
+
+    public static String getQuarto() {
+        if (quarto != null) {
+            return quarto;
+        }
+        return null; 
+    }
+
+    public static String getQuinto() {
+        if (quinto != null) {
+            return quinto;
+        }
+        return null; 
     }
 
     private static ArrayList<String> addRoute() {
@@ -124,20 +173,44 @@ public class JanelaTurista {
         juntando.add(quarto);
         juntando.add(quinto);
 
+        if (juntando == null) {
+            juntando.add("POA");
+            juntando.add("GRU");
+            juntando.add("LIS");
+            juntando.add("YZZ");
+            juntando.add("JFK");
+        }
+
         return juntando;
     }
 
-    private static ArrayList<String> tirarDuplicados(ArrayList<String> comDups) { 
-        ArrayList<String> semDups = new ArrayList<String>(); 
 
-        for (String pal : comDups) { 
-            if (!semDups.contains(pal)) { 
-                semDups.add(pal); 
-            } 
-        } 
-        return semDups; 
-    } 
+    //("Codigo do aeroporto: " + aeroporto.getCodigo() + " -  Pais: " + gerPaises.pegaNomeDoPaisPorCodigo(aeroporto.getNome()) + ".");
 
+    private static ArrayList<String> tirarDuplicados(ArrayList<String> comDups) {
+        ArrayList<String> temp = new ArrayList<>();
+        
+        for (String s : comDups) {
+            String[] aeros = s.split("Codigo do aeroporto: | - .*?\\.");
+            for (String sAero : aeros) {
+                if (sAero != (" |") || sAero != null) {
+                    temp.add(sAero);                    
+                }
+            }
+        }
+        
+        ArrayList<String> semDups = new ArrayList<>();
+
+        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
+        for (String string : temp) {
+            if (gerAero.buscarCodigo(string) != null) {
+                semDups.add(string);
+            }
+        }       
+
+        
+        return semDups;
+    }
 
 }
 
