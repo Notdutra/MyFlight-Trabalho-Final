@@ -296,7 +296,7 @@ public class JanelaFX extends Application {
     private static void tocarMusica() {
         
         try {
-            musicPath = new File("HomemMacaco.wav");
+            musicPath = new File("ElaPartiu.wav");
             if (musicPath.exists()) {
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
                 clip = AudioSystem.getClip();
