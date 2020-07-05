@@ -13,11 +13,12 @@
                                     Coded by: Arthur Dutra, Gustavo Batista, Henrique Zwetsch                                                  
 */
 
-
 package pucrs.myflight.gui;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -79,11 +80,12 @@ public class JanelaFX extends Application {
 
     public void start(Stage primaryStage) throws Exception {
         janela = primaryStage;
+        tocarMusica();
         primaryStage.setOnCloseRequest(e -> {
             e.consume();
             closeProgram();
         });
-
+ 
         setup();
 
         GeoPosition poa = new GeoPosition(-30.05, -51.18);
@@ -285,6 +287,37 @@ public class JanelaFX extends Application {
                 swingNode.setContent(gerenciador.getMapKit());
             }
         });
+    }
+
+
+    private static File musicPath;
+    private static Clip clip;
+    
+    private static void tocarMusica() {
+        
+        try {
+            musicPath = new File("HomemMacaco.wav");
+            if (musicPath.exists()) {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                clip = AudioSystem.getClip();
+                //clip.loop(clip.LOOP_CONTINUOUSLY);
+                try {
+                    clip.open(audioInput);
+                } catch (final LineUnavailableException e) {
+                    System.out.println("Erro fatal");
+                    e.printStackTrace();
+                } catch (final IOException e) {
+                    System.out.println("Erro fatal");
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("erro na musica");
+            }
+        } catch (final Exception e) {
+            System.out.println("erro na musica");
+        }
+        clip.start();
+        System.out.println("Carregou");
     }
 
 }
