@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
 import org.jxmapviewer.viewer.GeoPosition;
 
 import java.awt.Color;
@@ -184,7 +186,6 @@ public class GerenciadorConsultas {
         mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
             mapaOrigemInicial.entrySet().forEach(origemAtual -> {
                 if (origemAtual.getKey().equals(destinoAtual.getKey())) {
-                    // System.out.println(origemAtual.getKey().getCodigo()
                     listaDeConexoes
                             .add(origemInicial + " -> " + origemAtual.getKey().getCodigo() + " -> " + destinoFinal);
 
@@ -212,10 +213,7 @@ public class GerenciadorConsultas {
                         mapaMia.entrySet().forEach(chaveDeMiaFinal -> {
                             Aeroporto yMia = chaveDeMiaFinal.getKey();
                             if (yMia.equals(chaveDoX.getKey())
-                                    && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) { // se x tem conexao com
-                                                                                               // mia
-                                // System.out.println(origemInicial + " -> " + xMia.getCodigo() + " -> " +
-                                // yMia.getCodigo() + " -> " + destinoFinal);
+                                    && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) { 
                                 listaDeConexoes.add(origemInicial + " -> " + xMia.getCodigo() + " -> "
                                         + yMia.getCodigo() + " -> " + destinoFinal);
                             }
@@ -252,21 +250,95 @@ public class GerenciadorConsultas {
 
     public void consulta5(ArrayList<String> rotaTurista, GerenciadorMapa gerMapa) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
+        int numMaxDeAeroportos = -1;
+        
 
-        ArrayList<String> direta = gerRotas.acharRotaDireta(origem, destino);
-        ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(origem, destino);
-        ArrayList<String> duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
+       for (String string : rotaTurista) {
+            if (string == null) {
+                numMaxDeAeroportos = rotaTurista.indexOf(string);
+                break;
+            } else {
+                numMaxDeAeroportos ++;
+            }
+        }
 
+        ArrayList<String> temp = new ArrayList<>();
+        
+
+        for (int i = 0; i < numMaxDeAeroportos; i++) {
+            String origemAtual = rotaTurista.get(i);
+            String destinoAtual = rotaTurista.get(i+1);
+
+            temp.addAll(gerRotas.acharDireto5(origemAtual, destinoAtual));
+            temp.addAll(gerRotas.acharRotaComUmaConexao5(origemAtual, destinoAtual, rotaTurista));
+            temp.addAll(gerRotas.acharRotaComDuasConexoes5(origemAtual, destinoAtual, rotaTurista));
+        }
+
+        // HORA DE VOLTAR PRA CASA E FERIAS
+        String ultimoAeroporto = rotaTurista.get(rotaTurista.size()-1);
+        String casa = rotaTurista.get(0);
+
+        temp.addAll(gerRotas.acharDireto5(ultimoAeroporto, casa));
+        temp.addAll(gerRotas.voltarPraCasaComUmaConexoesConsulta5(ultimoAeroporto, casa));
+        temp.addAll(gerRotas.voltarPraCasaComDuasConexoesConsulta5(ultimoAeroporto, casa));
         ArrayList<String> total = new ArrayList<>();
+        total.addAll(temp);
 
-        total.addAll(direta);
-        total.addAll(umaConex);
-        total.addAll(duasConex);
+    
+        organizacaoDeString(total, rotaTurista);
 
-
-        //! so depois que carregar tudo
         consulta5PlotarComJanela(total, gerMapa); 
         
+    }
+
+    private void organizacaoDeString(ArrayList<String> tudoJunto, ArrayList<String> rotaTurista) {
+        ArrayList<String> limpo = limpezaDeString(tudoJunto, rotaTurista);
+
+        String aeroOrigem = rotaTurista.get(0);
+        String aeroSegundo = rotaTurista.get(1);
+        String aeroTerceiro = rotaTurista.get(2);
+        String aeroQuarto = rotaTurista.get(3);
+        String aeroQuinto = rotaTurista.get(4);
+
+
+        ArrayList<String> listaOrigem = separacaoSmart(limpo, aeroOrigem);
+        ArrayList<String> listaSegundo = separacaoSmart(limpo, aeroSegundo);
+        ArrayList<String> listaTerceiro = separacaoSmart(limpo, aeroTerceiro);
+        ArrayList<String> listaQuarto = separacaoSmart(limpo, aeroQuarto);
+        ArrayList<String> listaQuinto = separacaoSmart(limpo, aeroQuinto);
+        
+
+    
+        
+
+    }
+
+    private ArrayList<String> separacaoSmart(ArrayList<String> limpo, String isso) {
+        ArrayList<String> queComecaComIsso = new ArrayList<>();
+        for (String rota : limpo) {
+                if (rota.startsWith(isso)) {
+                    queComecaComIsso.add(rota);
+                    System.out.println(rota);
+                }
+            }
+        return queComecaComIsso;
+    }
+
+    private ArrayList<String> limpezaDeString(ArrayList<String> tudoJunto, ArrayList<String> rotaTurista) {
+        ArrayList<String> limpo = new ArrayList<>();
+        
+        for (String s : tudoJunto) {
+            String[] aeros = s.split(" - .*?\\ horas.");
+            for (String sAero : aeros) {
+                if (sAero != (" |") || sAero != null) {
+                    limpo.add(sAero);
+                }
+            }
+        }
+
+        return limpo;
+
     }
 
     private void consulta5PlotarComJanela(ArrayList<String> total, GerenciadorMapa gerMapa) {
@@ -284,7 +356,6 @@ public class GerenciadorConsultas {
         for (String s : rotas) {
             lstPoints.clear();
             String[] aeros = s.split(";| -> |->| - Tempo aproximado total de vôo: .*? horas.|Codigo do aeroporto: | -  Pais: .*? .");
-            //System.out.println(aeros.length);
             int limite = aeros.length - 1;
             int ntraco = 0;
             for (String sAero : aeros) {

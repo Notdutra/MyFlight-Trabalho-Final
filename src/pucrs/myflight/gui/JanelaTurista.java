@@ -26,6 +26,8 @@ public class JanelaTurista {
     private static String quinto = "";
 
     public static ArrayList<String> todasRotas(ArrayList<Aeroporto> listaDeAeroportos, GerenciadorMapa gerMapa) {
+        total.clear();
+        semDupsorario.clear();
         GerenciadorPaises gerPaises = GerenciadorPaises.getInstance();
         
         window = new Stage();
@@ -45,8 +47,15 @@ public class JanelaTurista {
         Button btnSegundo = new Button("Segundo");
         Button btnTerceiro = new Button("Terceiro");
         Button btnQuarto = new Button("Quarto");
-        Button btnQuinto = new Button("Quinto");        
-
+        Button btnQuinto = new Button("Quinto");      
+        
+        ArrayList<String> duranteOsTest = new ArrayList<>();
+        duranteOsTest.add("POA");
+        duranteOsTest.add("LAX");
+        duranteOsTest.add("JFK");
+        duranteOsTest.add("FRA");
+        duranteOsTest.add("MIA");
+        //POA -> LAX -> JFK -> FRA -> MIA
         btnOrigem.setOnAction( e ->{
             origem = "";
             semDupsorario = addRoute();            
@@ -105,8 +114,12 @@ public class JanelaTurista {
         window.setScene(scene);
         window.showAndWait();
 
-        return tirarDuplicados(total);
+        
+        
+        return duranteOsTest; //! REMOVER ISSO QUANDO FOR ENTREGAR PRO SOR
+        //return tirarDuplicados(total); //! E BOTAR ESSA
 
+        
     }
 
     public static String getOrigem() {
@@ -160,6 +173,14 @@ public class JanelaTurista {
         juntando.add(quarto);
         juntando.add(quinto);
 
+        if (juntando == null) {
+            juntando.add("POA");
+            juntando.add("GRU");
+            juntando.add("LIS");
+            juntando.add("YZZ");
+            juntando.add("JFK");
+        }
+
         return juntando;
     }
 
@@ -185,7 +206,8 @@ public class JanelaTurista {
             if (gerAero.buscarCodigo(string) != null) {
                 semDups.add(string);
             }
-        }        
+        }       
+
         
         return semDups;
     }

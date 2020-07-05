@@ -22,7 +22,6 @@ public class ListaDeRotas {
     private static GerenciadorConsultas gc = GerenciadorConsultas.getInstance();
 
 public static ArrayList<String> todasRotas(ArrayList<String> total, GerenciadorMapa gerMapa) {
-    
     window = new Stage();
     window.setTitle("Mapas com JavaFX");
 
