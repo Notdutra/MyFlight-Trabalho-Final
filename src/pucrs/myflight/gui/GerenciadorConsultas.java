@@ -9,6 +9,7 @@ import java.util.Set;
 import org.jxmapviewer.viewer.GeoPosition;
 
 import java.awt.Color;
+import java.sql.Array;
 
 import pucrs.myflight.modelo.*;
 
@@ -173,51 +174,6 @@ public class GerenciadorConsultas {
 
     }
 
-
-    //* POA -> GRU -> LIS - > MIA
-    //* FAZER PRIMEIRO ARRAY DO ROTEIRO DIRETO
-    //* POA DIRETO GRU DIRETO LIS DIRETO MIA
-    public void consulta5(ArrayList<String> aeroportosDoRoteiro) {
-        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
-
-        HashSet<String> aeroportosRepetidos = new HashSet<>();
-        ArrayList<String> roteiro = new ArrayList<>();
-
-        // String aeroOrigem = JanelaTurista.getOrigem();
-        // String aeroQuinto = JanelaTurista.getQuinto();
-        System.out.println(aeroportosDoRoteiro.size());
-        
-        int max = 1;
-
-        for (String string : aeroportosDoRoteiro) {
-            if (string == null || gerAero.buscarCodigo(string) == null) {
-                max ++;
-            }
-        }
-
-        System.out.println(max);
-        System.out.println(aeroportosDoRoteiro.get(max));
-        // for (int i = 0; i < aeroportosDoRoteiro.size()-1; i++) {
-        //     System.out.println("Entrou1");
-        //     if (aeroportosDoRoteiro.get(i) != null && aeroportosDoRoteiro.get(i+1) != null) {
-        //         String aeroOrigem = aeroportosDoRoteiro.get(i);
-        //         String aeroDestino = aeroportosDoRoteiro.get(i+1);
-        //         roteiro.addAll(gerRotas.acharRotaDireta(aeroOrigem, aeroDestino));
-        //         System.out.println("Entrou2");
-        //     }
-        // }
-
-
-        for (String string : roteiro) {
-            System.out.println(string);
-        }
-    
-
-        
-
-    }
-
-
     public ArrayList<String> acharRotaComUmaConexao(String origemInicial, String destinoFinal) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
 
@@ -290,9 +246,36 @@ public class GerenciadorConsultas {
         ArrayList<String> selecao = new ArrayList<>(); //* ver depois se selecao esta sendo utilizado 
     
         selecao = ListaDeRotas.todasRotas(total,gerMapa);
-        //*---------------------------------------------
-                
+        //*--------------------------------------------       
         
+    }
+
+    public void consulta5(ArrayList<String> rotaTurista, GerenciadorMapa gerMapa) {
+        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+
+        ArrayList<String> direta = gerRotas.acharRotaDireta(origem, destino);
+        ArrayList<String> umaConex = gerRotas.acharRotaComUmaConexao(origem, destino);
+        ArrayList<String> duasConex = gerRotas.acharRotaComDuasConexoes(origem, destino);
+
+        ArrayList<String> total = new ArrayList<>();
+
+        total.addAll(direta);
+        total.addAll(umaConex);
+        total.addAll(duasConex);
+
+
+        //! so depois que carregar tudo
+        consulta5PlotarComJanela(total, gerMapa); 
+        
+    }
+
+    private void consulta5PlotarComJanela(ArrayList<String> total, GerenciadorMapa gerMapa) {
+        plotarRota(total, gerMapa, Color.BLUE);
+
+        ArrayList<String> selecao = new ArrayList<>();
+        // ta sendo utilizado sim vs retardado
+    
+        selecao = ListaDeRotas.todasRotas(total,gerMapa);
     }
 
     public void plotarRota(ArrayList<String> rotas, GerenciadorMapa gerMapa, Color cor) {

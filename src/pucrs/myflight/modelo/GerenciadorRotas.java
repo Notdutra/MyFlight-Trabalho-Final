@@ -341,12 +341,19 @@ public class GerenciadorRotas {
     }
 
     public ArrayList<String> consulta5Direto(String origem, String destino) {
-        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
+        GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
+        
+        HashMap<Aeroporto, Aeroporto> origemRota = gerRotas.pegaOrigem(origem); // rotas com origem em poa
 
-        Aeroporto aeroportOrigem = gerAero.buscarCodigo(origem);
-        Aeroporto aeroportoDestino = gerAero.buscarCodigo(destino);
+        ArrayList<String> listaDireta = new ArrayList<>();
 
-        return null;
+        origemRota.entrySet().forEach(atual -> {
+            if (atual.getKey().getCodigo().equalsIgnoreCase(destino)) {
+                listaDireta.add(origem + " -> " + atual.getKey().getCodigo());
+            }
+        });
+
+        return listaDireta;
     }
 
     public ArrayList<String> consulta5UmaConex(String origem, String destino, ArrayList<String> ignorar) {

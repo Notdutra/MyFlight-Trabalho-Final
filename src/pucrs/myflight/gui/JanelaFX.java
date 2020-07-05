@@ -152,9 +152,9 @@ public class JanelaFX extends Application {
         btnConsulta5.setOnAction(e -> {           
             ArrayList<Aeroporto> listaDeAeroportos =  gerAero.listarTodos();
             ArrayList<String> resultado = JanelaTurista.todasRotas(listaDeAeroportos, gerenciador);
-            gerCons.consulta5(resultado);
             
-
+            gerCons.consulta5(resultado, gerenciador);
+                        
 
         });
 
