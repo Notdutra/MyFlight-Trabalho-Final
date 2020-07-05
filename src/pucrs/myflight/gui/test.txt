@@ -1,429 +1,323 @@
-DE TESTE ESTAMOS UTILIZANDO POA -> LAX -> JFK -> FRA -> MIA
+POA -> LAX -> JFK -> FRA -> MIA
+-------------------------------
+PODEMOS USAR POR EXEPLO
+POA -> PTY -> LAX -> JFK -> FRA -> MIA -> LIM -> LIS -> POA
 
-O CHECK DAS CONEXOES N TA FUNCIONANDO DIREITO AF
 
+------------------------------
+POA -> PTY -> LAX -------- PEGUEI ESSE
 POA -> LIM -> LAX
-POA -> PTY -> LAX
 POA -> GRU -> LAX
-POA -> MIA -> LAX
-POA -> LIM -> PTY -> LAX
-POA -> GRU -> MIA -> LAX
 
-LAX -> JFK
-LAX -> ATL -> JFK
-LAX -> FLL -> JFK
-LAX -> PHL -> JFK
-LAX -> BNA -> JFK
-LAX -> DFW -> JFK
-LAX -> FRA -> JFK
-LAX -> ARN -> JFK
-LAX -> CPH -> JFK
-LAX -> AUS -> JFK
-LAX -> ORD -> JFK
-LAX -> HKG -> JFK
-LAX -> MUC -> JFK
-LAX -> LIM -> JFK
-LAX -> JED -> JFK
-LAX -> CDG -> JFK
-LAX -> IND -> JFK
-LAX -> SJC -> JFK
-LAX -> YUL -> JFK
-LAX -> MAD -> JFK
-LAX -> PVG -> JFK
-LAX -> SFO -> JFK
-LAX -> YYC -> JFK
-LAX -> PTY -> JFK
-LAX -> MSY -> JFK
-LAX -> IST -> JFK
-LAX -> TLV -> JFK
-LAX -> STL -> JFK
-LAX -> CLT -> JFK
-LAX -> HNL -> JFK
-LAX -> BWI -> JFK
-LAX -> LHR -> JFK
-LAX -> PBI -> JFK
+
+LAX -> JFK --------------- COM ESSE 
 LAX -> CVG -> JFK
-LAX -> SAN -> JFK
-LAX -> SEA -> JFK
-LAX -> MSP -> JFK
-LAX -> CUN -> JFK
-LAX -> TPA -> JFK
-LAX -> PIT -> JFK
-LAX -> LAS -> JFK
-LAX -> MEX -> JFK
-LAX -> ABQ -> JFK
-LAX -> DUS -> JFK
-LAX -> PDX -> JFK
-LAX -> BOS -> JFK
-LAX -> RDU -> JFK
-LAX -> YVR -> JFK
-LAX -> GRU -> JFK
-LAX -> AMS -> JFK
-LAX -> ICN -> JFK
-LAX -> IAD -> JFK
-LAX -> GUA -> JFK
-LAX -> DCA -> JFK
-LAX -> NRT -> JFK
-LAX -> HOU -> JFK
-LAX -> CLE -> JFK
-LAX -> CMH -> JFK
-LAX -> SMF -> JFK
-LAX -> SVO -> JFK
-LAX -> PEK -> JFK
-LAX -> YYZ -> JFK
-LAX -> SJO -> JFK
-LAX -> PHX -> JFK
-LAX -> TPE -> JFK
-LAX -> MCO -> JFK
-LAX -> FCO -> JFK
-LAX -> ZRH -> JFK
-LAX -> SLC -> JFK
-LAX -> DXB -> JFK
-LAX -> DTW -> JFK
 LAX -> DEN -> JFK
-LAX -> SAL -> JFK
-LAX -> LIR -> JFK
-LAX -> OAK -> JFK
-LAX -> PWM -> JFK
-LAX -> MIA -> JFK
+LAX -> CLE -> JFK
+LAX -> ORD -> JFK
+LAX -> MCO -> JFK
+LAX -> SJC -> JFK
+LAX -> AMS -> JFK
+LAX -> BNA -> JFK
+LAX -> PVG -> JFK
+LAX -> MSY -> JFK
+LAX -> SJO -> JFK
+LAX -> SVO -> JFK
+LAX -> CDG -> JFK
+LAX -> MAD -> JFK
+LAX -> RDU -> JFK
+LAX -> SFO -> JFK
+LAX -> SMF -> JFK
+LAX -> HOU -> JFK
+LAX -> PDX -> JFK
+LAX -> SAN -> JFK
 LAX -> VKO -> JFK
+LAX -> SLC -> JFK
+LAX -> GUA -> JFK
+LAX -> IND -> JFK
 LAX -> SAT -> JFK
-LAX -> ATL -> PHL -> JFK
-LAX -> FLL -> BNA -> JFK
-LAX -> DFW -> FRA -> JFK
-LAX -> ARN -> CPH -> JFK
-LAX -> AUS -> ORD -> JFK
-LAX -> HKG -> MUC -> JFK
-LAX -> LIM -> JED -> JFK
-LAX -> CDG -> IND -> JFK
-LAX -> SJC -> YUL -> JFK
-LAX -> MAD -> PVG -> JFK
-LAX -> SFO -> YYC -> JFK
-LAX -> PTY -> MSY -> JFK
-LAX -> IST -> TLV -> JFK
-LAX -> STL -> CLT -> JFK
-LAX -> HNL -> LHR -> JFK
-LAX -> BWI -> PBI -> JFK
-LAX -> CVG -> SAN -> JFK
-LAX -> SEA -> MSP -> JFK
-LAX -> CUN -> TPA -> JFK
-LAX -> PIT -> LAS -> JFK
-LAX -> MEX -> ABQ -> JFK
-LAX -> DUS -> PDX -> JFK
-LAX -> BOS -> RDU -> JFK
-LAX -> YVR -> GRU -> JFK
-LAX -> AMS -> ICN -> JFK
-LAX -> IAD -> GUA -> JFK
-LAX -> DCA -> NRT -> JFK
-LAX -> HOU -> CLE -> JFK
-LAX -> CMH -> SMF -> JFK
-LAX -> SVO -> PEK -> JFK
-LAX -> YYZ -> SJO -> JFK
-LAX -> PHX -> TPE -> JFK
-LAX -> MCO -> FCO -> JFK
-LAX -> ZRH -> SLC -> JFK
-LAX -> DXB -> DTW -> JFK
-LAX -> DEN -> SAL -> JFK
-LAX -> LIR -> OAK -> JFK
-LAX -> PWM -> MIA -> JFK
-LAX -> VKO -> SAT -> JFK
+LAX -> MUC -> JFK
+LAX -> CMH -> JFK
+LAX -> ARN -> JFK
+LAX -> ZRH -> JFK
+LAX -> TLV -> JFK
+LAX -> ICN -> JFK
+LAX -> JED -> JFK
+LAX -> YVR -> JFK
+LAX -> CPH -> JFK
+LAX -> PTY -> JFK
+LAX -> LHR -> JFK
+LAX -> HKG -> JFK
+LAX -> PBI -> JFK
+LAX -> DXB -> JFK
+LAX -> LIM -> JFK
+LAX -> ABQ -> JFK
+LAX -> YUL -> JFK
+LAX -> DUS -> JFK
+LAX -> TPE -> JFK
+LAX -> DFW -> JFK
+LAX -> BOS -> JFK
+LAX -> CLT -> JFK
+LAX -> GRU -> JFK
+LAX -> IST -> JFK
+LAX -> OAK -> JFK
+LAX -> BWI -> JFK
+LAX -> SEA -> JFK
+LAX -> AUS -> JFK
+LAX -> YYC -> JFK
+LAX -> PHL -> JFK
+LAX -> CUN -> JFK
+LAX -> LAS -> JFK
+LAX -> PHX -> JFK
+LAX -> SAL -> JFK
+LAX -> STL -> JFK
+LAX -> DCA -> JFK
+LAX -> PIT -> JFK
+LAX -> MSP -> JFK
+LAX -> PWM -> JFK
+LAX -> FLL -> JFK
+LAX -> IAD -> JFK
+LAX -> HNL -> JFK
+LAX -> ATL -> JFK
+LAX -> PEK -> JFK
+LAX -> FCO -> JFK
+LAX -> LIR -> JFK
+LAX -> YYZ -> JFK
+LAX -> TPA -> JFK
+LAX -> MEX -> JFK
+LAX -> NRT -> JFK
+LAX -> DTW -> JFK
 
-JFK -> FRA
-JFK -> PHL -> FRA
-JFK -> LOS -> FRA
-JFK -> ANU -> FRA
-JFK -> BGI -> FRA
-JFK -> DFW -> FRA
-JFK -> VIE -> FRA
-JFK -> CPH -> FRA
-JFK -> SJU -> FRA
-JFK -> ORD -> FRA
-JFK -> BRU -> FRA
-JFK -> RUH -> FRA
-JFK -> RIX -> FRA
-JFK -> CDG -> FRA
-JFK -> GVA -> FRA
-JFK -> OSL -> FRA
-JFK -> YUL -> FRA
-JFK -> DEL -> FRA
-JFK -> PVG -> FRA
-JFK -> ACC -> FRA
-JFK -> KBP -> FRA
-JFK -> LCY -> FRA
-JFK -> IST -> FRA
+
+JFK -> FRA ------------COM ESSE
+JFK -> MXP -> FRA
+JFK -> BCN -> FRA
 JFK -> TXL -> FRA
+JFK -> ORD -> FRA
+JFK -> RUH -> FRA
+JFK -> MCO -> FRA
+JFK -> AMS -> FRA
+JFK -> PVG -> FRA
+JFK -> SVO -> FRA
+JFK -> CDG -> FRA
+JFK -> SJU -> FRA
+JFK -> VKO -> FRA
+JFK -> MUC -> FRA
+JFK -> CMN -> FRA
+JFK -> OSL -> FRA
+JFK -> MAN -> FRA
+JFK -> DEL -> FRA
+JFK -> ZRH -> FRA
+JFK -> KIX -> FRA
+JFK -> JED -> FRA
+JFK -> YVR -> FRA
+JFK -> CPH -> FRA
+JFK -> DOH -> FRA
+JFK -> SDQ -> FRA
+JFK -> HKG -> FRA
+JFK -> DXB -> FRA
+JFK -> LOS -> FRA
+JFK -> TPE -> FRA
+JFK -> CCS -> FRA
+JFK -> EZE -> FRA
+JFK -> CLT -> FRA
+JFK -> BOS -> FRA
+JFK -> BOG -> FRA
+JFK -> IST -> FRA
+JFK -> ANU -> FRA
+JFK -> SEA -> FRA
+JFK -> LCY -> FRA
+JFK -> YYC -> FRA
+JFK -> PHL -> FRA
+JFK -> KWI -> FRA
+JFK -> RIX -> FRA
+JFK -> GVA -> FRA
+JFK -> ACC -> FRA
+JFK -> AUH -> FRA
+JFK -> IAD -> FRA
+JFK -> PEK -> FRA
+JFK -> FCO -> FRA
+JFK -> JNB -> FRA
+JFK -> YYZ -> FRA
+JFK -> WAW -> FRA
+JFK -> DTW -> FRA
+JFK -> CAI -> FRA
+JFK -> DEN -> FRA
+JFK -> VCE -> FRA
+JFK -> DUB -> FRA
+JFK -> MAD -> FRA
+JFK -> SFO -> FRA
+JFK -> AMM -> FRA
+JFK -> HEL -> FRA
+JFK -> ARN -> FRA
+JFK -> NCE -> FRA
+JFK -> TLV -> FRA
+JFK -> ICN -> FRA
+JFK -> LHR -> FRA
+JFK -> MBJ -> FRA
+JFK -> POP -> FRA
+JFK -> YUL -> FRA
+JFK -> DUS -> FRA
+JFK -> BRU -> FRA
+JFK -> DFW -> FRA
+JFK -> GIG -> FRA
+JFK -> GRU -> FRA
+JFK -> KEF -> FRA
+JFK -> VIE -> FRA
 JFK -> CUN -> FRA
 JFK -> LAS -> FRA
-JFK -> BCN -> FRA
-JFK -> GIG -> FRA
-JFK -> JNB -> FRA
-JFK -> POP -> FRA
-JFK -> NCE -> FRA
-JFK -> DUS -> FRA
-JFK -> BOS -> FRA
-JFK -> YVR -> FRA
-JFK -> KEF -> FRA
-JFK -> NRT -> FRA
-JFK -> CMN -> FRA
-JFK -> YYZ -> FRA
-JFK -> SDQ -> FRA
-JFK -> ZRH -> FRA
-JFK -> CAI -> FRA
-JFK -> AMM -> FRA
-JFK -> MIA -> FRA
-JFK -> KWI -> FRA
-JFK -> VKO -> FRA
-JFK -> ATL -> FRA
-JFK -> AUH -> FRA
-JFK -> ARN -> FRA
-JFK -> KIX -> FRA
-JFK -> BOG -> FRA
-JFK -> EZE -> FRA
-JFK -> HKG -> FRA
-JFK -> MUC -> FRA
-JFK -> JED -> FRA
-JFK -> MAD -> FRA
-JFK -> YYC -> FRA
-JFK -> SFO -> FRA
-JFK -> TLV -> FRA
-JFK -> CLT -> FRA
-JFK -> DUB -> FRA
-JFK -> LHR -> FRA
-JFK -> MXP -> FRA
-JFK -> MBJ -> FRA
-JFK -> SEA -> FRA
-JFK -> BGO -> FRA
-JFK -> CCS -> FRA
-JFK -> VCE -> FRA
-JFK -> MEX -> FRA
-JFK -> MAN -> FRA
-JFK -> GRU -> FRA
-JFK -> AMS -> FRA
-JFK -> ICN -> FRA
-JFK -> IAD -> FRA
-JFK -> SVO -> FRA
-JFK -> PEK -> FRA
 JFK -> PUJ -> FRA
-JFK -> TPE -> FRA
-JFK -> LAX -> FRA
-JFK -> MCO -> FRA
-JFK -> WAW -> FRA
-JFK -> DOH -> FRA
-JFK -> FCO -> FRA
-JFK -> HEL -> FRA
-JFK -> DTW -> FRA
-JFK -> DXB -> FRA
-JFK -> DEN -> FRA
-JFK -> PHL -> ATL -> FRA
-JFK -> LOS -> ANU -> FRA
-JFK -> BGI -> AUH -> FRA
-JFK -> DFW -> VIE -> FRA
-JFK -> CPH -> ARN -> FRA
-JFK -> SJU -> ORD -> FRA
-JFK -> BRU -> KIX -> FRA
-JFK -> RUH -> EZE -> FRA
-JFK -> RIX -> BOG -> FRA
-JFK -> CDG -> HKG -> FRA
-JFK -> GVA -> MUC -> FRA
-JFK -> OSL -> JED -> FRA
-JFK -> YUL -> DEL -> FRA
-JFK -> PVG -> MAD -> FRA
-JFK -> ACC -> KBP -> FRA
-JFK -> LCY -> SFO -> FRA
-JFK -> IST -> YYC -> FRA
-JFK -> TXL -> TLV -> FRA
-JFK -> CUN -> CLT -> FRA
-JFK -> LAS -> DUB -> FRA
-JFK -> BCN -> LHR -> FRA
-JFK -> GIG -> MXP -> FRA
-JFK -> JNB -> MBJ -> FRA
-JFK -> POP -> SEA -> FRA
-JFK -> NCE -> BGO -> FRA
-JFK -> DUS -> CCS -> FRA
-JFK -> BOS -> VCE -> FRA
-JFK -> YVR -> MEX -> FRA
-JFK -> KEF -> MAN -> FRA
-JFK -> NRT -> GRU -> FRA
-JFK -> CMN -> AMS -> FRA
-JFK -> YYZ -> ICN -> FRA
-JFK -> SDQ -> IAD -> FRA
-JFK -> ZRH -> SVO -> FRA
-JFK -> CAI -> PEK -> FRA
-JFK -> AMM -> PUJ -> FRA
-JFK -> MIA -> TPE -> FRA
-JFK -> KWI -> LAX -> FRA
-JFK -> VKO -> MCO -> FRA
-JFK -> WAW -> DOH -> FRA
-JFK -> FCO -> HEL -> FRA
-JFK -> DTW -> DXB -> FRA
+JFK -> KBP -> FRA
+JFK -> BGI -> FRA
+JFK -> BGO -> FRA
+JFK -> ATL -> FRA
+JFK -> NRT -> FRA
+JFK -> MEX -> FRA
 
 
-FRA -> MIA
-FRA -> ATL -> MIA
-FRA -> PHL -> MIA
-FRA -> IAH -> MIA
-FRA -> DFW -> MIA
-FRA -> SJU -> MIA
-FRA -> ORD -> MIA
-FRA -> EZE -> MIA
-FRA -> BOG -> MIA
-FRA -> CDG -> MIA
-FRA -> REC -> MIA
-FRA -> YUL -> MIA
-FRA -> MAD -> MIA
-FRA -> SFO -> MIA
-FRA -> TXL -> MIA
-FRA -> CLT -> MIA
-FRA -> EWR -> MIA
-FRA -> LIS -> MIA
-FRA -> LHR -> MIA
+FRA -> MIA ----- COM ESSE 
 FRA -> MXP -> MIA
+FRA -> BCN -> MIA
+FRA -> DEN -> MIA
+FRA -> ORD -> MIA
+FRA -> TXL -> MIA
+FRA -> MCO -> MIA
+FRA -> EWR -> MIA
+FRA -> SVO -> MIA
+FRA -> CDG -> MIA
+FRA -> MAD -> MIA
+FRA -> LIS -> MIA
+FRA -> SFO -> MIA
+FRA -> SJU -> MIA
+FRA -> VKO -> MIA
+FRA -> SSA -> MIA
+FRA -> ZRH -> MIA
+FRA -> SDQ -> MIA
+FRA -> LHR -> MIA
 FRA -> MBJ -> MIA
+FRA -> POP -> MIA
+FRA -> YUL -> MIA
+FRA -> DUS -> MIA
+FRA -> CCS -> MIA
+FRA -> EZE -> MIA
+FRA -> DFW -> MIA
+FRA -> BOS -> MIA
+FRA -> CLT -> MIA
+FRA -> GIG -> MIA
+FRA -> BOG -> MIA
+FRA -> GRU -> MIA
 FRA -> SEA -> MIA
+FRA -> PHL -> MIA
 FRA -> CUN -> MIA
 FRA -> LAS -> MIA
-FRA -> BCN -> MIA
-FRA -> CCS -> MIA
-FRA -> GIG -> MIA
-FRA -> JFK -> MIA
-FRA -> POP -> MIA
-FRA -> MEX -> MIA
-FRA -> DUS -> MIA
-FRA -> BOS -> MIA
-FRA -> GRU -> MIA
-FRA -> IAD -> MIA
-FRA -> SVO -> MIA
-FRA -> YYZ -> MIA
-FRA -> SSA -> MIA
 FRA -> PUJ -> MIA
-FRA -> LAX -> MIA
-FRA -> MCO -> MIA
-FRA -> SDQ -> MIA
+FRA -> REC -> MIA
+FRA -> IAH -> MIA
+FRA -> IAD -> MIA
+FRA -> ATL -> MIA
 FRA -> FCO -> MIA
-FRA -> ZRH -> MIA
+FRA -> YYZ -> MIA
+FRA -> MEX -> MIA
 FRA -> DTW -> MIA
-FRA -> DEN -> MIA
-FRA -> VKO -> MIA
-FRA -> ATL -> PHL -> MIA
-FRA -> IAH -> DFW -> MIA
-FRA -> SJU -> ORD -> MIA
-FRA -> EZE -> CDG -> MIA
-FRA -> BOG -> REC -> MIA
-FRA -> YUL -> TXL -> MIA
-FRA -> MAD -> EWR -> MIA
-FRA -> SFO -> CUN -> MIA
-FRA -> CLT -> LAS -> MIA
-FRA -> LIS -> BCN -> MIA
-FRA -> LHR -> GIG -> MIA
-FRA -> MXP -> POP -> MIA
-FRA -> MBJ -> DUS -> MIA
-FRA -> SEA -> BOS -> MIA
-FRA -> CCS -> YYZ -> MIA
-FRA -> JFK -> SSA -> MIA
-FRA -> MEX -> SDQ -> MIA
-FRA -> GRU -> ZRH -> MIA
-FRA -> IAD -> VKO -> MIA
-FRA -> SVO -> PUJ -> MIA
-FRA -> LAX -> MCO -> MIA
-FRA -> FCO -> DTW -> MIA
-
-MIA -> CNF -> POA
-MIA -> MVD -> POA
-MIA -> GIG -> POA
-MIA -> CWB -> POA
-MIA -> PTY -> POA
-MIA -> EZE -> POA
-MIA -> LIS -> POA
-MIA -> GRU -> POA
-MIA -> BSB -> POA
 MIA -> LIM -> POA
-MIA -> CNF -> EZE -> POA
-MIA -> CNF -> LIM -> POA
-MIA -> CNF -> PTY -> POA
-MIA -> CNF -> LIS -> POA
-MIA -> CNF -> MVD -> POA
-MIA -> CNF -> GIG -> POA
-MIA -> CNF -> CWB -> POA
-MIA -> CNF -> BSB -> POA
-MIA -> CNF -> GRU -> POA
-MIA -> MVD -> EZE -> POA
-MIA -> MVD -> LIM -> POA
-MIA -> MVD -> PTY -> POA
-MIA -> MVD -> LIS -> POA
-MIA -> MVD -> CNF -> POA
-MIA -> MVD -> GIG -> POA
-MIA -> MVD -> CWB -> POA
-MIA -> MVD -> BSB -> POA
-MIA -> MVD -> GRU -> POA
-MIA -> GIG -> EZE -> POA
-MIA -> GIG -> LIM -> POA
-MIA -> GIG -> PTY -> POA
+MIA -> BSB -> POA
+MIA -> CWB -> POA
+MIA -> EZE -> POA
+MIA -> GIG -> POA
+MIA -> CNF -> POA
+MIA -> GRU -> POA
+MIA -> PTY -> POA
+MIA -> LIS -> POA
+MIA -> MVD -> POA
+
+
+MIA -> LIM -> LIS -> POA --------- COM ESSE
+MIA -> LIM -> MVD -> POA
+MIA -> LIM -> CWB -> POA
+MIA -> LIM -> CNF -> POA
+MIA -> LIM -> PTY -> POA
+MIA -> LIM -> BSB -> POA
+MIA -> LIM -> EZE -> POA
+MIA -> LIM -> GIG -> POA
+MIA -> LIM -> GRU -> POA
+MIA -> BSB -> LIS -> POA
+MIA -> BSB -> MVD -> POA
+MIA -> BSB -> CWB -> POA
+MIA -> BSB -> CNF -> POA
+MIA -> BSB -> PTY -> POA
+MIA -> BSB -> LIM -> POA
+MIA -> BSB -> EZE -> POA
+MIA -> BSB -> GIG -> POA
+MIA -> BSB -> GRU -> POA
+MIA -> CWB -> LIS -> POA
+MIA -> CWB -> MVD -> POA
+MIA -> CWB -> CNF -> POA
+MIA -> CWB -> PTY -> POA
+MIA -> CWB -> LIM -> POA
+MIA -> CWB -> BSB -> POA
+MIA -> CWB -> EZE -> POA
+MIA -> CWB -> GIG -> POA
+MIA -> CWB -> GRU -> POA
+MIA -> EZE -> LIS -> POA
+MIA -> EZE -> MVD -> POA
+MIA -> EZE -> CWB -> POA
+MIA -> EZE -> CNF -> POA
+MIA -> EZE -> PTY -> POA
+MIA -> EZE -> LIM -> POA
+MIA -> EZE -> BSB -> POA
+MIA -> EZE -> GIG -> POA
+MIA -> EZE -> GRU -> POA
 MIA -> GIG -> LIS -> POA
-MIA -> GIG -> CNF -> POA
 MIA -> GIG -> MVD -> POA
 MIA -> GIG -> CWB -> POA
+MIA -> GIG -> CNF -> POA
+MIA -> GIG -> PTY -> POA
+MIA -> GIG -> LIM -> POA
 MIA -> GIG -> BSB -> POA
+MIA -> GIG -> EZE -> POA
 MIA -> GIG -> GRU -> POA
-MIA -> CWB -> EZE -> POA
-MIA -> CWB -> LIM -> POA
-MIA -> CWB -> PTY -> POA
-MIA -> CWB -> LIS -> POA
-MIA -> CWB -> CNF -> POA
-MIA -> CWB -> MVD -> POA
-MIA -> CWB -> GIG -> POA
-MIA -> CWB -> BSB -> POA
-MIA -> CWB -> GRU -> POA
-MIA -> PTY -> EZE -> POA
-MIA -> PTY -> LIM -> POA
-MIA -> PTY -> LIS -> POA
-MIA -> PTY -> CNF -> POA
-MIA -> PTY -> MVD -> POA
-MIA -> PTY -> GIG -> POA
-MIA -> PTY -> CWB -> POA
-MIA -> PTY -> BSB -> POA
-MIA -> PTY -> GRU -> POA
-MIA -> EZE -> LIM -> POA
-MIA -> EZE -> PTY -> POA
-MIA -> EZE -> LIS -> POA
-MIA -> EZE -> CNF -> POA
-MIA -> EZE -> MVD -> POA
-MIA -> EZE -> GIG -> POA
-MIA -> EZE -> CWB -> POA
-MIA -> EZE -> BSB -> POA
-MIA -> EZE -> GRU -> POA
-MIA -> LIS -> EZE -> POA
-MIA -> LIS -> LIM -> POA
-MIA -> LIS -> PTY -> POA
-MIA -> LIS -> CNF -> POA
-MIA -> LIS -> MVD -> POA
-MIA -> LIS -> GIG -> POA
-MIA -> LIS -> CWB -> POA
-MIA -> LIS -> BSB -> POA
-MIA -> LIS -> GRU -> POA
-MIA -> GRU -> EZE -> POA
-MIA -> GRU -> LIM -> POA
-MIA -> GRU -> PTY -> POA
+MIA -> CNF -> LIS -> POA
+MIA -> CNF -> MVD -> POA
+MIA -> CNF -> CWB -> POA
+MIA -> CNF -> PTY -> POA
+MIA -> CNF -> LIM -> POA
+MIA -> CNF -> BSB -> POA
+MIA -> CNF -> EZE -> POA
+MIA -> CNF -> GIG -> POA
+MIA -> CNF -> GRU -> POA
 MIA -> GRU -> LIS -> POA
-MIA -> GRU -> CNF -> POA
 MIA -> GRU -> MVD -> POA
-MIA -> GRU -> GIG -> POA
 MIA -> GRU -> CWB -> POA
+MIA -> GRU -> CNF -> POA
+MIA -> GRU -> PTY -> POA
+MIA -> GRU -> LIM -> POA
 MIA -> GRU -> BSB -> POA
-MIA -> BSB -> EZE -> POA
-MIA -> BSB -> LIM -> POA
-MIA -> BSB -> PTY -> POA
-MIA -> BSB -> LIS -> POA
-MIA -> BSB -> CNF -> POA
-MIA -> BSB -> MVD -> POA
-MIA -> BSB -> GIG -> POA
-MIA -> BSB -> CWB -> POA
-MIA -> BSB -> GRU -> POA
-MIA -> LIM -> EZE -> POA
-MIA -> LIM -> PTY -> POA
-MIA -> LIM -> LIS -> POA
-MIA -> LIM -> CNF -> POA
-MIA -> LIM -> MVD -> POA
-MIA -> LIM -> GIG -> POA
-MIA -> LIM -> CWB -> POA
-MIA -> LIM -> BSB -> POA
-MIA -> LIM -> GRU -> POA
+MIA -> GRU -> EZE -> POA
+MIA -> GRU -> GIG -> POA
+MIA -> PTY -> LIS -> POA
+MIA -> PTY -> MVD -> POA
+MIA -> PTY -> CWB -> POA
+MIA -> PTY -> CNF -> POA
+MIA -> PTY -> LIM -> POA
+MIA -> PTY -> BSB -> POA
+MIA -> PTY -> EZE -> POA
+MIA -> PTY -> GIG -> POA
+MIA -> PTY -> GRU -> POA
+MIA -> LIS -> MVD -> POA
+MIA -> LIS -> CWB -> POA
+MIA -> LIS -> CNF -> POA
+MIA -> LIS -> PTY -> POA
+MIA -> LIS -> LIM -> POA
+MIA -> LIS -> BSB -> POA
+MIA -> LIS -> EZE -> POA
+MIA -> LIS -> GIG -> POA
+MIA -> LIS -> GRU -> POA
+MIA -> MVD -> LIS -> POA
+MIA -> MVD -> CWB -> POA
+MIA -> MVD -> CNF -> POA
+MIA -> MVD -> PTY -> POA
+MIA -> MVD -> LIM -> POA
+MIA -> MVD -> BSB -> POA
+MIA -> MVD -> EZE -> POA
+MIA -> MVD -> GIG -> POA
+MIA -> MVD -> GRU -> POA

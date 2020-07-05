@@ -266,15 +266,11 @@ public class GerenciadorRotas {
         Aeroporto aeroOrigem = gerAero.buscarCodigo(origemInicial);
         Aeroporto aeroDestinoFinal = gerAero.buscarCodigo(destinoFinal);
 
-        if (origemInicial == turista.get(turista.size()-1)); {
-             aeroportosQueJaForam.clear();    
-        }
-
         ArrayList<String> listaDeConexoes = new ArrayList<>();
         mapaDestinoFinal.entrySet().forEach(destinoAtual -> {
             mapaOrigemInicial.entrySet().forEach(origemAtual -> {
                 if (origemAtual.getKey().equals(destinoAtual.getKey())) {
-                    if (!aeroportosQueJaForam.contains(origemAtual.getKey().getCodigo())) {
+                    if (!aeroportosQueJaForam.contains(origemAtual.getKey().getCodigo()) || !turista.contains(origemAtual.getKey().getCodigo())) {
                         aeroportosQueJaForam.add(origemAtual.getKey().getCodigo());
                         Aeroporto conex1 = origemAtual.getKey();
                         double tempoOrigemConex1 = calcTempo(aeroOrigem, conex1);
@@ -334,10 +330,6 @@ public class GerenciadorRotas {
 
         ArrayList<String> listaDeConexoes = new ArrayList<>();
 
-        if (origemInicial == turista.get(turista.size()-1)); {
-            aeroportosQueJaForam.clear();            
-        }
-
         mapaMia.entrySet().forEach(chaveDeMia -> {
             mapaPoa.entrySet().forEach(chaveDePoa -> {
                 Aeroporto xMia = chaveDePoa.getKey();
@@ -353,9 +345,11 @@ public class GerenciadorRotas {
                             double hora = Math.floor(tempoTotal * 10) / 10;
                             if (yMia.equals(chaveDoX.getKey()) && !xMia.getCodigo().equalsIgnoreCase(yMia.getCodigo())) {
                                 if (!aeroportosQueJaForam.contains(xMia.getCodigo()) && !aeroportosQueJaForam.contains(yMia.getCodigo())) {
-                                    aeroportosQueJaForam.add(xMia.getCodigo());
-                                    aeroportosQueJaForam.add(yMia.getCodigo());
-                                    listaDeConexoes.add(origemInicial + " -> " + xMia.getCodigo() + " -> " + yMia.getCodigo() + " -> " + destinoFinal + " - Tempo aproximado total de vôo: " + hora + " horas.");
+                                    if (!turista.contains(xMia.getCodigo()) && !turista.contains(yMia.getCodigo())) {
+                                        aeroportosQueJaForam.add(xMia.getCodigo());
+                                        aeroportosQueJaForam.add(yMia.getCodigo());
+                                        listaDeConexoes.add(origemInicial + " -> " + xMia.getCodigo() + " -> " + yMia.getCodigo() + " -> " + destinoFinal + " - Tempo aproximado total de vôo: " + hora + " horas.");
+                                    }
                                 }
                                 //!                 POA                        CONEX1                   CONEX2                       MIA
                             }

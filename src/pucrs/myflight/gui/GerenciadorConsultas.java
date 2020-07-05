@@ -248,7 +248,7 @@ public class GerenciadorConsultas {
         
     }
 
-    public void consulta5(ArrayList<String> rotaTurista, GerenciadorMapa gerMapa) {
+    public ArrayList<String> consulta5(ArrayList<String> rotaTurista, GerenciadorMapa gerMapa) {
         GerenciadorRotas gerRotas = GerenciadorRotas.getInstance();
         GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
         int numMaxDeAeroportos = -1;
@@ -286,13 +286,16 @@ public class GerenciadorConsultas {
         total.addAll(temp);
 
     
-        organizacaoDeString(total, rotaTurista);
+        ArrayList<String> organizado = organizacaoDeString(total, rotaTurista);
 
-        consulta5PlotarComJanela(total, gerMapa); 
+        //                         consulta5PlotarComJanela(organizado, gerMapa, rotaTurista); 
+
+        return organizado;
         
     }
 
-    private void organizacaoDeString(ArrayList<String> tudoJunto, ArrayList<String> rotaTurista) {
+
+    private ArrayList<String> organizacaoDeString(ArrayList<String> tudoJunto, ArrayList<String> rotaTurista) {
         ArrayList<String> limpo = limpezaDeString(tudoJunto, rotaTurista);
 
         String aeroOrigem = rotaTurista.get(0);
@@ -307,11 +310,20 @@ public class GerenciadorConsultas {
         ArrayList<String> listaTerceiro = separacaoSmart(limpo, aeroTerceiro);
         ArrayList<String> listaQuarto = separacaoSmart(limpo, aeroQuarto);
         ArrayList<String> listaQuinto = separacaoSmart(limpo, aeroQuinto);
-        
+             
+        ArrayList<String> total = new ArrayList<>();
+        total.addAll(listaOrigem);
+        total.addAll(listaSegundo);
+        total.addAll(listaTerceiro);
+        total.addAll(listaQuarto);
+        total.addAll(listaQuinto);
 
+        // ArrayList<String> umComDois = juntarString(limpo, listaOrigem, aeroOrigem, listaSegundo, aeroSegundo);
+        // ArrayList<String> doisComTres = juntarString(limpo, umComDois, aeroSegundo, listaTerceiro, aeroTerceiro);
+        // ArrayList<String> tresComQuatro = juntarString(limpo, doisComTres, aeroTerceiro, listaQuarto, aeroQuarto);
+        // ArrayList<String> quatroComQuinco = juntarString(limpo, tresComQuatro, aeroQuarto, listaQuinto, aeroQuinto);
     
-        
-
+        return total;
     }
 
     private ArrayList<String> separacaoSmart(ArrayList<String> limpo, String isso) {
@@ -322,6 +334,7 @@ public class GerenciadorConsultas {
                     System.out.println(rota);
                 }
             }
+            //queComecaComIsso.add("_______________________________________________");
         return queComecaComIsso;
     }
 
@@ -341,13 +354,14 @@ public class GerenciadorConsultas {
 
     }
 
-    private void consulta5PlotarComJanela(ArrayList<String> total, GerenciadorMapa gerMapa) {
+    private void consulta5PlotarComJanela(ArrayList<String> total, GerenciadorMapa gerMapa, ArrayList<String> rotaTurista) {
+        // DisplayFinal.todasRotas(total, gerMapa, rotaTurista);
         plotarRota(total, gerMapa, Color.BLUE);
 
         ArrayList<String> selecao = new ArrayList<>();
         // ta sendo utilizado sim vs retardado
     
-        selecao = ListaDeRotas.todasRotas(total,gerMapa);
+        //selecao = DisplayFinal.todasRotas(total,gerMapa, rotaTurista);
     }
 
     public void plotarRota(ArrayList<String> rotas, GerenciadorMapa gerMapa, Color cor) {
@@ -394,5 +408,36 @@ public class GerenciadorConsultas {
             mostarEsseAeroporto(gerenciador, aero);
         }
         
-	}
+    }
+    
+    
+    public ArrayList<String> getListaOrigem(ArrayList<String> limpo, ArrayList<String> rotaTurista) {
+        String aeroOrigem = rotaTurista.get(0);
+        ArrayList<String> listaOrigem = separacaoSmart(limpo, aeroOrigem);
+        return listaOrigem;
+    }
+
+    public ArrayList<String> getListaSegundo(ArrayList<String> limpo, ArrayList<String> rotaTurista) {
+        String aeroSegundo = rotaTurista.get(1);    
+        ArrayList<String> listaSegundo = separacaoSmart(limpo, aeroSegundo);
+        return listaSegundo;
+    }
+
+    public ArrayList<String> getListaTerceiro(ArrayList<String> limpo, ArrayList<String> rotaTurista) {
+        String aeroTerceiro = rotaTurista.get(2);
+        ArrayList<String> listaTerceiro = separacaoSmart(limpo, aeroTerceiro);
+        return listaTerceiro;
+    }
+
+    public ArrayList<String> getListaQuarto(ArrayList<String> limpo, ArrayList<String> rotaTurista) {
+        String aeroQuarto = rotaTurista.get(3);
+        ArrayList<String> listaQuarto = separacaoSmart(limpo, aeroQuarto);
+        return listaQuarto;
+    }
+
+    public ArrayList<String> getListaQuinto(ArrayList<String> limpo, ArrayList<String> rotaTurista) {
+        String aeroQuinto = rotaTurista.get(4);
+        ArrayList<String> listaQuinto = separacaoSmart(limpo, aeroQuinto);
+        return listaQuinto;
+    }
 }

@@ -1,6 +1,8 @@
 package pucrs.myflight.gui;
 
 import javafx.stage.*;
+import sun.security.provider.certpath.ResponderId;
+import sun.security.provider.certpath.OCSPResponse.ResponseStatus;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
@@ -12,7 +14,7 @@ import java.util.HashSet;
 import javafx.collections.ObservableList;
 import javafx.geometry.*;
 
-public class ListaDeRotas {
+public class DisplayFinal {
 
     private static Stage window;
     private static Scene scene;
@@ -21,7 +23,11 @@ public class ListaDeRotas {
     private static ArrayList<String> rotas;
     private static GerenciadorConsultas gc = GerenciadorConsultas.getInstance();
 
-public static ArrayList<String> todasRotas(ArrayList<String> total, GerenciadorMapa gerMapa) {
+
+    static boolean resposta;
+
+
+public static boolean todasRotas(ArrayList<String> total, GerenciadorMapa gerMapa) {
     window = new Stage();
     window.setTitle("Mapas com JavaFX");
 
@@ -30,11 +36,14 @@ public static ArrayList<String> todasRotas(ArrayList<String> total, GerenciadorM
     listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); // This changes the selection mode from only one to multiple
 
     
+   
+    
     button = new Button("Selecionar");
     button.setOnAction(e -> {
        rotas = buttonClicked();
-       gc.limpar(gerMapa);
        gc.plotarRota(rotas, gerMapa, Color.RED);
+       window.close();
+       resposta = true;
     });
 
 
@@ -48,7 +57,7 @@ public static ArrayList<String> todasRotas(ArrayList<String> total, GerenciadorM
     window.setScene(scene);
     window.showAndWait();
 
-    return rotas;
+    return resposta;
 
 }
 
