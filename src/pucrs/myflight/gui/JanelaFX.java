@@ -152,11 +152,9 @@ public class JanelaFX extends Application {
         btnConsulta5.setOnAction(e -> {           
             ArrayList<Aeroporto> listaDeAeroportos =  gerAero.listarTodos();
             ArrayList<String> resultado = JanelaTurista.todasRotas(listaDeAeroportos, gerenciador);
+            gerCons.consulta5(resultado);
+            
 
-            for (String aeroporto : resultado) {
-                System.out.println(aeroporto);
-            }
-            //gerCons.consulta5(resultado);
 
         });
 
@@ -222,12 +220,8 @@ public class JanelaFX extends Application {
 
                 // inves de printar o 'clicado' ele tem q mostar o aeroporto no mapa
                 if (clicado != null) {
-                    System.out.println(clicado);
                     gerCons.mostarEsseAeroporto(gerenciador, clicado);
                 }
-
-                // System.out.println("-------" + pos);// pra pegar aeroporto fazer metodo q
-                // pega pos e encontra um aeroporto perto arredondando a coordenada
             }
 
             if (lastButton == MouseEvent.BUTTON1) {

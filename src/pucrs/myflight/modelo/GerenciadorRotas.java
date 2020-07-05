@@ -340,16 +340,38 @@ public class GerenciadorRotas {
         return resultadoSemDups;
     }
 
-    public ArrayList<String> consulta5(String origem, String destino) {
+    public ArrayList<String> consulta5Direto(String origem, String destino) {
         GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
 
         Aeroporto aeroportOrigem = gerAero.buscarCodigo(origem);
         Aeroporto aeroportoDestino = gerAero.buscarCodigo(destino);
 
+        return null;
+    }
 
+    public ArrayList<String> consulta5UmaConex(String origem, String destino, ArrayList<String> ignorar) {
+        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
+
+        Aeroporto aeroportOrigem = gerAero.buscarCodigo(origem);
+        Aeroporto aeroportoDestino = gerAero.buscarCodigo(destino);
+
+        
 
         return null;
     }
+    
+    public ArrayList<String> consulta5DuasConex(String origem, String destino, ArrayList<String> ignorar) {
+        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
+
+        Aeroporto aeroportOrigem = gerAero.buscarCodigo(origem);
+        Aeroporto aeroportoDestino = gerAero.buscarCodigo(destino);
+
+        return null;
+    }
+
+    
+
+
 
     public double calcTempo(Aeroporto origem, Aeroporto destino) {
         return origem.getLocal().distancia(destino.getLocal()) / 805;

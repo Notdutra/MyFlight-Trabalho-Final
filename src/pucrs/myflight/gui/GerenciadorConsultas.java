@@ -173,16 +173,43 @@ public class GerenciadorConsultas {
 
     }
 
+
+    //* POA -> GRU -> LIS - > MIA
+    //* FAZER PRIMEIRO ARRAY DO ROTEIRO DIRETO
+    //* POA DIRETO GRU DIRETO LIS DIRETO MIA
     public void consulta5(ArrayList<String> aeroportosDoRoteiro) {
-        ArrayList<String> aeroportosRepetidos = new ArrayList<>();
+        GerenciadorAeroportos gerAero = GerenciadorAeroportos.getInstance();
 
-        String aeroOrigem = JanelaTurista.getOrigem();
-        String aeroQuinto = JanelaTurista.getQuinto();
+        HashSet<String> aeroportosRepetidos = new HashSet<>();
+        ArrayList<String> roteiro = new ArrayList<>();
 
-        System.out.println("\n\n\nTeste do caralho");
+        // String aeroOrigem = JanelaTurista.getOrigem();
+        // String aeroQuinto = JanelaTurista.getQuinto();
+        System.out.println(aeroportosDoRoteiro.size());
+        
+        int max = 1;
 
-        for (int i = 0; i < aeroportosDoRoteiro.size(); i++) {
-            
+        for (String string : aeroportosDoRoteiro) {
+            if (string == null || gerAero.buscarCodigo(string) == null) {
+                max ++;
+            }
+        }
+
+        System.out.println(max);
+        System.out.println(aeroportosDoRoteiro.get(max));
+        // for (int i = 0; i < aeroportosDoRoteiro.size()-1; i++) {
+        //     System.out.println("Entrou1");
+        //     if (aeroportosDoRoteiro.get(i) != null && aeroportosDoRoteiro.get(i+1) != null) {
+        //         String aeroOrigem = aeroportosDoRoteiro.get(i);
+        //         String aeroDestino = aeroportosDoRoteiro.get(i+1);
+        //         roteiro.addAll(gerRotas.acharRotaDireta(aeroOrigem, aeroDestino));
+        //         System.out.println("Entrou2");
+        //     }
+        // }
+
+
+        for (String string : roteiro) {
+            System.out.println(string);
         }
     
 
