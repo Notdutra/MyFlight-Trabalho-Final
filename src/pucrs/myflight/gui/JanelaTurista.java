@@ -49,6 +49,9 @@ public class JanelaTurista {
         Button btnQuarto = new Button("Quarto");
         Button btnQuinto = new Button("Quinto");      
         
+
+        //__________________________________________________
+
         ArrayList<String> duranteOsTest = new ArrayList<>();
         duranteOsTest.add("POA");
         duranteOsTest.add("LAX");
@@ -56,6 +59,11 @@ public class JanelaTurista {
         duranteOsTest.add("FRA");
         duranteOsTest.add("MIA");
         //POA -> LAX -> JFK -> FRA -> MIA
+
+        //__________________________________________________
+
+
+
         btnOrigem.setOnAction( e ->{
             origem = "";
             semDupsorario = addRoute();            
