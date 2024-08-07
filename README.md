@@ -6,7 +6,7 @@ This project models and implements a system for querying aerial information with
 
 ## Key Features
 
-	•Perform complex queries on the MyFlight data structure
-	•Visualize query results on a graphical map
-	•Individual or group work (up to three students)
-	•Version control with Git for collaborative development
+	• Perform complex queries on the MyFlight data structure
+	• Visualize query results on a graphical map
+	• Individual or group work (up to three students)
+	• Version control with Git for collaborative development
